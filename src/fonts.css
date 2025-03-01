@@ -1,0 +1,115 @@
+/* Font Definitions */
+:root {
+  /* Primary Fonts - using higher specificity */
+  --font-heading: 'Cormorant Garamond', serif !important;
+  --font-body: 'Lato', sans-serif !important;
+  
+  /* Font Weights */
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  
+  /* Base Font Sizes */
+  --font-size-small: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-large: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-size-4xl: 3rem;
+  --font-size-5xl: 3.5rem;
+}
+
+/* Global Font Settings - with !important to override other stylesheets */
+body {
+  font-family: var(--font-body) !important;
+  font-weight: var(--weight-light) !important;
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: #333;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading) !important;
+  font-weight: var(--weight-regular) !important;
+  line-height: 1.2;
+  margin-top: 0;
+  color: #1a1a1a;
+}
+
+h1 {
+  font-size: var(--font-size-5xl);
+  font-weight: var(--weight-light) !important;
+}
+
+h2 {
+  font-size: var(--font-size-3xl);
+  font-weight: var(--weight-light) !important;
+}
+
+h3 {
+  font-size: var(--font-size-2xl);
+}
+
+h4 {
+  font-size: var(--font-size-xl);
+}
+
+h5 {
+  font-size: var(--font-size-large);
+}
+
+h6 {
+  font-size: var(--font-size-base);
+  font-weight: var(--weight-semibold) !important;
+}
+
+/* Special Wedding Text Elements */
+.elegant-script {
+  font-family: var(--font-heading) !important;
+  font-style: italic !important;
+  font-weight: var(--weight-light) !important;
+}
+
+.couple-names {
+  font-family: var(--font-heading) !important;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--weight-light) !important;
+  letter-spacing: 0.03em;
+}
+
+.wedding-date {
+  font-family: var(--font-body) !important;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-weight: var(--weight-light) !important;
+  font-size: var(--font-size-base);
+}
+
+.section-title {
+  font-family: var(--font-heading) !important;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--weight-light) !important;
+  margin-bottom: 1.5rem;
+}
+
+/* Responsive Font Sizes */
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--font-size-3xl);
+  }
+  
+  h2 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  h3 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .couple-names {
+    font-size: var(--font-size-3xl);
+  }
+} 

@@ -1,0 +1,52 @@
+/* Gifts Section Styles */
+.gifts-section {
+  padding: 5rem 0;
+}
+
+.gift-option {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .gift-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+
+  h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+
+  p {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+  }
+
+  .gift-info {
+    background-color: var(--light-color);
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+    
+    p {
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    
+    .gift-value {
+      font-size: 1.2rem;
+      color: var(--primary-color);
+      font-weight: 700;
+    }
+  }
+} 

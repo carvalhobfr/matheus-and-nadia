@@ -1,0 +1,51 @@
+/* Details Section Styles */
+.details-section {
+  background-color: var(--light-color);
+  padding: 5rem 0;
+}
+
+.details-card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  height: 100%;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+  }
+
+  h3 {
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+  }
+
+  .detail-info {
+    margin-bottom: 0.5rem;
+    
+    i {
+      color: var(--secondary-color);
+      margin-right: 0.5rem;
+    }
+  }
+
+  p {
+    color: var(--text-color);
+  }
+}
+
+.map-container {
+  height: 300px;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+} 
