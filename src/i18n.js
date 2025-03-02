@@ -263,7 +263,10 @@ export const esTranslations = {
     home: 'Inicio',
     story: 'Nuestra Historia',
     details: 'Detalles del Evento',
-    gallery: 'Galería',
+    gallery: {
+      title: 'Galería',
+      imageViewer: 'Visualizador de Imágenes'
+    },
     gifts: 'Regalos',
     message: 'Mensajes'
   },
