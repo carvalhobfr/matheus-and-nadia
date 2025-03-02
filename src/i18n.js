@@ -126,6 +126,10 @@ export const enTranslations = {
   footer: {
     credit: 'Made with love for our special day',
     copyright: '© 2025 Matheus & Nadia'
+  },
+  gallery: {
+    title: 'Gallery',
+    imageViewer: 'Image Viewer'
   }
 };
 
@@ -254,6 +258,10 @@ export const ptTranslations = {
   footer: {
     credit: 'Feito com amor para o nosso dia especial',
     copyright: '© 2025 Matheus & Nadia'
+  },
+  gallery: {
+    title: 'Galeria',
+    imageViewer: 'Visualizador de Imagens'
   }
 };
 
@@ -382,6 +390,10 @@ export const esTranslations = {
   footer: {
     credit: 'Hecho con amor para nuestro día especial',
     copyright: '© 2025 Matheus & Nadia'
+  },
+  gallery: {
+    title: 'Galería',
+    imageViewer: 'Visualizador de Imágenes'
   }
 };
 
