@@ -1,8 +1,8 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
-import { FaSearchPlus, FaCamera } from 'react-icons/fa';
+import { FaSearchPlus, FaCamera, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { useImages } from '../../contexts/ImageContext';
 import './Gallery.scss';
 
@@ -29,6 +29,7 @@ const Gallery = () => {
   const [showAll, setShowAll] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   
   // Obter as imagens da galeria do contexto
   const galleryImages = [
@@ -43,8 +44,9 @@ const Gallery = () => {
   const hasMoreImages = false; // Desabilitando o botão de "Ver mais" por enquanto
 
   // Função para abrir o modal com a imagem selecionada
-  const openImageModal = (image) => {
+  const openImageModal = (image, index) => {
     setSelectedImage(image);
+    setCurrentImageIndex(index);
     setShowModal(true);
   };
 
@@ -53,6 +55,38 @@ const Gallery = () => {
     setShowModal(false);
     setSelectedImage(null);
   };
+
+  // Função para navegar para a próxima imagem
+  const showNextImage = () => {
+    const nextIndex = (currentImageIndex + 1) % displayedImages.length;
+    setCurrentImageIndex(nextIndex);
+    setSelectedImage(displayedImages[nextIndex]);
+  };
+
+  // Função para navegar para a imagem anterior
+  const showPreviousImage = () => {
+    const prevIndex = (currentImageIndex - 1 + displayedImages.length) % displayedImages.length;
+    setCurrentImageIndex(prevIndex);
+    setSelectedImage(displayedImages[prevIndex]);
+  };
+
+  // Adicionar suporte para navegação com teclado
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!showModal) return;
+      
+      if (e.key === 'ArrowRight') {
+        showNextImage();
+      } else if (e.key === 'ArrowLeft') {
+        showPreviousImage();
+      } else if (e.key === 'Escape') {
+        closeImageModal();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [showModal, currentImageIndex]);
 
   return (
     <section id="gallery" className="section">
@@ -79,7 +113,7 @@ const Gallery = () => {
                   data-aos="fade-up"
                   data-aos-delay={100 * (index % 3 + 1)}
                 >
-                  <div className="gallery-item" onClick={() => openImageModal(image)}>
+                  <div className="gallery-item" onClick={() => openImageModal(image, index)}>
                     <img src={image} alt={`Gallery image ${index + 1}`} className="img-fluid" />
                     <div className="gallery-overlay">
                       <div className="gallery-zoom-icon">
@@ -111,16 +145,40 @@ const Gallery = () => {
         contentClassName="image-modal-content"
       >
         <Modal.Header closeButton>
-          <Modal.Title>{t('gallery.imageViewer')}</Modal.Title>
+          <Modal.Title>
+            {t('gallery.imageViewer')} ({currentImageIndex + 1}/{displayedImages.length})
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedImage && (
             <div className="image-modal-container">
+              {/* Botão para imagem anterior */}
+              {displayedImages.length > 1 && (
+                <button 
+                  className="nav-button prev-button" 
+                  onClick={showPreviousImage}
+                  aria-label="Previous image"
+                >
+                  <FaChevronLeft />
+                </button>
+              )}
+
               <img 
                 src={selectedImage} 
                 alt="Expanded view" 
                 className="modal-image" 
               />
+
+              {/* Botão para próxima imagem */}
+              {displayedImages.length > 1 && (
+                <button 
+                  className="nav-button next-button" 
+                  onClick={showNextImage}
+                  aria-label="Next image"
+                >
+                  <FaChevronRight />
+                </button>
+              )}
             </div>
           )}
         </Modal.Body>
