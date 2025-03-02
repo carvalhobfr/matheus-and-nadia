@@ -1,52 +1,390 @@
 /* Gifts Section Styles */
 .gifts-section {
   padding: 5rem 0;
+  background-color: var(--light-color);
 }
 
-.gift-option {
-  background-color: white;
-  border-radius: 10px;
-  padding: 2rem;
-  margin-bottom: 2rem;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
-  height: 100%;
+.gift-intro {
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  color: var(--text-color);
+  font-size: 1.1rem;
+}
 
-  &:hover {
-    transform: translateY(-5px);
+.currency-selector {
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  
+  .btn-group {
+    box-shadow: 0 2px 8px rgba(61, 35, 20, 0.15);
+    border-radius: 20px;
+    overflow: hidden;
   }
-
-  .gift-icon {
-    font-size: 2.5rem;
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-  }
-
-  h3 {
-    color: var(--primary-color);
-    margin-bottom: 1rem;
-  }
-
-  p {
-    color: var(--text-color);
-    margin-bottom: 1.5rem;
-  }
-
-  .gift-info {
-    background-color: var(--light-color);
-    padding: 1rem;
-    border-radius: 5px;
-    margin-top: 1rem;
+  
+  .btn {
+    min-width: 100px;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
     
-    p {
-      margin-bottom: 0.5rem;
-      font-weight: 500;
+    &:focus {
+      box-shadow: none;
     }
     
-    .gift-value {
-      font-size: 1.2rem;
+    &.btn-primary {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+      color: var(--dark-color);
+    }
+    
+    &.btn-outline-primary {
+      color: var(--dark-color);
+      border-color: rgba(61, 35, 20, 0.2);
+      
+      &:hover {
+        background-color: rgba(61, 35, 20, 0.05);
+        color: var(--dark-color);
+      }
+    }
+  }
+  
+  &::after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+}
+
+.activity-card {
+  height: 100%;
+  transition: all 0.3s ease;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(61, 35, 20, 0.2);
+  cursor: pointer;
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(61, 35, 20, 0.3);
+  }
+  
+  &.selected {
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+    
+    .card-title {
+      color: var(--accent-color);
+    }
+  }
+  
+  .activity-image {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    
+    .selected-badge {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: var(--accent-color);
+      color: white;
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: bold;
+    }
+    
+    .image-loading {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: rgba(61, 35, 20, 0.2);
+    }
+  }
+  
+  .card-body {
+    padding: 1.5rem;
+  }
+  
+  .activity-icon {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+  }
+  
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--dark-color);
+    margin-bottom: 0.8rem;
+    text-align: center;
+  }
+  
+  .card-text {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+    height: 100px;
+    overflow: hidden;
+  }
+  
+  .activity-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-align: center;
+    padding: 0.5rem;
+    background-color: rgba(61, 35, 20, 0.05);
+    border-radius: 5px;
+    
+    &.low-cost {
+      position: relative;
+      overflow: hidden;
+      
+      &::before {
+        content: 'Econômico';
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: var(--accent-color);
+        color: var(--dark-color);
+        font-size: 0.7rem;
+        padding: 2px 8px;
+        border-radius: 0 0 5px 0;
+        transform: translateY(-100%);
+        opacity: 0;
+        transition: all 0.3s ease;
+      }
+      
+      &:hover::before {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.gift-summary {
+  margin-top: 3rem;
+  padding: 2rem;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(61, 35, 20, 0.2);
+  display: flex;
+  flex-wrap: wrap;
+  
+  .selected-activities {
+    flex: 1;
+    min-width: 300px;
+    padding-right: 2rem;
+    
+    h3 {
+      color: var(--dark-color);
+      margin-bottom: 1.5rem;
+      font-size: 1.5rem;
+    }
+    
+    ul {
+      list-style: none;
+      padding: 0;
+      
+      li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.8rem 0;
+        border-bottom: 1px solid rgba(61, 35, 20, 0.1);
+        
+        .remove-btn {
+          color: #dc3545;
+          padding: 0.2rem 0.5rem;
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+  
+  .total-amount {
+    flex: 1;
+    min-width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid rgba(61, 35, 20, 0.1);
+    padding-left: 2rem;
+    
+    h3 {
       color: var(--primary-color);
-      font-weight: 700;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    .proceed-btn {
+      padding: 0.8rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.payment-methods {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+  
+  .payment-method-btn {
+    min-width: 100px;
+  }
+}
+
+.payment-info {
+  background-color: var(--light-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  
+  h5 {
+    color: var(--dark-color);
+    margin-bottom: 1rem;
+  }
+  
+  .payment-code {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    padding: 0.8rem;
+    background-color: white;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+  }
+  
+  .payment-instructions {
+    font-size: 0.9rem;
+    color: var(--text-color);
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 992px) {
+  .gift-summary {
+    flex-direction: column;
+    
+    .selected-activities {
+      padding-right: 0;
+      margin-bottom: 2rem;
+    }
+    
+    .total-amount {
+      border-left: none;
+      border-top: 1px solid rgba(61, 35, 20, 0.1);
+      padding-left: 0;
+      padding-top: 2rem;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .activity-card {
+    .card-text {
+      height: auto;
+      max-height: 100px;
+    }
+  }
+  
+  .payment-methods {
+    flex-direction: column;
+    align-items: center;
+    
+    .payment-method-btn {
+      width: 100%;
+      max-width: 200px;
+    }
+  }
+}
+
+.confirmation-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+  background-color: rgba(212, 175, 55, 0.1);
+  border-radius: 50%;
+  padding: 15px;
+}
+
+.empty-selection {
+  padding: 1.5rem;
+  background-color: rgba(61, 35, 20, 0.05);
+  border-radius: 8px;
+  text-align: center;
+  
+  p {
+    margin-bottom: 0.5rem;
+  }
+  
+  .help-text {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    font-style: italic;
+  }
+}
+
+/* Custom styling for contribution input */
+.form-control[type="number"] {
+  text-align: center;
+  font-weight: 600;
+  font-size: 1.2rem;
+  color: var(--primary-color);
+  padding: 0.7rem;
+  border: 2px solid rgba(61, 35, 20, 0.1);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  
+  &:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+  }
+}
+
+/* Grid responsivo para melhor exibir as atividades */
+.gift-activities {
+  .col-lg-3 {
+    transition: all 0.3s ease;
+    
+    @media (min-width: 992px) {
+      &:nth-child(4n+1) {
+        clear: left;
+      }
+    }
+    
+    @media (min-width: 768px) and (max-width: 991px) {
+      &:nth-child(3n+1) {
+        clear: left;
+      }
+    }
+    
+    @media (min-width: 576px) and (max-width: 767px) {
+      &:nth-child(2n+1) {
+        clear: left;
+      }
     }
   }
 } 

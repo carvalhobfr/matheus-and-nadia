@@ -1,8 +1,59 @@
+/* Custom Font Faces */
+@font-face {
+  font-family: 'EditorsNote-Extralight';
+  src: url('./assets/fonts/EditorsNote-Extralight.otf') format('opentype');
+  font-display: swap;
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'EditorsNote-Hairline';
+  src: url('./assets/fonts/EditorsNote-Hairline.otf') format('opentype');
+  font-display: swap;
+  font-weight: 100;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'EditorsNote-Light';
+  src: url('./assets/fonts/EditorsNote-Light.woff') format('woff');
+  font-display: swap;
+  font-weight: 200;
+  font-style: normal;
+}
+
+/* For backward compatibility */
+@font-face {
+  font-family: 'E';
+  src: url('./assets/fonts/EditorsNote-Extralight.otf') format('opentype');
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'EH';
+  src: url('./assets/fonts/EditorsNote-Hairline.otf') format('opentype');
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'EL';
+  src: url('./assets/fonts/EditorsNote-Light.woff') format('woff');
+  font-display: swap;
+  font-weight: normal;
+  font-style: normal;
+}
+
 /* Font Definitions */
 :root {
   /* Primary Fonts - using higher specificity */
-  --font-heading: 'Cormorant Garamond', serif !important;
-  --font-body: 'Lato', sans-serif !important;
+  --font-heading: 'EditorsNote-Extralight', 'E', 'Cormorant Garamond', serif !important;
+  --font-body: 'EditorsNote-Light', 'EL', 'Lato', sans-serif !important;
+  --font-accent: 'la-bohemienne', cursive !important;
   
   /* Font Weights */
   --weight-light: 300;
@@ -40,21 +91,39 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 h1 {
+  font-family: 'EditorsNote-Extralight', 'E' !important;
   font-size: var(--font-size-5xl);
   font-weight: var(--weight-light) !important;
+  text-transform: uppercase !important;
+}
+
+h1 strong {
+  font-family: var(--font-accent) !important;
+  text-transform: none !important;
+  font-weight: 100 !important;
 }
 
 h2 {
+  font-family: 'EditorsNote-Hairline', 'EH' !important;
   font-size: var(--font-size-3xl);
   font-weight: var(--weight-light) !important;
 }
 
+h2 strong {
+  font-family: var(--font-accent) !important;
+  text-transform: none !important;
+  font-weight: 100 !important;
+}
+
 h3 {
+  font-family: 'EditorsNote-Hairline', 'EH' !important;
   font-size: var(--font-size-2xl);
+  line-height: 1em;
 }
 
 h4 {
   font-size: var(--font-size-xl);
+  margin-top: -40px;
 }
 
 h5 {
@@ -68,20 +137,20 @@ h6 {
 
 /* Special Wedding Text Elements */
 .elegant-script {
-  font-family: var(--font-heading) !important;
+  font-family: var(--font-accent) !important;
   font-style: italic !important;
-  font-weight: var(--weight-light) !important;
+  font-weight: 100 !important;
 }
 
 .couple-names {
-  font-family: var(--font-heading) !important;
+  font-family: 'EditorsNote-Extralight', 'E' !important;
   font-size: var(--font-size-4xl);
   font-weight: var(--weight-light) !important;
   letter-spacing: 0.03em;
 }
 
 .wedding-date {
-  font-family: var(--font-body) !important;
+  font-family: 'EditorsNote-Light', 'EL' !important;
   text-transform: uppercase;
   letter-spacing: 0.15em;
   font-weight: var(--weight-light) !important;
@@ -89,10 +158,27 @@ h6 {
 }
 
 .section-title {
-  font-family: var(--font-heading) !important;
+  font-family: 'EditorsNote-Extralight', 'E' !important;
   font-size: var(--font-size-2xl);
   font-weight: var(--weight-light) !important;
   margin-bottom: 1.5rem;
+}
+
+/* Navigation Elements */
+.navbar-brand, 
+.nav-link {
+  font-family: 'EditorsNote-Extralight', 'E' !important;
+}
+
+/* Buttons */
+.btn,
+button[type="submit"],
+.btn-primary,
+.btn-secondary,
+.btn-outline-secondary {
+  font-family: 'EditorsNote-Extralight', 'E' !important;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 /* Responsive Font Sizes */

@@ -23,7 +23,7 @@ const Details = () => {
                 <p className="mb-1">{t('details.ceremony.location')}</p>
                 <p>{t('details.ceremony.address')}</p>
                 <a 
-                  href="https://maps.google.com/?q=Tailândia+Beachfront+Resort" 
+                  href={`https://maps.google.com/?q=${t('details.ceremony.location')}+${t('hero.location')}`}
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn btn-outline-primary"
@@ -62,7 +62,7 @@ const Details = () => {
                 <p className="mb-1">{t('details.reception.location')}</p>
                 <p>{t('details.reception.address')}</p>
                 <a 
-                  href="https://maps.google.com/?q=Tailândia+Beachfront+Resort" 
+                  href={`https://maps.google.com/?q=${t('details.reception.location')}+${t('hero.location')}`}
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="btn btn-outline-primary"

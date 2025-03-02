@@ -9,6 +9,7 @@ A beautiful, responsive wedding website built with React and Vite, featuring:
 - Photo gallery
 - Gift registry with payment options (MBWay, Pix, and Bizum)
 - RSVP form
+- Admin panel for managing website images
 
 ## Getting Started
 
@@ -49,10 +50,22 @@ Most of the website content can be modified in the translation files:
 
 - Edit `src/i18n.js` to update text in all languages
 
-### Adding Real Images
+### Changing Images via Admin Panel
 
-- Replace the placeholder in `src/assets/hero-bg.jpg` with your own hero image
-- Add real photos to the gallery by updating the `placeholderImages` array in `src/components/Gallery.jsx`
+The website includes an admin panel for managing all images across the site:
+
+1. Access the admin panel by navigating to `/admin` (e.g., `http://localhost:5173/admin`)
+2. Login with the default credentials:
+   - Username: `admin`
+   - Password: `admin123`
+3. From the admin panel, you can:
+   - See all images organized by category (Hero, Story, Gifts, Gallery)
+   - View where each image is used in the website
+   - Update any image by providing a new URL
+   - Preview the change before saving
+   - Reset all images to their default values if needed
+
+> **Security Note**: For a production website, you should change the default admin credentials in `src/contexts/AuthContext.jsx` before deploying.
 
 ### Changing Colors
 

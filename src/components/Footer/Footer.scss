@@ -8,7 +8,7 @@ footer {
     color: var(--accent-color);
     
     &:hover {
-      color: white;
+      color: var(--secondary-color);
       text-decoration: none;
     }
   }
@@ -25,6 +25,7 @@ footer {
     font-family: var(--font-heading);
     font-size: 2rem;
     margin-bottom: 1rem;
+    color: var(--light-color);
   }
   
   .footer-links {

@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { LanguageProvider } from './contexts/LanguageContext'
+import { ImageProvider } from './contexts/ImageContext'
+import { AuthProvider } from './contexts/AuthContext'
 import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -11,6 +13,7 @@ import Gallery from './components/Gallery'
 import Gifts from './components/Gifts'
 import MessageForm from './components/MessageForm'
 import Footer from './components/Footer'
+import Admin from './components/Admin'
 
 function App() {
   // Initialize AOS on component mount
@@ -41,19 +44,24 @@ function App() {
   );
 
   return (
-    <Router>
-      <Navbar />
-      
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/gifts" element={<Gifts />} />
-          <Route path="/contact" element={<MessageForm />} />
-        </Routes>
-      </main>
-      
-      <Footer />
-    </Router>
+    <AuthProvider>
+      <ImageProvider>
+        <Router>
+          <Navbar />
+          
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/gifts" element={<Gifts />} />
+              <Route path="/contact" element={<MessageForm />} />
+              <Route path="/admin" element={<Admin />} />
+            </Routes>
+          </main>
+          
+          <Footer />
+        </Router>
+      </ImageProvider>
+    </AuthProvider>
   )
 }
 

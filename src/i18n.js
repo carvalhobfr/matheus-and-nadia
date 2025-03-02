@@ -14,8 +14,8 @@ const enTranslations = {
   hero: {
     title: 'Matheus & Nadia',
     subtitle: 'We are getting married!',
-    date: 'December 15, 2024',
-    location: 'Tailândia'
+    date: 'March 6, 2025',
+    location: 'Thailand'
   },
   countdown: {
     days: 'Days',
@@ -31,27 +31,27 @@ const enTranslations = {
   },
   story: {
     title: 'Our Love Story',
-    intro: 'How we met and fell in love',
+    intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
     timeline: [
       {
         date: 'June 2020',
         title: 'First Meeting',
-        description: 'We met through mutual friends at a beach party in Rio de Janeiro.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.'
       },
       {
         date: 'December 2020',
         title: 'First Date',
-        description: 'Our first official date was at a cozy restaurant overlooking the ocean.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo efficitur neque a placerat. Integer vitae justo eget magna fermentum iaculis.'
       },
       {
         date: 'August 2021',
         title: 'Moving In Together',
-        description: 'We decided to take the next step and move in together.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor.'
       },
       {
         date: 'February 2023',
         title: 'The Proposal',
-        description: 'Matheus proposed during a surprise trip to Barcelona.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.'
       }
     ]
   },
@@ -59,17 +59,17 @@ const enTranslations = {
     title: 'Wedding Details',
     ceremony: {
       title: 'Ceremony',
-      date: 'December 15, 2024',
-      time: '4:00 PM',
+      date: 'March 6, 2025',
+      time: '5:00 PM',
       location: 'Beachfront Resort',
-      address: '123 Beach Road, Tailândia'
+      address: '123 Beach Road, Thailand'
     },
     reception: {
       title: 'Reception',
-      date: 'December 15, 2024',
-      time: '6:00 PM',
+      date: 'March 6, 2025',
+      time: '7:00 PM',
       location: 'Beachfront Resort - Garden Pavilion',
-      address: '123 Beach Road, Tailândia'
+      address: '123 Beach Road, Thailand'
     },
     accommodation: {
       title: 'Accommodation',
@@ -85,7 +85,7 @@ const enTranslations = {
     intro: 'As we celebrate our special day in an intimate elopement, your warm wishes mean the world to us. If you would like to send a gift, here are some options:',
     honeymoon: {
       title: 'Contribute to Our Honeymoon',
-      description: 'Help us create unforgettable memories on our honeymoon trip to Tailândia.'
+      description: 'Help us create unforgettable memories on our honeymoon trip to Thailand.'
     },
     mbway: {
       title: 'MBWay',
@@ -122,7 +122,7 @@ const enTranslations = {
   },
   footer: {
     credit: 'Made with love for our special day',
-    copyright: '© 2024 Matheus & Nadia'
+    copyright: '© 2025 Matheus & Nadia'
   }
 };
 
@@ -139,7 +139,7 @@ const ptTranslations = {
   hero: {
     title: 'Matheus & Nadia',
     subtitle: 'Vamos nos casar!',
-    date: '15 de Dezembro de 2024',
+    date: '06.03.2025',
     location: 'Tailândia'
   },
   countdown: {
@@ -156,27 +156,27 @@ const ptTranslations = {
   },
   story: {
     title: 'Nossa História de Amor',
-    intro: 'Como nos conhecemos e nos apaixonamos',
+    intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
     timeline: [
       {
         date: 'Junho de 2020',
         title: 'Primeiro Encontro',
-        description: 'Nos conhecemos através de amigos em comum em uma festa na praia no Rio de Janeiro.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.'
       },
       {
         date: 'Dezembro de 2020',
         title: 'Primeiro Encontro Oficial',
-        description: 'Nosso primeiro encontro oficial foi em um restaurante aconchegante com vista para o oceano.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo efficitur neque a placerat. Integer vitae justo eget magna fermentum iaculis.'
       },
       {
         date: 'Agosto de 2021',
         title: 'Morando Juntos',
-        description: 'Decidimos dar o próximo passo e morar juntos.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor.'
       },
       {
         date: 'Fevereiro de 2023',
         title: 'O Pedido',
-        description: 'Matheus fez o pedido durante uma viagem surpresa a Barcelona.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.'
       }
     ]
   },
@@ -184,15 +184,15 @@ const ptTranslations = {
     title: 'Detalhes do Casamento',
     ceremony: {
       title: 'Cerimônia',
-      date: '15 de Dezembro de 2024',
-      time: '16:00',
+      date: '06.03.2025',
+      time: '17:00',
       location: 'Beachfront Resort',
       address: '123 Beach Road, Tailândia'
     },
     reception: {
       title: 'Recepção',
-      date: '15 de Dezembro de 2024',
-      time: '18:00',
+      date: '06.03.2025',
+      time: '19:00',
       location: 'Beachfront Resort - Pavilhão do Jardim',
       address: '123 Beach Road, Tailândia'
     },
@@ -247,7 +247,7 @@ const ptTranslations = {
   },
   footer: {
     credit: 'Feito com amor para o nosso dia especial',
-    copyright: '© 2024 Matheus & Nadia'
+    copyright: '© 2025 Matheus & Nadia'
   }
 };
 
@@ -264,8 +264,8 @@ const esTranslations = {
   hero: {
     title: 'Matheus & Nadia',
     subtitle: '¡Nos vamos a casar!',
-    date: '15 de Diciembre de 2024',
-    location: 'Tailândia'
+    date: '06 de Marzo de 2025',
+    location: 'Tailandia'
   },
   countdown: {
     days: 'Días',
@@ -281,27 +281,27 @@ const esTranslations = {
   },
   story: {
     title: 'Nuestra Historia de Amor',
-    intro: 'Cómo nos conocimos y nos enamoramos',
+    intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
     timeline: [
       {
         date: 'Junio de 2020',
         title: 'Primer Encuentro',
-        description: 'Nos conocimos a través de amigos en común en una fiesta en la playa en Río de Janeiro.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.'
       },
       {
         date: 'Diciembre de 2020',
         title: 'Primera Cita',
-        description: 'Nuestra primera cita oficial fue en un acogedor restaurante con vistas al océano.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo efficitur neque a placerat. Integer vitae justo eget magna fermentum iaculis.'
       },
       {
         date: 'Agosto de 2021',
         title: 'Viviendo Juntos',
-        description: 'Decidimos dar el siguiente paso y vivir juntos.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor.'
       },
       {
         date: 'Febrero de 2023',
         title: 'La Propuesta',
-        description: 'Matheus propuso matrimonio durante un viaje sorpresa a Barcelona.'
+        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.'
       }
     ]
   },
@@ -309,17 +309,17 @@ const esTranslations = {
     title: 'Detalles de la Boda',
     ceremony: {
       title: 'Ceremonia',
-      date: '15 de Diciembre de 2024',
-      time: '16:00',
+      date: '06 de Marzo de 2025',
+      time: '17:00',
       location: 'Beachfront Resort',
-      address: '123 Beach Road, Tailândia'
+      address: '123 Beach Road, Tailandia'
     },
     reception: {
       title: 'Recepción',
-      date: '15 de Diciembre de 2024',
-      time: '18:00',
+      date: '06 de Marzo de 2025',
+      time: '19:00',
       location: 'Beachfront Resort - Pabellón del Jardín',
-      address: '123 Beach Road, Tailândia'
+      address: '123 Beach Road, Tailandia'
     },
     accommodation: {
       title: 'Alojamiento',
@@ -335,7 +335,7 @@ const esTranslations = {
     intro: 'Mientras celebramos nuestro día especial en una boda íntima, tus buenos deseos significan mucho para nosotros. Si deseas enviar un regalo, aquí hay algunas opciones:',
     honeymoon: {
       title: 'Contribuir a Nuestra Luna de Miel',
-      description: 'Ayúdanos a crear recuerdos inolvidables en nuestra luna de miel en Tailândia.'
+      description: 'Ayúdanos a crear recuerdos inolvidables en nuestra luna de miel en Tailandia.'
     },
     mbway: {
       title: 'MBWay',
@@ -372,7 +372,7 @@ const esTranslations = {
   },
   footer: {
     credit: 'Hecho con amor para nuestro día especial',
-    copyright: '© 2024 Matheus & Nadia'
+    copyright: '© 2025 Matheus & Nadia'
   }
 };
 

@@ -8,6 +8,7 @@
   text-align: center;
   color: #fff;
   overflow: hidden;
+  background-color: var(--dark-color);
 }
 
 .hero-background {
@@ -17,7 +18,7 @@
   width: 100%;
   height: 100%;
   background-size: cover;
-  background-position: center;
+  background-position: 33% 75%;
   background-attachment: fixed;
   transition: opacity 1s ease-in-out;
   
@@ -36,7 +37,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.6); /* Camada escura mais intensa para melhorar visibilidade */
+  background-color: rgba(39, 20, 9, 0.4); /* Usando var(--dark-color) com transparência aumentada */
   z-index: 1;
 }
 
@@ -45,67 +46,57 @@
   z-index: 2;
   padding: 2rem;
   max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   
-  h1 {
-    font-family: var(--font-heading);
+  .wedding-date {
+    font-family: 'EditorsNote-Hairline', 'EH' !important;
+    font-size: var(--font-size-xl);
+    font-weight: var(--weight-light);
+    margin-bottom: -1rem;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  
+  .couple-names {
+    font-family: 'EditorsNote-Extralight', 'E' !important;
     font-size: var(--font-size-5xl);
     font-weight: var(--weight-light);
-    margin-bottom: 1.5rem;
+    margin: 1rem 0;
     color: #fff;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
     letter-spacing: 0.03em;
-  }
-
-  p {
-    font-family: var(--font-body);
-    font-size: var(--font-size-xl);
-    font-weight: var(--weight-light);
-    margin-bottom: 2rem;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    text-transform: uppercase;
   }
   
-  .hero-date {
-    margin-bottom: 2rem;
-    
-    p {
-      margin-bottom: 0.5rem;
-      font-family: var(--font-body);
-      font-size: var(--font-size-large);
-      font-weight: var(--weight-light);
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-    }
-  }
-
-  .btn {
-    margin: 0 0.5rem;
-    padding: 0.75rem 1.5rem;
-    font-family: var(--font-body);
-    font-weight: var(--weight-regular);
-    text-transform: uppercase;
+  .wedding-location {
+    font-family: 'la-bohemienne', sans-serif !important;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-top: 0;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
     letter-spacing: 0.1em;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-    }
+    text-transform: uppercase;
   }
 }
 
 /* Responsive styles */
 @media (max-width: 768px) {
   .hero-content {
-    h1 {
-      font-size: var(--font-size-3xl);
-    }
-    
-    p {
+    .wedding-date {
       font-size: var(--font-size-large);
     }
     
-    .hero-date p {
+    .couple-names {
+      font-size: var(--font-size-3xl);
+    }
+    
+    .wedding-location {
       font-size: var(--font-size-base);
     }
   }

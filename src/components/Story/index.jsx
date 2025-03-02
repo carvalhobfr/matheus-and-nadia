@@ -1,8 +1,10 @@
 import { useTranslation } from 'react-i18next';
+import { useImages } from '../../contexts/ImageContext';
 import './Story.scss';
 
 const Story = () => {
   const { t } = useTranslation();
+  const { images } = useImages();
   const timeline = t('story.timeline', { returnObjects: true });
 
   return (
@@ -11,6 +13,10 @@ const Story = () => {
         <div className="section-title">
           <h2 data-aos="fade-up">{t('story.title')}</h2>
           <p data-aos="fade-up" data-aos-delay="100">{t('story.intro')}</p>
+        </div>
+
+        <div className="couple-photo-container" data-aos="fade-up" data-aos-delay="200">
+          <img src={images['couple-photo']} alt="Matheus e Nadia" className="couple-photo" />
         </div>
 
         <div className="timeline">
