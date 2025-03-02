@@ -116,17 +116,19 @@ const Gifts = () => {
       description: 'Presente uma visita a um santuário ético de elefantes, onde o casal poderá alimentar, banhar e aprender sobre estes incríveis animais.',
       price: 80,
       image: images['gift-elephants']
-    },
-    {
-      id: 13,
-      icon: <FaMoneyBillWave />,
-      title: 'Contribuição Livre',
-      description: 'Contribua com o valor que desejar para ajudar o casal a realizar a lua de mel dos sonhos na Tailândia.',
-      price: 10,
-      customAmount: true,
-      image: images['gift-custom']
     }
   ];
+
+  // Definição da contribuição livre (movida para fora do array de activities)
+  const freeContribution = {
+    id: 13,
+    icon: <FaMoneyBillWave />,
+    title: 'Contribuição Livre',
+    description: 'Contribua com o valor que desejar para ajudar o casal a realizar a lua de mel dos sonhos na Tailândia.',
+    price: 10,
+    customAmount: true,
+    image: images['gift-custom']
+  };
 
   // Informações de pagamento
   const paymentMethods = {
@@ -427,6 +429,35 @@ const Gifts = () => {
                 ))}
               </ul>
             )}
+          </div>
+          
+          {/* Seção de Contribuição Livre */}
+          <div className="free-contribution-section">
+            <h3>{freeContribution.title}</h3>
+            <p>{freeContribution.description}</p>
+            <div className="free-contribution-input">
+              <Form.Group className="mb-3">
+                <Form.Label>Valor da contribuição ({currency === 'EUR' ? '€' : 'R$'}):</Form.Label>
+                <div className="d-flex">
+                  <Form.Control 
+                    type="number" 
+                    min="0.01"
+                    step="0.01"
+                    value={selectedActivities.find(item => item.id === freeContribution.id)?.price || ''}
+                    onChange={(e) => handleCustomAmountChange(e, freeContribution.id)}
+                  />
+                  <Button 
+                    variant="outline-primary" 
+                    className="ms-2"
+                    onClick={(e) => {
+                      handleAddCustomActivity(e, freeContribution, e.target.previousElementSibling.value);
+                    }}
+                  >
+                    {selectedActivities.some(item => item.id === freeContribution.id) ? 'Remover' : 'Adicionar'}
+                  </Button>
+                </div>
+              </Form.Group>
+            </div>
           </div>
           
           <div className="total-amount">
