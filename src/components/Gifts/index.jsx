@@ -445,12 +445,14 @@ const Gifts = () => {
                     step="0.01"
                     value={selectedActivities.find(item => item.id === freeContribution.id)?.price || ''}
                     onChange={(e) => handleCustomAmountChange(e, freeContribution.id)}
+                    id="free-contribution-input"
                   />
                   <Button 
                     variant="outline-primary" 
                     className="ms-2"
                     onClick={(e) => {
-                      handleAddCustomActivity(e, freeContribution, e.target.previousElementSibling.value);
+                      const inputValue = document.getElementById('free-contribution-input').value;
+                      handleAddCustomActivity(e, freeContribution, inputValue);
                     }}
                   >
                     {selectedActivities.some(item => item.id === freeContribution.id) ? 'Remover' : 'Adicionar'}
