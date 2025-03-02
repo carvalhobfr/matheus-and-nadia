@@ -7,7 +7,10 @@ export const enTranslations = {
     home: 'Home',
     story: 'Our Story',
     details: 'Event Details',
-    gallery: 'Gallery',
+    gallery: {
+      title: 'Gallery',
+      imageViewer: 'Image Viewer'
+    },
     gifts: 'Gifts',
     message: 'Messages'
   },
@@ -132,7 +135,10 @@ export const ptTranslations = {
     home: 'Início',
     story: 'Nossa História',
     details: 'Detalhes do Evento',
-    gallery: 'Galeria',
+    gallery: {
+      title: 'Galeria',
+      imageViewer: 'Visualizador de Imagens'
+    },
     gifts: 'Presentes',
     message: 'Mensagens'
   },
