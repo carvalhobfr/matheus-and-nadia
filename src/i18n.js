@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
 // English translations
-const enTranslations = {
+export const enTranslations = {
   navbar: {
     home: 'Home',
     story: 'Our Story',
@@ -127,7 +127,7 @@ const enTranslations = {
 };
 
 // Portuguese translations
-const ptTranslations = {
+export const ptTranslations = {
   navbar: {
     home: 'Início',
     story: 'Nossa História',
@@ -252,7 +252,7 @@ const ptTranslations = {
 };
 
 // Spanish translations
-const esTranslations = {
+export const esTranslations = {
   navbar: {
     home: 'Inicio',
     story: 'Nuestra Historia',
@@ -376,20 +376,24 @@ const esTranslations = {
   }
 };
 
-// Configure i18next
-i18n
-  .use(initReactI18next)
-  .init({
-    resources: {
-      en: { translation: enTranslations },
-      pt: { translation: ptTranslations },
-      es: { translation: esTranslations }
+// Initialize i18n
+i18n.use(initReactI18next).init({
+  resources: {
+    en: {
+      translation: enTranslations
     },
-    lng: 'en', // Default language
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false // React already escapes values
+    pt: {
+      translation: ptTranslations
+    },
+    es: {
+      translation: esTranslations
     }
-  });
+  },
+  lng: 'pt', // default language
+  fallbackLng: 'en',
+  interpolation: {
+    escapeValue: false
+  }
+});
 
 export default i18n; 

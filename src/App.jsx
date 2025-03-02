@@ -1,8 +1,8 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import { LanguageProvider } from './contexts/LanguageContext'
 import { ImageProvider } from './contexts/ImageContext'
 import { AuthProvider } from './contexts/AuthContext'
+import { TextProvider } from './contexts/TextContext'
 import './App.css'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
@@ -46,20 +46,22 @@ function App() {
   return (
     <AuthProvider>
       <ImageProvider>
-        <Router>
-          <Navbar />
-          
-          <main>
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/gifts" element={<Gifts />} />
-              <Route path="/contact" element={<MessageForm />} />
-              <Route path="/admin" element={<Admin />} />
-            </Routes>
-          </main>
-          
-          <Footer />
-        </Router>
+        <TextProvider>
+          <Router>
+            <Navbar />
+            
+            <main>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/gifts" element={<Gifts />} />
+                <Route path="/contact" element={<MessageForm />} />
+                <Route path="/admin" element={<Admin />} />
+              </Routes>
+            </main>
+            
+            <Footer />
+          </Router>
+        </TextProvider>
       </ImageProvider>
     </AuthProvider>
   )

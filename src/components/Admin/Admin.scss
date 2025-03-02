@@ -1,3 +1,5 @@
+@use "sass:color";
+
 .admin-login-container {
   padding-top: 5rem;
   padding-bottom: 5rem;
@@ -34,6 +36,20 @@
     border-radius: 10px;
   }
   
+  .admin-tabs {
+    margin-bottom: 1.5rem;
+    
+    .nav-link {
+      font-weight: 500;
+      color: var(--text-color);
+      
+      &.active {
+        background-color: var(--primary-color);
+        color: white;
+      }
+    }
+  }
+  
   .image-preview {
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -66,12 +82,521 @@
       vertical-align: middle;
     }
   }
+  
+  // Estilos para o editor de textos
+  .text-editor {
+    .language-selector {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      
+      .nav-link {
+        border-radius: 20px;
+        padding: 0.5rem 1.5rem;
+        
+        &.active {
+          background-color: var(--primary-color);
+        }
+      }
+    }
+    
+    .section-selector {
+      margin-bottom: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #dee2e6;
+      
+      .nav-link {
+        padding: 0.75rem 1rem;
+        border: none;
+        margin-bottom: -1px;
+        
+        &.active {
+          color: var(--primary-color);
+          border-bottom: 2px solid var(--primary-color);
+        }
+      }
+    }
+    
+    .section-editor {
+      max-height: 600px;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+      
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 10px;
+        
+        &:hover {
+          background: #bbb;
+        }
+      }
+    }
+    
+    .nested-fields {
+      margin-left: 0.5rem;
+      
+      .nested-title {
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .nested-content {
+        padding-top: 0.5rem;
+      }
+    }
+    
+    .array-fields {
+      .array-title {
+        color: var(--secondary-color);
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .array-items {
+        .array-item {
+          background-color: #f8f9fa;
+          
+          h6 {
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+          }
+        }
+      }
+    }
+    
+    .form-group {
+      .form-label {
+        font-weight: 500;
+      }
+    }
+  }
+  
+  // Estilos para o editor de cores
+  .color-editor {
+    .color-palette {
+      .color-item {
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: rgba(0, 0, 0, 0.02);
+        transition: all 0.3s ease;
+        
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.05);
+          transform: translateY(-2px);
+        }
+        
+        .color-preview {
+          width: 80px;
+          height: 80px;
+          border-radius: 8px;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+          margin-right: 1rem;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .color-info {
+          flex-grow: 1;
+          
+          .color-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 0.25rem;
+            
+            code {
+              background-color: rgba(0, 0, 0, 0.05);
+              padding: 0.1rem 0.3rem;
+              border-radius: 3px;
+            }
+          }
+        }
+        
+        p {
+          margin-top: 0.5rem;
+          margin-bottom: 0;
+        }
+      }
+    }
+    
+    .color-dot {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+    }
+    
+    .accordion-button:not(.collapsed) {
+      background-color: var(--secondary-color);
+      color: white;
+    }
+    
+    .usage-list {
+      padding-left: 1.25rem;
+      
+      li {
+        margin-bottom: 0.5rem;
+      }
+    }
+    
+    .tips-list {
+      padding-left: 1.25rem;
+      
+      li {
+        margin-bottom: 0.75rem;
+      }
+    }
+    
+    // Estilos para paletas sugeridas
+    .palette-card {
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+      
+      .card-header {
+        background-color: rgba(0, 0, 0, 0.03);
+      }
+      
+      .palette-description {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 1rem;
+        min-height: 2.8rem;
+      }
+    }
+    
+    // Estilo para visualização de paletas
+    .palette-preview {
+      display: flex;
+      height: 40px;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1rem;
+      
+      .color-strip {
+        height: 100%;
+        transition: all 0.2s ease;
+        
+        &:hover {
+          transform: scaleY(1.1);
+        }
+      }
+    }
+    
+    // Estilos para o histórico de paletas
+    .history-palettes {
+      max-height: 400px;
+      overflow-y: auto;
+      
+      &::-webkit-scrollbar {
+        width: 6px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: #ccc;
+        border-radius: 10px;
+        
+        &:hover {
+          background: #bbb;
+        }
+      }
+      
+      .history-palette-card {
+        transition: all 0.2s ease;
+        
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.02);
+        }
+        
+        .palette-preview {
+          height: 30px;
+        }
+      }
+    }
+    
+    // Estilos para a prévia de componentes com elementos reais
+    .real-components-preview {
+      padding: 0.5rem;
+      
+      // Estilos para botões de prévia
+      .preview-btn-primary {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+        color: white;
+        
+        &:hover {
+          background-color: color.adjust(#3D2314, $lightness: -5%);
+          border-color: color.adjust(#3D2314, $lightness: -5%);
+        }
+        
+        &.btn-outline-primary {
+          background-color: transparent;
+          color: var(--primary-color);
+          
+          &:hover {
+            background-color: var(--primary-color);
+            color: white;
+          }
+        }
+      }
+      
+      .preview-btn-secondary {
+        background-color: var(--secondary-color);
+        border-color: var(--secondary-color);
+        color: white;
+        
+        &:hover {
+          background-color: color.adjust(#8B5A2B, $lightness: -5%);
+          border-color: color.adjust(#8B5A2B, $lightness: -5%);
+        }
+        
+        &.btn-outline-secondary {
+          background-color: transparent;
+          color: var(--secondary-color);
+          
+          &:hover {
+            background-color: var(--secondary-color);
+            color: white;
+          }
+        }
+      }
+      
+      .preview-btn-accent {
+        transition: all 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+      }
+      
+      .preview-form-control, .preview-form-select {
+        &:focus {
+          border-color: var(--accent-color);
+          box-shadow: 0 0 0 0.25rem rgba(212, 175, 55, 0.25);
+        }
+      }
+      
+      .preview-form-check:checked {
+        background-color: var(--primary-color);
+        border-color: var(--primary-color);
+      }
+      
+      .preview-card-title {
+        color: var(--text-color);
+      }
+      
+      .preview-card-text {
+        color: var(--text-color);
+      }
+      
+      // Ajustes para o container de mockup
+      .mock-router-container {
+        width: 100%;
+        overflow: hidden;
+      }
+      
+      .preview-section {
+        margin-bottom: 2.5rem;
+        
+        h5 {
+          margin-bottom: 1rem;
+          padding-bottom: 0.5rem;
+          border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+          color: var(--secondary-color);
+        }
+      }
+      
+      // Wrapper para conter componentes reais
+      .preview-component-wrapper {
+        border: 1px solid rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        position: relative;
+        
+        // Contenção para evitar que componentes "escapem" da prévia
+        max-width: 100%;
+        overflow: hidden;
+      }
+      
+      // Estilos específicos para o Navbar na prévia
+      .navbar-wrapper {
+        height: 70px;
+        
+        .navbar {
+          position: relative !important; // Override do fixed-top
+          padding: 0.5rem 1rem;
+          
+          .navbar-nav {
+            .nav-link {
+              padding: 0.5rem 1rem;
+            }
+          }
+        }
+        
+        // Estilo para o placeholder do Navbar quando a prévia não está ativa
+        .navbar-placeholder {
+          height: 100%;
+          background-color: var(--primary-color, #3D2314);
+          display: flex;
+          align-items: center;
+          color: white;
+          padding: 0.5rem 1rem;
+          
+          .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+          }
+          
+          .navbar-links {
+            display: flex;
+            gap: 1rem;
+            
+            .nav-link {
+              font-size: 0.9rem;
+              cursor: pointer;
+              opacity: 0.8;
+              
+              &:hover {
+                opacity: 1;
+              }
+            }
+          }
+        }
+      }
+      
+      // Estilos específicos para o Hero na prévia
+      .hero-wrapper {
+        height: 300px;
+        
+        .hero {
+          height: 300px !important; // Override da altura do componente
+          min-height: unset !important;
+          
+          .hero-background {
+            background-attachment: scroll !important; // Melhor para visualização na prévia
+          }
+        }
+        
+        // Estilo para o placeholder do Hero quando a prévia não está ativa
+        .hero-placeholder {
+          height: 100%;
+          background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                      url('data:image/svg+xml;utf8,<svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="smallGrid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255, 255, 255, 0.1)" stroke-width="0.5"/></pattern><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><rect width="100" height="100" fill="url(%23smallGrid)"/><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255, 255, 255, 0.2)" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23grid)" /></svg>');
+          background-color: #3D2314;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          
+          .hero-content {
+            text-align: center;
+            color: white;
+            padding: 2rem;
+            
+            .wedding-date {
+              font-size: 1.5rem;
+              margin-bottom: 1rem;
+            }
+            
+            .couple-names {
+              font-size: 3rem;
+              margin-bottom: 1rem;
+            }
+            
+            .wedding-location {
+              font-size: 1.2rem;
+            }
+          }
+        }
+      }
+      
+      // Estilos específicos para o Footer na prévia
+      .footer-wrapper {
+        max-height: 200px;
+        
+        footer {
+          padding: 1.5rem 0 !important; // Reduz o padding para a prévia
+        }
+      }
+      
+      // Elementos de interface
+      .interface-elements-demo {
+        .card {
+          border-radius: 8px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn {
+          margin-right: 0.5rem;
+          margin-bottom: 0.5rem;
+        }
+      }
+      
+      // Cards de exemplo
+      .card {
+        transition: all 0.3s ease;
+        
+        &:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .card-body {
+          i {
+            color: var(--primary-color);
+          }
+          
+          h3 {
+            color: var(--text-color);
+            margin-bottom: 1rem;
+          }
+          
+          p {
+            color: var(--text-color);
+            opacity: 0.9;
+          }
+        }
+      }
+    }
+  }
 }
 
 @media (max-width: 992px) {
   .admin-container {
     .card {
       margin-bottom: 2rem;
+    }
+  }
+  
+  .color-editor {
+    .color-item {
+      flex-direction: column;
+      
+      .color-preview {
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
     }
   }
 } 
