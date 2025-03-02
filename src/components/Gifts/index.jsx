@@ -18,6 +18,7 @@ const Gifts = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [currency, setCurrency] = useState('EUR');
   const [exchangeRate, setExchangeRate] = useState(6.0);
+  const [freeContributionValue, setFreeContributionValue] = useState('');
 
   // Lista de atividades na Tailândia (ordenadas por preço crescente)
   const activities = [
@@ -229,6 +230,12 @@ const Gifts = () => {
     const inputValue = e.target.value;
     const value = inputValue === '' ? '' : parseFloat(inputValue);
     
+    // Se for a contribuição livre e não estiver na lista de selecionados, apenas atualiza o estado temporário
+    if (activityId === freeContribution.id && !selectedActivities.some(item => item.id === activityId)) {
+      setFreeContributionValue(inputValue);
+      return;
+    }
+    
     setSelectedActivities(prevActivities => {
       const updatedActivities = [...prevActivities];
       const index = updatedActivities.findIndex(act => act.id === activityId);
@@ -251,6 +258,10 @@ const Gifts = () => {
       
       if (!isSelected) {
         setSelectedActivities([...selectedActivities, { ...activity, price: value }]);
+        // Limpa o valor temporário após adicionar
+        if (activity.id === freeContribution.id) {
+          setFreeContributionValue('');
+        }
       } else {
         toggleActivity(activity);
       }
@@ -443,7 +454,9 @@ const Gifts = () => {
                     type="number" 
                     min="0.01"
                     step="0.01"
-                    value={selectedActivities.find(item => item.id === freeContribution.id)?.price || ''}
+                    value={selectedActivities.some(item => item.id === freeContribution.id) 
+                      ? selectedActivities.find(item => item.id === freeContribution.id)?.price 
+                      : freeContributionValue}
                     onChange={(e) => handleCustomAmountChange(e, freeContribution.id)}
                     id="free-contribution-input"
                   />
@@ -451,7 +464,9 @@ const Gifts = () => {
                     variant="outline-primary" 
                     className="ms-2"
                     onClick={(e) => {
-                      const inputValue = document.getElementById('free-contribution-input').value;
+                      const inputValue = selectedActivities.some(item => item.id === freeContribution.id)
+                        ? selectedActivities.find(item => item.id === freeContribution.id)?.price
+                        : document.getElementById('free-contribution-input').value;
                       handleAddCustomActivity(e, freeContribution, inputValue);
                     }}
                   >
