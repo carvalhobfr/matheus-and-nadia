@@ -67,6 +67,10 @@ const Donation = () => {
         </div>
       </div>
 
+      <div className="payment-note">
+        <p>* {t('gifts.accounts_note')}</p>
+      </div>
+
       <DonationConfirmation
         isOpen={showConfirmation}
         onClose={handleCloseConfirmation}

@@ -50,8 +50,8 @@ const defaultImages = {
   'gift-elephants': 'https://images.unsplash.com/photo-1559466273-d95e72debaf8',
   'gift-custom': 'https://images.unsplash.com/photo-1565514020179-026b5cfddc2a',
   
-  // Gallery section
-  'gallery-1': 'https://images.unsplash.com/photo-1537633552985-df8429e048b',
+  // Gallery section - Corrigindo as URLs das imagens
+  'gallery-1': 'https://images.unsplash.com/photo-1537633552985-df8429e048b0',
   'gallery-2': 'https://images.unsplash.com/photo-1545232979-8bf68ee9b1af',
   'gallery-3': 'https://images.unsplash.com/photo-1516589091380-5d8e87df6999',
   'gallery-4': 'https://images.unsplash.com/photo-1607190074257-dd4b7af0309f',

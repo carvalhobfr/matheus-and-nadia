@@ -99,8 +99,8 @@ const Gallery = () => {
           <div className="empty-gallery" data-aos="fade-up">
             <div className="empty-gallery-content">
               <FaCamera size={48} className="mb-3" />
-              <h3>Em breve, memórias do nosso grande dia!</h3>
-              <p>Estamos ansiosos para compartilhar os momentos especiais do nosso casamento com vocês.</p>
+              <h3>Capturando momentos especiais na Tailândia!</h3>
+              <p>Em breve, compartilharemos aqui as fotos do nosso casamento íntimo nas belas paisagens tailandesas. Fique atento!</p>
             </div>
           </div>
         ) : (
@@ -156,7 +156,10 @@ const Gallery = () => {
               {displayedImages.length > 1 && (
                 <button 
                   className="nav-button prev-button" 
-                  onClick={showPreviousImage}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    showPreviousImage();
+                  }}
                   aria-label="Previous image"
                 >
                   <FaChevronLeft />
@@ -173,7 +176,10 @@ const Gallery = () => {
               {displayedImages.length > 1 && (
                 <button 
                   className="nav-button next-button" 
-                  onClick={showNextImage}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    showNextImage();
+                  }}
                   aria-label="Next image"
                 >
                   <FaChevronRight />
