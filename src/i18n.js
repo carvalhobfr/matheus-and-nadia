@@ -102,7 +102,101 @@ export const enTranslations = {
       thankYou: 'Thank you for your gift!',
       message: 'We have received your contribution for our honeymoon in Thailand. We deeply appreciate you being part of this special moment in our lives.',
       close: 'Close'
-    }
+    },
+    activities: [
+      {
+        title: 'Thai Coffee',
+        description: 'Offer the couple a break for a traditional Thai coffee during city walks.',
+        price: 1,
+        imageKey: 'coffee'
+      },
+      {
+        title: 'Traditional Dessert',
+        description: 'Gift a traditional Thai dessert, such as the famous mango sticky rice or fried bananas.',
+        price: 2,
+        imageKey: 'dessert'
+      },
+      {
+        title: 'Pad Thai',
+        description: 'Offer the couple the experience of tasting an authentic Pad Thai at a Thai street food stall.',
+        price: 3,
+        imageKey: 'padthai'
+      },
+      {
+        title: 'Tuk-tuk Ride',
+        description: 'Provide a ride in a traditional Thai tuk-tuk, a unique and fun experience to explore the city.',
+        price: 5,
+        imageKey: 'tuktuk'
+      },
+      {
+        title: 'Sunset Drinks',
+        description: 'Offer the couple the experience of enjoying tropical drinks while watching the beautiful Thai sunset.',
+        price: 15,
+        imageKey: 'drinks'
+      },
+      {
+        title: 'Floating Market',
+        description: 'Gift a visit to a traditional Thai floating market, with a local guide and tasting of typical foods.',
+        price: 25,
+        imageKey: 'market'
+      },
+      {
+        title: 'Traditional Dinner',
+        description: 'Offer the couple an authentic Thai gastronomic experience with a complete traditional dinner at a local restaurant.',
+        price: 30,
+        imageKey: 'dinner'
+      },
+      {
+        title: 'Beach Day',
+        description: 'Offer a relaxing day at one of the beautiful Thai beaches, including sunbed rental and refreshing drinks.',
+        price: 40,
+        imageKey: 'beach'
+      },
+      {
+        title: 'Tour por los Templos',
+        description: 'Offer a guided tour of Thailand\'s historic and cultural temples.',
+        price: 45,
+        imageKey: 'temples'
+      },
+      {
+        title: 'Thai Massage',
+        description: 'Provide the couple with a traditional Thai massage to relax during their honeymoon.',
+        price: 50,
+        imageKey: 'massage'
+      },
+      {
+        title: 'Boat Trip',
+        description: 'Gift a boat trip through the stunning islands and bays of Thailand.',
+        price: 70,
+        imageKey: 'boat'
+      },
+      {
+        title: 'Santuario de Elefantes',
+        description: 'Gift a visit to an ethical elephant sanctuary, where the couple can feed, bathe, and learn about these amazing animals.',
+        price: 80,
+        imageKey: 'elephants'
+      }
+    ],
+    freeContribution: {
+      title: 'Free Contribution',
+      description: 'Contribute with any amount you wish to help the couple enjoy their dream honeymoon in Thailand.',
+    },
+    mbway: {
+      title: 'MBWay',
+      description: 'Send your gift via MBWay to:',
+      number: '+351934646436'
+    },
+    pix: {
+      title: 'Pix',
+      description: 'Send your gift via Pix to:',
+      key: 'carvalho.bfr@gmail.com'
+    },
+    bizum: {
+      title: 'Bizum',
+      description: 'Send your gift via Bizum to:',
+      number: '+34617384134'
+    },
+    contributionValue: 'Contribution amount'
   },
   message: {
     title: 'Message to the Couple',
@@ -242,7 +336,101 @@ export const ptTranslations = {
       thankYou: 'Obrigado pelo seu presente!',
       message: 'Recebemos sua contribuição para nossa lua de mel na Tailândia. Agradecemos imensamente por fazer parte deste momento especial em nossas vidas.',
       close: 'Fechar'
-    }
+    },
+    activities: [
+      {
+        title: 'Café Tailandês',
+        description: 'Ofereça ao casal uma pausa para um café tailandês tradicional durante os passeios pela cidade.',
+        price: 1,
+        imageKey: 'coffee'
+      },
+      {
+        title: 'Sobremesa Típica',
+        description: 'Presente uma sobremesa tailandesa tradicional, como o famoso arroz doce com manga ou bananas fritas.',
+        price: 2,
+        imageKey: 'dessert'
+      },
+      {
+        title: 'Pad Thai',
+        description: 'Ofereça ao casal a experiência de provar um autêntico Pad Thai em uma barraquinha de rua tailandesa.',
+        price: 3,
+        imageKey: 'padthai'
+      },
+      {
+        title: 'Passeio de Tuk-tuk',
+        description: 'Proporcione um passeio no tradicional tuk-tuk tailandês, uma experiência única e divertida para conhecer a cidade.',
+        price: 5,
+        imageKey: 'tuktuk'
+      },
+      {
+        title: 'Drinks ao Pôr-do-sol',
+        description: 'Ofereça ao casal a experiência de apreciar drinks tropicais enquanto contemplam o lindo pôr-do-sol tailandês.',
+        price: 15,
+        imageKey: 'drinks'
+      },
+      {
+        title: 'Mercado Flutuante',
+        description: 'Presente uma visita a um tradicional mercado flutuante tailandês, com guia local e degustação de comidas típicas.',
+        price: 25,
+        imageKey: 'market'
+      },
+      {
+        title: 'Jantar Tradicional',
+        description: 'Ofereça ao casal uma autêntica experiência gastronômica tailandesa com um jantar tradicional completo em um restaurante local.',
+        price: 30,
+        imageKey: 'dinner'
+      },
+      {
+        title: 'Dia na Praia',
+        description: 'Ofereça um dia relaxante em uma das belas praias tailandesas, incluindo aluguel de espreguiçadeiras e bebidas refrescantes.',
+        price: 40,
+        imageKey: 'beach'
+      },
+      {
+        title: 'Tour pelos Templos',
+        description: 'Ofereça um tour guiado pelos templos históricos e culturais da Tailândia.',
+        price: 45,
+        imageKey: 'temples'
+      },
+      {
+        title: 'Massagem Tailandesa',
+        description: 'Proporcione ao casal uma tradicional massagem tailandesa para relaxar durante a lua de mel.',
+        price: 50,
+        imageKey: 'massage'
+      },
+      {
+        title: 'Passeio de Barco',
+        description: 'Presente um passeio de barco pelas ilhas e baías deslumbrantes da Tailândia.',
+        price: 70,
+        imageKey: 'boat'
+      },
+      {
+        title: 'Santuário de Elefantes',
+        description: 'Presente uma visita a um santuário ético de elefantes, onde o casal poderá alimentar, banhar e aprender sobre estes incríveis animais.',
+        price: 80,
+        imageKey: 'elephants'
+      }
+    ],
+    freeContribution: {
+      title: 'Contribuição Livre',
+      description: 'Contribua com o valor que desejar para ajudar o casal a realizar a lua de mel dos sonhos na Tailândia.',
+    },
+    mbway: {
+      title: 'MBWay',
+      description: 'Envie seu presente via MBWay para:',
+      number: '+351934646436'
+    },
+    pix: {
+      title: 'Pix',
+      description: 'Envie seu presente via Pix para:',
+      key: 'carvalho.bfr@gmail.com'
+    },
+    bizum: {
+      title: 'Bizum',
+      description: 'Envie seu presente via Bizum para:',
+      number: '+34617384134'
+    },
+    contributionValue: 'Valor da contribuição'
   },
   message: {
     title: 'Mensagem para os Noivos',
@@ -382,7 +570,101 @@ export const esTranslations = {
       thankYou: '¡Gracias por tu regalo!',
       message: 'Hemos recibido tu contribución para nuestra luna de miel en Tailandia. Agradecemos profundamente que formes parte de este momento tan especial en nuestras vidas.',
       close: 'Cerrar'
-    }
+    },
+    activities: [
+      {
+        title: 'Café Tailandés',
+        description: 'Ofrece a la pareja un descanso para un café tailandés tradicional durante los paseos por la ciudad.',
+        price: 1,
+        imageKey: 'coffee'
+      },
+      {
+        title: 'Postre Típico',
+        description: 'Regala un postre tailandés tradicional, como el famoso arroz con mango o plátanos fritos.',
+        price: 2,
+        imageKey: 'dessert'
+      },
+      {
+        title: 'Pad Thai',
+        description: 'Ofrece a la pareja la experiencia de probar un auténtico Pad Thai en un puesto de comida callejera tailandesa.',
+        price: 3,
+        imageKey: 'padthai'
+      },
+      {
+        title: 'Paseo en Tuk-tuk',
+        description: 'Proporciona un paseo en el tradicional tuk-tuk tailandés, una experiencia única y divertida para conocer la ciudad.',
+        price: 5,
+        imageKey: 'tuktuk'
+      },
+      {
+        title: 'Bebidas al Atardecer',
+        description: 'Ofrece a la pareja la experiencia de disfrutar bebidas tropicales mientras contemplan la hermosa puesta de sol tailandesa.',
+        price: 15,
+        imageKey: 'drinks'
+      },
+      {
+        title: 'Mercado Flotante',
+        description: 'Regala una visita a un tradicional mercado flotante tailandés, con guía local y degustación de comidas típicas.',
+        price: 25,
+        imageKey: 'market'
+      },
+      {
+        title: 'Cena Tradicional',
+        description: 'Ofrece a la pareja una auténtica experiencia gastronómica tailandesa con una cena tradicional completa en un restaurante local.',
+        price: 30,
+        imageKey: 'dinner'
+      },
+      {
+        title: 'Día de Playa',
+        description: 'Ofrece un día relajante en una de las hermosas playas tailandesas, incluido alquiler de tumbonas y bebidas refrescantes.',
+        price: 40,
+        imageKey: 'beach'
+      },
+      {
+        title: 'Tour por los Templos',
+        description: 'Ofrece un tour guiado por los templos históricos y culturales de Tailandia.',
+        price: 45,
+        imageKey: 'temples'
+      },
+      {
+        title: 'Masaje Tailandés',
+        description: 'Proporciona a la pareja un tradicional masaje tailandés para relajarse durante la luna de miel.',
+        price: 50,
+        imageKey: 'massage'
+      },
+      {
+        title: 'Paseo en Barco',
+        description: 'Regala un paseo en barco por las islas y bahías deslumbrantes de Tailandia.',
+        price: 70,
+        imageKey: 'boat'
+      },
+      {
+        title: 'Santuario de Elefantes',
+        description: 'Regala una visita a un santuario ético de elefantes, donde la pareja podrá alimentar, bañar y aprender sobre estos increíbles animales.',
+        price: 80,
+        imageKey: 'elephants'
+      }
+    ],
+    freeContribution: {
+      title: 'Contribución Libre',
+      description: 'Contribuye con el valor que desees para ayudar a la pareja a realizar la luna de miel de sus sueños en Tailandia.',
+    },
+    mbway: {
+      title: 'MBWay',
+      description: 'Envía tu regalo a través de MBWay a:',
+      number: '+351934646436'
+    },
+    pix: {
+      title: 'Pix',
+      description: 'Envía tu regalo a través de Pix a:',
+      key: 'carvalho.bfr@gmail.com'
+    },
+    bizum: {
+      title: 'Bizum',
+      description: 'Envía tu regalo a través de Bizum a:',
+      number: '+34617384134'
+    },
+    contributionValue: 'Valor de la contribución'
   },
   message: {
     title: 'Mensaje para los Novios',

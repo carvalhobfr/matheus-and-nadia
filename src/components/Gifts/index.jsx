@@ -22,111 +22,19 @@ const Gifts = () => {
   const [freeContributionValue, setFreeContributionValue] = useState('');
 
   // Lista de atividades na Tailândia (ordenadas por preço crescente)
-  const activities = [
-    {
-      id: 1,
-      icon: <FaCoffee />,
-      title: 'Café Tailandês',
-      description: 'Ofereça ao casal uma pausa para um café tailandês tradicional durante os passeios pela cidade.',
-      price: 1,
-      image: images['gift-coffee']
-    },
-    {
-      id: 2,
-      icon: <FaIceCream />,
-      title: 'Sobremesa Típica',
-      description: 'Presente uma sobremesa tailandesa tradicional, como o famoso arroz doce com manga ou bananas fritas.',
-      price: 2,
-      image: images['gift-dessert']
-    },
-    {
-      id: 3,
-      icon: <FaUtensils />,
-      title: 'Pad Thai',
-      description: 'Ofereça ao casal a experiência de provar um autêntico Pad Thai em uma barraquinha de rua tailandesa.',
-      price: 3,
-      image: images['gift-padthai']
-    },
-    {
-      id: 4,
-      icon: <FaTaxi />,
-      title: 'Passeio de Tuk-tuk',
-      description: 'Proporcione um passeio no tradicional tuk-tuk tailandês, uma experiência única e divertida para conhecer a cidade.',
-      price: 5,
-      image: images['gift-tuktuk']
-    },
-    {
-      id: 5,
-      icon: <FaWineGlassAlt />,
-      title: 'Drinks ao Pôr-do-sol',
-      description: 'Ofereça ao casal a experiência de apreciar drinks tropicais enquanto contemplam o lindo pôr-do-sol tailandês.',
-      price: 15,
-      image: images['gift-drinks']
-    },
-    {
-      id: 6,
-      icon: <FaShoppingBag />,
-      title: 'Mercado Flutuante',
-      description: 'Presente uma visita a um tradicional mercado flutuante tailandês, com guia local e degustação de comidas típicas.',
-      price: 25,
-      image: images['gift-market']
-    },
-    {
-      id: 7,
-      icon: <FaUtensils />,
-      title: 'Jantar Tradicional',
-      description: 'Ofereça ao casal uma autêntica experiência gastronômica tailandesa com um jantar tradicional completo em um restaurante local.',
-      price: 30,
-      image: images['gift-dinner']
-    },
-    {
-      id: 8,
-      icon: <FaUmbrellaBeach />,
-      title: 'Dia na Praia',
-      description: 'Ofereça um dia relaxante em uma das belas praias tailandesas, incluindo aluguel de espreguiçadeiras e bebidas refrescantes.',
-      price: 40,
-      image: images['gift-beach']
-    },
-    {
-      id: 9,
-      icon: <FaPersonPraying />,
-      title: 'Tour pelos Templos',
-      description: 'Ofereça um tour guiado pelos templos históricos e culturais da Tailândia.',
-      price: 45,
-      image: images['gift-temples']
-    },
-    {
-      id: 10,
-      icon: <FaSpa />,
-      title: 'Massagem Tailandesa',
-      description: 'Proporcione ao casal uma tradicional massagem tailandesa para relaxar durante a lua de mel.',
-      price: 50,
-      image: images['gift-massage']
-    },
-    {
-      id: 11,
-      icon: <FaWater />,
-      title: 'Passeio de Barco',
-      description: 'Presente um passeio de barco pelas ilhas e baías deslumbrantes da Tailândia.',
-      price: 70,
-      image: images['gift-boat']
-    },
-    {
-      id: 12,
-      icon: <FaWalking />,
-      title: 'Santuário de Elefantes',
-      description: 'Presente uma visita a um santuário ético de elefantes, onde o casal poderá alimentar, banhar e aprender sobre estes incríveis animais.',
-      price: 80,
-      image: images['gift-elephants']
-    }
-  ];
+  const activities = t('gifts.activities', { returnObjects: true }).map((activity, index) => ({
+    ...activity,
+    id: index + 1,
+    icon: getActivityIcon(index + 1),
+    image: images[`gift-${activity.imageKey}`]
+  }));
 
-  // Contribuição Livre
+  // Definição da contribuição livre
   const freeContribution = {
-    id: 13,
+    id: activities.length + 1,
     icon: <FaMoneyBillWave />,
-    title: 'Contribuição Livre',
-    description: 'Contribua com o valor que desejar para ajudar o casal a realizar a lua de mel dos sonhos na Tailândia.',
+    title: t('gifts.freeContribution.title'),
+    description: t('gifts.freeContribution.description'),
     price: 10,
     customAmount: true,
     image: images['gift-custom']
@@ -134,22 +42,41 @@ const Gifts = () => {
 
   // Informações de pagamento
   const paymentMethods = {
-    pix: {
-      title: 'PIX',
-      info: 'Chave PIX: exemplo@email.com',
-      instructions: 'Após realizar o pagamento, envie o comprovante para nosso WhatsApp: +XX XX XXXXX-XXXX'
-    },
     mbway: {
-      title: 'MB WAY',
-      info: 'Número MB WAY: +XX XXX XXX XXX',
-      instructions: 'Após realizar o pagamento, envie o comprovante para nosso WhatsApp: +XX XX XXXXX-XXXX'
+      title: t('gifts.mbway.title'),
+      info: t('gifts.mbway.description') + ' +351934646436',
+      number: '+351934646436'
+    },
+    pix: {
+      title: t('gifts.pix.title'),
+      info: t('gifts.pix.description') + ' carvalho.bfr@gmail.com',
+      key: 'carvalho.bfr@gmail.com'
     },
     bizum: {
-      title: 'Bizum',
-      info: 'Número Bizum: +XX XXX XXX XXX',
-      instructions: 'Após realizar o pagamento, envie o comprovante para nosso WhatsApp: +XX XX XXXXX-XXXX'
+      title: t('gifts.bizum.title'),
+      info: t('gifts.bizum.description') + ' +34617384134',
+      number: '+34617384134'
     }
   };
+
+  // Função helper para obter o ícone correto
+  function getActivityIcon(id) {
+    switch(id) {
+      case 1: return <FaCoffee />;
+      case 2: return <FaIceCream />;
+      case 3: return <FaUtensils />;
+      case 4: return <FaTaxi />;
+      case 5: return <FaWineGlassAlt />;
+      case 6: return <FaShoppingBag />;
+      case 7: return <FaUtensils />;
+      case 8: return <FaUmbrellaBeach />;
+      case 9: return <FaPersonPraying />;
+      case 10: return <FaSpa />;
+      case 11: return <FaWater />;
+      case 12: return <FaWalking />;
+      default: return <FaGift />;
+    }
+  }
 
   // Função para alternar a moeda
   const toggleCurrency = (newCurrency) => {
@@ -273,16 +200,19 @@ const Gifts = () => {
     setLoadingImages(initialLoadingState);
   }, []);
 
-  // Simula envio do comprovante
+  // Função para enviar o recibo (agora apenas confirma o pagamento)
   const handleSendReceipt = () => {
     setIsProcessing(true);
+    // Simular processamento
     setTimeout(() => {
       setIsProcessing(false);
       setShowPaymentModal(false);
       setShowConfirmation(true);
+      // Resetar seleções após confirmação
       setSelectedActivities([]);
       setTotalAmount(0);
-    }, 2000);
+      setPaymentMethod('');
+    }, 1500);
   };
 
   // Fecha a confirmação
@@ -298,32 +228,33 @@ const Gifts = () => {
           <p className="gift-intro">
             {t('gifts.intro')}
           </p>
-          <div className="currency-selector">
-            <ButtonGroup>
-              <ToggleButton
-                id="currency-eur"
-                type="radio"
-                variant={currency === 'EUR' ? 'primary' : 'outline-primary'}
-                name="currency"
-                value="EUR"
-                checked={currency === 'EUR'}
-                onChange={(e) => toggleCurrency(e.currentTarget.value)}
-              >
-                EUR (€)
-              </ToggleButton>
-              <ToggleButton
-                id="currency-brl"
-                type="radio"
-                variant={currency === 'BRL' ? 'primary' : 'outline-primary'}
-                name="currency"
-                value="BRL"
-                checked={currency === 'BRL'}
-                onChange={(e) => toggleCurrency(e.currentTarget.value)}
-              >
-                BRL (R$)
-              </ToggleButton>
-            </ButtonGroup>
-          </div>
+        </div>
+
+        <div className="currency-selector mb-4">
+          <ButtonGroup>
+            <ToggleButton
+              id="currency-eur"
+              type="radio"
+              variant={currency === 'EUR' ? 'primary' : 'outline-primary'}
+              name="currency"
+              value="EUR"
+              checked={currency === 'EUR'}
+              onChange={(e) => toggleCurrency(e.currentTarget.value)}
+            >
+              EUR (€)
+            </ToggleButton>
+            <ToggleButton
+              id="currency-brl"
+              type="radio"
+              variant={currency === 'BRL' ? 'primary' : 'outline-primary'}
+              name="currency"
+              value="BRL"
+              checked={currency === 'BRL'}
+              onChange={(e) => toggleCurrency(e.currentTarget.value)}
+            >
+              BRL (R$)
+            </ToggleButton>
+          </ButtonGroup>
         </div>
 
         <Row className="gift-activities">
@@ -422,12 +353,12 @@ const Gifts = () => {
             <p>{freeContribution.description}</p>
             <div className="free-contribution-input">
               <Form.Group className="mb-3">
-                <Form.Label>{t('gifts.customContributionLabel')}:</Form.Label>
+                <Form.Label>{t('gifts.contributionValue')}</Form.Label>
                 <div className="d-flex">
                   <Form.Control 
                     type="number" 
                     min="0.01"
-                    step="0.10"
+                    step="0.01"
                     value={selectedActivities.some(item => item.id === freeContribution.id) 
                       ? selectedActivities.find(item => item.id === freeContribution.id)?.price 
                       : freeContributionValue}
@@ -487,7 +418,6 @@ const Gifts = () => {
               <div className="payment-info mt-4">
                 <h5>{paymentInfo.title}</h5>
                 <p className="payment-code">{paymentInfo.info}</p>
-                <p className="payment-instructions">{paymentInfo.instructions}</p>
                 <Button 
                   variant="success" 
                   className="mt-3 w-100"

@@ -10,21 +10,31 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const isGiftsPage = location.pathname === '/gifts';
 
   useEffect(() => {
+    // Aplica o efeito scrolled imediatamente quando estiver na página de gifts
+    if (isGiftsPage) {
+      setScrolled(true);
+    }
+
     const handleScroll = () => {
       if (window.scrollY > 50) {
         setScrolled(true);
       } else {
-        setScrolled(false);
+        // Mantém scrolled=true na página de gifts mesmo quando no topo
+        setScrolled(isGiftsPage ? true : false);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
+    // Trigger o handleScroll imediatamente para aplicar o estado correto
+    handleScroll();
+    
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [isGiftsPage]); // Adiciona isGiftsPage como dependência
 
   const scrollToSection = (id) => {
     if (!isHomePage) {
