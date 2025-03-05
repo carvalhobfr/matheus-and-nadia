@@ -167,30 +167,6 @@
     background-color: rgba(61, 35, 20, 0.05);
     border-radius: 5px;
     
-    &.low-cost {
-      position: relative;
-      overflow: hidden;
-      
-      &::before {
-        content: 'Econômico';
-        position: absolute;
-        top: 0;
-        left: 0;
-        background-color: var(--accent-color);
-        color: var(--dark-color);
-        font-size: 0.7rem;
-        padding: 2px 8px;
-        border-radius: 0 0 5px 0;
-        transform: translateY(-100%);
-        opacity: 0;
-        transition: all 0.3s ease;
-      }
-      
-      &:hover::before {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
   }
 }
 
