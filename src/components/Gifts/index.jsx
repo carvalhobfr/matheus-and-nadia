@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, Row, Col, Card, Button, Modal, Form, Spinner, ButtonGroup, ToggleButton } from 'react-bootstrap';
 import { FaGift, FaUtensils, FaWalking, FaSpa, FaUmbrellaBeach, FaWater, FaShoppingBag, FaMoneyBillWave, FaCoffee, FaWineGlassAlt, FaIceCream, FaTaxi } from 'react-icons/fa';
+import { FaPersonPraying } from 'react-icons/fa6';
 import { useImages } from '../../contexts/ImageContext';
 import './Gifts.scss';
 
@@ -88,7 +89,7 @@ const Gifts = () => {
     },
     {
       id: 9,
-      // icon: <FaTemple />,
+      icon: <FaPersonPraying />,
       title: 'Tour pelos Templos',
       description: 'Ofereça um tour guiado pelos templos históricos e culturais da Tailândia.',
       price: 45,
@@ -120,7 +121,7 @@ const Gifts = () => {
     }
   ];
 
-  // Definição da contribuição livre (movida para fora do array de activities)
+  // Contribuição Livre
   const freeContribution = {
     id: 13,
     icon: <FaMoneyBillWave />,
@@ -164,45 +165,35 @@ const Gifts = () => {
   // Função para alternar a seleção de uma atividade
   const toggleActivity = (activity) => {
     setSelectedActivities(prev => {
-      // Verifica se a atividade já está selecionada
       const isSelected = prev.some(item => item.id === activity.id);
-      
       let newActivities;
       if (isSelected) {
-        // Remove a atividade da lista
         newActivities = prev.filter(item => item.id !== activity.id);
       } else {
-        // Adiciona a atividade à lista
         newActivities = [...prev, activity];
       }
-      
-      // Atualiza o valor total
       const newTotal = newActivities.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
       setTotalAmount(newTotal);
-      
       return newActivities;
     });
   };
 
-  // Função para prosseguir para o pagamento
+  // Prosseguir para o pagamento
   const handleProceedToPayment = () => {
     let finalAmount = totalAmount;
-    
-    // Converte para EUR se estiver em BRL no momento de processar o pagamento
     if (currency === 'BRL') {
       finalAmount = parseFloat(convertAmount(totalAmount, 'EUR'));
     }
-    
     setShowPaymentModal(true);
   };
 
-  // Função para selecionar o método de pagamento
+  // Seleciona o método de pagamento
   const handleSelectPaymentMethod = (method) => {
     setPaymentMethod(method);
     setPaymentInfo(paymentMethods[method]);
   };
 
-  // Função para converter valor com base na moeda selecionada
+  // Converter valor conforme a moeda
   const convertAmount = (amount, toCurrency) => {
     if (toCurrency === 'BRL' && currency === 'EUR') {
       return Math.round(amount * exchangeRate);
@@ -212,53 +203,42 @@ const Gifts = () => {
     return amount;
   };
 
-  // Função para exibir o preço com o símbolo da moeda correta
+  // Exibir preço com símbolo correto
   const formatPrice = (price) => {
     if (currency === 'EUR') {
-      // Para valores em EUR, mostra até 2 casas decimais se necessário
       return `€${parseFloat(price).toFixed(2).replace(/\.00$/, '')}`;
     } else {
-      // Para valores em BRL, converte e mostra até 2 casas decimais se necessário
       const brlValue = convertAmount(price, 'BRL');
       return `R$${parseFloat(brlValue).toFixed(2).replace(/\.00$/, '')}`;
     }
   };
 
-  // Função para lidar com contribuição personalizada
+  // Lida com contribuição personalizada
   const handleCustomAmountChange = (e, activityId) => {
-    // Permite valores decimais
     const inputValue = e.target.value;
     const value = inputValue === '' ? '' : parseFloat(inputValue);
-    
-    // Se for a contribuição livre e não estiver na lista de selecionados, apenas atualiza o estado temporário
     if (activityId === freeContribution.id && !selectedActivities.some(item => item.id === activityId)) {
       setFreeContributionValue(inputValue);
       return;
     }
-    
     setSelectedActivities(prevActivities => {
       const updatedActivities = [...prevActivities];
       const index = updatedActivities.findIndex(act => act.id === activityId);
-      
       if (index !== -1) {
         updatedActivities[index] = { ...updatedActivities[index], price: value };
       }
-      
       return updatedActivities;
     });
   };
 
-  // Função para adicionar contribuição personalizada
+  // Adiciona contribuição personalizada
   const handleAddCustomActivity = (e, activity, inputValue) => {
     e.stopPropagation();
     const value = inputValue === '' ? 0 : parseFloat(inputValue);
-    
     if (value > 0) {
       const isSelected = selectedActivities.some(item => item.id === activity.id);
-      
       if (!isSelected) {
         setSelectedActivities([...selectedActivities, { ...activity, price: value }]);
-        // Limpa o valor temporário após adicionar
         if (activity.id === freeContribution.id) {
           setFreeContributionValue('');
         }
@@ -268,7 +248,7 @@ const Gifts = () => {
     }
   };
 
-  // Função para lidar com o carregamento de imagens
+  // Lida com carregamento de imagens
   const handleImageLoad = (activityId) => {
     setLoadingImages(prev => ({
       ...prev,
@@ -276,7 +256,7 @@ const Gifts = () => {
     }));
   };
 
-  // Função para lidar com erro no carregamento de imagens
+  // Lida com erro no carregamento de imagens
   const handleImageError = (activityId) => {
     setLoadingImages(prev => ({
       ...prev,
@@ -284,21 +264,18 @@ const Gifts = () => {
     }));
   };
 
-  // Inicializa o estado de carregamento para todas as imagens
+  // Inicializa estado de carregamento para as imagens
   useEffect(() => {
     const initialLoadingState = activities.reduce((acc, activity) => {
       acc[activity.id] = true;
       return acc;
     }, {});
-    
     setLoadingImages(initialLoadingState);
   }, []);
 
-  // Função para simular o envio do comprovante
+  // Simula envio do comprovante
   const handleSendReceipt = () => {
     setIsProcessing(true);
-    
-    // Simula o processamento do pagamento
     setTimeout(() => {
       setIsProcessing(false);
       setShowPaymentModal(false);
@@ -308,7 +285,7 @@ const Gifts = () => {
     }, 2000);
   };
 
-  // Função para fechar a confirmação
+  // Fecha a confirmação
   const handleCloseConfirmation = () => {
     setShowConfirmation(false);
   };
@@ -319,10 +296,8 @@ const Gifts = () => {
         <div className="section-title">
           <h2>{t('gifts.title')}</h2>
           <p className="gift-intro">
-            Em vez de presentes tradicionais, gostaríamos de convidar você a contribuir para nossa lua de mel na Tailândia.
-            Das experiências mais simples, como um café local ou um Pad Thai de rua, às mais elaboradas como um passeio de barco ou visita ao santuário de elefantes - selecione uma ou mais opções abaixo para nos presentear com memórias inesquecíveis!
+            {t('gifts.intro')}
           </p>
-          
           <div className="currency-selector">
             <ButtonGroup>
               <ToggleButton
@@ -355,7 +330,6 @@ const Gifts = () => {
           {activities.map((activity) => {
             const isSelected = selectedActivities.some(item => item.id === activity.id);
             const selectedActivity = selectedActivities.find(item => item.id === activity.id);
-            
             return (
               <Col key={activity.id} lg={3} md={4} sm={6} className="mb-4">
                 <Card 
@@ -363,7 +337,7 @@ const Gifts = () => {
                   onClick={() => !activity.customAmount && toggleActivity(activity)}
                 >
                   <div className="activity-image" style={{ backgroundImage: loadingImages[activity.id] ? 'none' : `url(${activity.image})` }}>
-                    {isSelected && <div className="selected-badge">Selecionado</div>}
+                    {isSelected && <div className="selected-badge">{t('gifts.selectedBadge')}</div>}
                     {loadingImages[activity.id] && (
                       <div className="image-loading">
                         <Spinner animation="border" variant="light" />
@@ -384,7 +358,7 @@ const Gifts = () => {
                     
                     {activity.customAmount ? (
                       <Form.Group className="mb-3">
-                        <Form.Label>Valor da contribuição ({currency === 'EUR' ? '€' : 'R$'}):</Form.Label>
+                        <Form.Label>{t('gifts.customContributionLabel', { currency: currency === 'EUR' ? '€' : 'R$' })}:</Form.Label>
                         <Form.Control 
                           type="number" 
                           min="0.01"
@@ -401,7 +375,7 @@ const Gifts = () => {
                             handleAddCustomActivity(e, activity, inputValue);
                           }}
                         >
-                          {isSelected ? 'Remover' : 'Adicionar'}
+                          {isSelected ? t('gifts.remove') : t('gifts.add')}
                         </Button>
                       </Form.Group>
                     ) : (
@@ -418,11 +392,11 @@ const Gifts = () => {
 
         <div className="gift-summary">
           <div className="selected-activities">
-            <h3>Atividades Selecionadas</h3>
+            <h3>{t('gifts.selectedActivitiesTitle')}</h3>
             {selectedActivities.length === 0 ? (
               <div className="empty-selection">
-                <p>Você ainda não selecionou nenhuma atividade.</p>
-                <p className="help-text">Clique nos cards acima para selecionar as experiências que deseja nos presentear.</p>
+                <p>{t('gifts.emptySelection')}</p>
+                <p className="help-text">{t('gifts.emptySelectionHelp')}</p>
               </div>
             ) : (
               <ul>
@@ -434,7 +408,7 @@ const Gifts = () => {
                       className="remove-btn"
                       onClick={() => toggleActivity(activity)}
                     >
-                      Remover
+                      {t('gifts.remove')}
                     </Button>
                   </li>
                 ))}
@@ -448,12 +422,12 @@ const Gifts = () => {
             <p>{freeContribution.description}</p>
             <div className="free-contribution-input">
               <Form.Group className="mb-3">
-                <Form.Label>Valor da contribuição ({currency === 'EUR' ? '€' : 'R$'}):</Form.Label>
+                <Form.Label>{t('gifts.customContributionLabel')}:</Form.Label>
                 <div className="d-flex">
                   <Form.Control 
                     type="number" 
                     min="0.01"
-                    step="0.01"
+                    step="0.10"
                     value={selectedActivities.some(item => item.id === freeContribution.id) 
                       ? selectedActivities.find(item => item.id === freeContribution.id)?.price 
                       : freeContributionValue}
@@ -470,7 +444,7 @@ const Gifts = () => {
                       handleAddCustomActivity(e, freeContribution, inputValue);
                     }}
                   >
-                    {selectedActivities.some(item => item.id === freeContribution.id) ? 'Remover' : 'Adicionar'}
+                    {selectedActivities.some(item => item.id === freeContribution.id) ? t('gifts.remove') : t('gifts.add')}
                   </Button>
                 </div>
               </Form.Group>
@@ -478,14 +452,14 @@ const Gifts = () => {
           </div>
           
           <div className="total-amount">
-            <h3>Valor Total: {formatPrice(totalAmount)}</h3>
+            <h3>{t('gifts.totalAmount')} {formatPrice(totalAmount)}</h3>
             <Button 
               variant="primary" 
               className="proceed-btn"
               disabled={totalAmount === 0}
               onClick={handleProceedToPayment}
             >
-              Prosseguir para Pagamento
+              {t('gifts.proceedToPayment')}
             </Button>
           </div>
         </div>
@@ -493,11 +467,10 @@ const Gifts = () => {
         {/* Modal de Pagamento */}
         <Modal show={showPaymentModal} onHide={() => setShowPaymentModal(false)} centered>
           <Modal.Header closeButton>
-            <Modal.Title>Escolha o Método de Pagamento</Modal.Title>
+            <Modal.Title>{t('gifts.paymentModal.title')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p>Valor total: <strong>{formatPrice(totalAmount)}</strong></p>
-            
+            <p>{t('gifts.paymentModal.totalLabel')} <strong>{formatPrice(totalAmount)}</strong></p>
             <div className="payment-methods">
               {Object.keys(paymentMethods).map(method => (
                 <Button
@@ -510,7 +483,6 @@ const Gifts = () => {
                 </Button>
               ))}
             </div>
-            
             {paymentMethod && (
               <div className="payment-info mt-4">
                 <h5>{paymentInfo.title}</h5>
@@ -525,10 +497,10 @@ const Gifts = () => {
                   {isProcessing ? (
                     <>
                       <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" className="me-2" />
-                      Processando...
+                      {t('gifts.paymentModal.processing')}
                     </>
                   ) : (
-                    'Confirmar Pagamento'
+                    t('gifts.paymentModal.confirmPayment')
                   )}
                 </Button>
               </div>
@@ -536,7 +508,7 @@ const Gifts = () => {
           </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={() => setShowPaymentModal(false)}>
-              Fechar
+              {t('gifts.paymentModal.close')}
             </Button>
           </Modal.Footer>
         </Modal>
@@ -544,23 +516,22 @@ const Gifts = () => {
         {/* Modal de Confirmação */}
         <Modal show={showConfirmation} onHide={handleCloseConfirmation} centered>
           <Modal.Header closeButton>
-            <Modal.Title>Pagamento Confirmado</Modal.Title>
+            <Modal.Title>{t('gifts.confirmationModal.title')}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <div className="text-center">
               <div className="confirmation-icon mb-3">
                 <FaGift size={50} color="var(--accent-color)" />
               </div>
-              <h4>Obrigado pelo seu presente!</h4>
+              <h4>{t('gifts.confirmationModal.thankYou')}</h4>
               <p>
-                Recebemos sua contribuição para nossa lua de mel na Tailândia. 
-                Agradecemos imensamente por fazer parte deste momento especial em nossas vidas.
+                {t('gifts.confirmationModal.message')}
               </p>
             </div>
           </Modal.Body>
           <Modal.Footer>
             <Button variant="primary" onClick={handleCloseConfirmation}>
-              Fechar
+              {t('gifts.confirmationModal.close')}
             </Button>
           </Modal.Footer>
         </Modal>
@@ -569,4 +540,4 @@ const Gifts = () => {
   );
 };
 
-export default Gifts; 
+export default Gifts;

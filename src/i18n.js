@@ -71,46 +71,42 @@ export const enTranslations = {
       title: 'Reception',
       date: 'March 6, 2025',
       time: '7:00 PM',
-      location: 'Thailand',
+      location: 'Thailand'
     },
     accommodation: {
       title: 'Accommodation',
       description: 'We will provide accommodation details closer to the wedding date.'
-    },
+    }
   },
   gifts: {
     title: 'Wedding Gifts',
-    intro: 'As we celebrate our special day in an intimate elopement, your warm wishes mean the world to us. If you would like to send a gift, here are some options:',
-    honeymoon: {
-      title: 'Contribute to Our Honeymoon',
-      description: 'Help us create unforgettable memories on our honeymoon trip to Thailand.'
+    intro: 'Instead of traditional gifts, we invite you to contribute to our honeymoon in Thailand. From simple experiences like a local coffee or street Pad Thai to more elaborate ones like a boat ride or an elephant sanctuary visit!',
+    selectedActivitiesTitle: 'Selected Activities',
+    emptySelection: 'You have not selected any activity yet.',
+    emptySelectionHelp: 'Click on the cards above to choose the experiences you wish to gift us.',
+    totalAmount: 'Total Amount:',
+    proceedToPayment: 'Proceed to Payment',
+    selectedBadge: 'Selected',
+    customContributionLabel: 'Contribution Value',
+    add: 'Add',
+    remove: 'Remove',
+    paymentModal: {
+      title: 'Choose Payment Method',
+      totalLabel: 'Total Amount:',
+      confirmPayment: 'Confirm Payment',
+      processing: 'Processing...',
+      close: 'Close'
     },
-    mbway: {
-      title: 'MBWay',
-      description: 'Send your gift via MBWay to:',
-      number: '+351934646436'
-    },
-    pix: {
-      title: 'Pix',
-      description: 'Send your gift via Pix to:',
-      key: 'carvalho.bfr@gmail.com'
-    },
-    bizum: {
-      title: 'Bizum',
-      description: 'Send your gift via Bizum to:',
-      number: '+34617384134'
-    },
-    confirmation: {
-      title: 'Gift Sent!',
-      message: 'Thank you for your generosity!',
-      question: 'Would you like to send a message to the couple?',
-      yes: 'Yes, send message',
-      no: 'No, thank you'
+    confirmationModal: {
+      title: 'Payment Confirmed',
+      thankYou: 'Thank you for your gift!',
+      message: 'We have received your contribution for our honeymoon in Thailand. We deeply appreciate you being part of this special moment in our lives.',
+      close: 'Close'
     }
   },
   message: {
     title: 'Message to the Couple',
-    intro: 'We would love to hear from you! Send us your wishes, thoughts, or just say hello.',
+    intro: 'We would love to hear from you! Send us your wishes, thoughts, or simply say hello.',
     donation_note: 'Message sent after donation via {{paymentMethod}}',
     form: {
       name: 'Your Name',
@@ -131,7 +127,7 @@ export const enTranslations = {
     confirmation: 'We have received your message and will cherish your kind words.'
   },
   footer: {
-    credit: 'Feito com amor, pelos noivos, para o nosso dia especial',
+    credit: 'Made with love by the couple for our special day',
     copyright: '© 2025 Matheus & Nadia'
   },
   gallery: {
@@ -220,36 +216,32 @@ export const ptTranslations = {
     accommodation: {
       title: 'Hospedagem',
       description: 'Forneceremos os detalhes da hospedagem mais próximo à data do casamento.'
-    },
+    }
   },
   gifts: {
     title: 'Presentes de Casamento',
-    intro: 'Enquanto celebramos nosso dia especial em um casamento íntimo, seus votos de felicidade significam muito para nós. Se você desejar enviar um presente, aqui estão algumas opções:',
-    honeymoon: {
-      title: 'Contribua para Nossa Lua de Mel',
-      description: 'Ajude-nos a criar memórias inesquecíveis em nossa lua de mel na Tailândia.'
+    intro: 'Em vez de presentes tradicionais, convidamos você a contribuir para nossa lua de mel na Tailândia. Das experiências simples, como um café local ou um Pad Thai de rua, às mais elaboradas, como um passeio de barco ou uma visita ao santuário de elefantes!',
+    selectedActivitiesTitle: 'Atividades Selecionadas',
+    emptySelection: 'Você ainda não selecionou nenhuma atividade.',
+    emptySelectionHelp: 'Clique nos cards acima para selecionar as experiências que deseja nos presentear.',
+    totalAmount: 'Valor Total:',
+    proceedToPayment: 'Prosseguir para Pagamento',
+    selectedBadge: 'Selecionado',
+    customContributionLabel: 'Valor da Contribuição',
+    add: 'Adicionar',
+    remove: 'Remover',
+    paymentModal: {
+      title: 'Escolha o Método de Pagamento',
+      totalLabel: 'Valor total:',
+      confirmPayment: 'Confirmar Pagamento',
+      processing: 'Processando...',
+      close: 'Fechar'
     },
-    mbway: {
-      title: 'MBWay',
-      description: 'Envie seu presente via MBWay para:',
-      number: '+351934646436'
-    },
-    pix: {
-      title: 'Pix',
-      description: 'Envie seu presente via Pix para:',
-      key: 'carvalho.bfr@gmail.com'
-    },
-    bizum: {
-      title: 'Bizum',
-      description: 'Envie seu presente via Bizum para:',
-      number: '+34617384134'
-    },
-    confirmation: {
-      title: 'Presente Enviado!',
-      message: 'Obrigado pela sua generosidade!',
-      question: 'Gostaria de enviar uma mensagem para os noivos?',
-      yes: 'Sim, enviar mensagem',
-      no: 'Não, obrigado'
+    confirmationModal: {
+      title: 'Pagamento Confirmado',
+      thankYou: 'Obrigado pelo seu presente!',
+      message: 'Recebemos sua contribuição para nossa lua de mel na Tailândia. Agradecemos imensamente por fazer parte deste momento especial em nossas vidas.',
+      close: 'Fechar'
     }
   },
   message: {
@@ -364,55 +356,51 @@ export const esTranslations = {
     accommodation: {
       title: 'Alojamiento',
       description: 'Proporcionaremos los detalles del alojamiento más cerca de la fecha de la boda.'
-    },
+    }
   },
   gifts: {
     title: 'Regalos de Boda',
-    intro: 'Mientras celebramos nuestro día especial en una boda íntima, tus buenos deseos significan mucho para nosotros. Si deseas enviar un regalo, aquí hay algunas opciones:',
-    honeymoon: {
-      title: 'Contribuir a Nuestra Luna de Miel',
-      description: 'Ayúdanos a crear recuerdos inolvidables en nuestra luna de miel en Tailandia.'
+    intro: 'En lugar de regalos tradicionales, te invitamos a contribuir a nuestra luna de miel en Tailandia. Desde experiencias sencillas como un café local o un Pad Thai callejero, hasta opciones más elaboradas como un paseo en barco o una visita a un santuario de elefantes.',
+    selectedActivitiesTitle: 'Actividades Seleccionadas',
+    emptySelection: 'Aún no has seleccionado ninguna actividad.',
+    emptySelectionHelp: 'Haz clic en las tarjetas arriba para seleccionar las experiencias que deseas regalarnos.',
+    totalAmount: 'Monto Total:',
+    proceedToPayment: 'Proceder al Pago',
+    selectedBadge: 'Seleccionado',
+    customContributionLabel: 'Valor de Contribución',
+    add: 'Añadir',
+    remove: 'Eliminar',
+    paymentModal: {
+      title: 'Elige el Método de Pago',
+      totalLabel: 'Monto total:',
+      confirmPayment: 'Confirmar Pago',
+      processing: 'Procesando...',
+      close: 'Cerrar'
     },
-    mbway: {
-      title: 'MBWay',
-      description: 'Envía tu regalo a través de MBWay a:',
-      number: '+351934646436'
-    },
-    pix: {
-      title: 'Pix',
-      description: 'Envía tu regalo a través de Pix a:',
-      key: 'carvalho.bfr@gmail.com'
-    },
-    bizum: {
-      title: 'Bizum',
-      description: 'Envía tu regalo a través de Bizum a:',
-      number: '+34617384134'
-    },
-    confirmation: {
-      title: '¡Regalo Enviado!',
-      message: '¡Gracias por tu generosidad!',
-      question: '¿Te gustaría enviar un mensaje a los novios?',
-      yes: 'Sí, enviar mensaje',
-      no: 'No, gracias'
+    confirmationModal: {
+      title: 'Pago Confirmado',
+      thankYou: '¡Gracias por tu regalo!',
+      message: 'Hemos recibido tu contribución para nuestra luna de miel en Tailandia. Agradecemos profundamente que formes parte de este momento tan especial en nuestras vidas.',
+      close: 'Cerrar'
     }
   },
   message: {
     title: 'Mensaje para los Novios',
-    intro: '¡Nos encantaría saber de ti! Envíanos tus deseos, pensamentos o simplemente salúdanos.',
+    intro: '¡Nos encantaría saber de ti! Envíanos tus deseos, pensamientos o simplemente salúdanos.',
     donation_note: 'Mensaje enviado después de una donación vía {{paymentMethod}}',
     form: {
-      name: 'Su Nombre',
-      email: 'Su Email',
-      message: 'Su Mensaje',
-      name_placeholder: 'Su nombre',
-      email_placeholder: 'su.email@ejemplo.com',
-      message_placeholder: 'Escriba su mensaje aquí...',
+      name: 'Tu Nombre',
+      email: 'Tu Email',
+      message: 'Tu Mensaje',
+      name_placeholder: 'Tu nombre',
+      email_placeholder: 'tu.email@ejemplo.com',
+      message_placeholder: 'Escribe tu mensaje aquí...',
       submit: 'Enviar Mensaje',
       sending: 'Enviando...',
       error: {
-        required: 'Por favor, complete todos los campos requeridos',
-        email: 'Por favor, ingrese una dirección de correo electrónico válida',
-        generic: 'Se produjo un error al enviar el mensaje. Por favor, inténtelo de nuevo.'
+        required: 'Por favor, completa todos los campos requeridos',
+        email: 'Por favor, ingresa un email válido',
+        generic: 'Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo.'
       }
     },
     thanks: '¡Gracias por tu mensaje!',
@@ -427,7 +415,7 @@ export const esTranslations = {
     imageViewer: 'Visualizador de Imágenes',
     empty: {
       title: '¡Capturando Momentos Especiales en Tailandia!',
-      message: 'Pronto, compartiremos aquí las fotos de nuestra boda íntima en los hermosos paisajes tailandeses. ¡Estén atentos!'
+      message: 'Pronto compartiremos las fotos de nuestra boda íntima en los hermosos paisajes de Tailandia. ¡Estén atentos!'
     }
   }
 };
@@ -435,21 +423,15 @@ export const esTranslations = {
 // Initialize i18n
 i18n.use(initReactI18next).init({
   resources: {
-    en: {
-      translation: enTranslations
-    },
-    pt: {
-      translation: ptTranslations
-    },
-    es: {
-      translation: esTranslations
-    }
+    en: { translation: enTranslations },
+    pt: { translation: ptTranslations },
+    es: { translation: esTranslations }
   },
-  lng: 'pt', // default language
+  lng: 'pt', // língua padrão
   fallbackLng: 'en',
   interpolation: {
     escapeValue: false
   }
 });
 
-export default i18n; 
+export default i18n;
