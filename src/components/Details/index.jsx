@@ -20,8 +20,18 @@ const Details = () => {
                 <i className="fas fa-ring fa-3x mb-3" style={{ color: 'var(--primary-color)' }}></i>
                 <h3>{t('details.ceremony.title')}</h3>
                 <p className="mb-1">{t('details.ceremony.date')}</p>
-                <p className="mb-1">{t('details.ceremony.time')}</p>
                 <p className="mb-1">{t('details.ceremony.location')}</p>
+                <div className="timezone-info mt-3">
+                  <h5>{t('details.ceremony.timezone.title')}</h5>
+                  <ul className="list-unstyled">
+                    <li><i className="fas fa-globe-americas me-2"></i>{t('details.ceremony.timezone.brazil')}</li>
+                    <li><i className="fas fa-globe-europe me-2"></i>{t('details.ceremony.timezone.portugal')}</li>
+                    <li><i className="fas fa-globe-europe me-2"></i>{t('details.ceremony.timezone.spain')}</li>
+                  </ul>
+                </div>
+               
+                
+
               </div>
             </div>
           </div>

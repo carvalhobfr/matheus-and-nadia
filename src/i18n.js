@@ -30,27 +30,27 @@ export const enTranslations = {
     thailandTime: 'Current Time in Thailand'
   },
   story: {
-    title: "Nossa História",
-    subtitle: "Uma jornada de amor e aventuras",
+    title: "Our Story",
+    subtitle: "A journey of love and adventures",
     firstMeet: {
-      title: "Nos conhecemos",
-      description: "No colégio em fevereiro de 2010, estudando no IFRJ para ser técnico em Meio-ambiente. Não seguimos essa carreira, mas pelo menos serviu para nos conhecermos."
+      title: "We met",
+      description: "In school in February 2010, studying at IFRJ to become an environmental technician. We didn't follow that career, but at least it served for us to meet."
     },
     firstDate: {
-      title: "Primeiro Encontro Oficial",
-      description: "Nosso primeiro encontro oficial, sem ser apenas como amigos, foi em março de 2015 num dos lugares que mais gostamos de ir, no cinema."
+      title: "First Official Date",
+      description: "Our first official date, not just as friends, was in March 2015 in one of the places we love to go, the cinema."
     },
     livingTogether: {
-      title: "Morando Juntos",
-      description: "Começamos a morar juntos em 2017 quando a Nadia se mudou para Portugal para seguir o amor de sua vida, Matheus. (Nem dá para saber quem está escrevendo, né?)"
+      title: "Living Together",
+      description: "We started living together in 2017 when Nadia moved to Portugal to follow the love of her life, Matheus. (You can't even tell who's writing this, right?)"
     },
     proposal: {
-      title: "O Pedido",
-      description: "Bem, a vida é complicada. O primeiro pedido foi em 2018 no Algarve em uma cachoeira, mas éramos jovens e sem muito dinheiro. O segundo foi o da sorte em 2021, para o casamento em 2025."
+      title: "The Proposal",
+      description: "Well, life is complicated. The first proposal was in 2018 in the Algarve at a waterfall, but we were young and without much money. The second was the lucky one in 2021, for the wedding in 2025."
     },
     civilWedding: {
-      title: "Casamento Civil",
-      description: "Aconteceu em 2024 uma cerimônia íntima com alguns amigos em Aveiro. Foi simples, mas muito linda!"
+      title: "Civil Wedding",
+      description: "In 2024, an intimate ceremony with a few friends took place in Aveiro. It was simple, but very beautiful!"
     }
   },
   details: {
@@ -58,8 +58,14 @@ export const enTranslations = {
     ceremony: {
       title: 'Ceremony',
       date: 'March 6, 2025',
-      time: '5:00 PM',
+      time: '4:00 PM',
       location: 'Thailand',
+      timezone: {
+        title: 'Ceremony Times by Location',
+        brazil: '6:00 AM (Brazil)',
+        portugal: '10:00 AM (Portugal)',
+        spain: '11:00 AM (Spain)'
+      }
     },
     reception: {
       title: 'Reception',
@@ -94,7 +100,6 @@ export const enTranslations = {
       description: 'Send your gift via Bizum to:',
       number: '+34617384134'
     },
-    accounts_note: 'All accounts are in the name of one of the bride or groom.',
     confirmation: {
       title: 'Gift Sent!',
       message: 'Thank you for your generosity!',
@@ -104,11 +109,9 @@ export const enTranslations = {
     }
   },
   message: {
-    title: 'Message for the Couple',
-    intro: "We'd love to hear from you! Send your wishes, thoughts, or just say hello.",
+    title: 'Message to the Couple',
+    intro: 'We would love to hear from you! Send us your wishes, thoughts, or just say hello.',
     donation_note: 'Message sent after donation via {{paymentMethod}}',
-    thanks: 'Thank you for your message!',
-    confirmation: 'Your message has been successfully received. We appreciate your kindness!',
     form: {
       name: 'Your Name',
       email: 'Your Email',
@@ -121,19 +124,23 @@ export const enTranslations = {
       error: {
         required: 'Please fill in all required fields',
         email: 'Please enter a valid email address',
-        generic: 'An error occurred while sending the message. Please try again.',
-        alternative: 'You can try sending directly to our email:',
-        send_email: 'Send email directly'
+        generic: 'An error occurred while sending the message. Please try again.'
       }
-    }
+    },
+    thanks: 'Thank you for your message!',
+    confirmation: 'We have received your message and will cherish your kind words.'
   },
   footer: {
-    credit: 'Made with love for our special day',
+    credit: 'Feito com amor, pelos noivos, para o nosso dia especial',
     copyright: '© 2025 Matheus & Nadia'
   },
   gallery: {
     title: 'Gallery',
-    imageViewer: 'Image Viewer'
+    imageViewer: 'Image Viewer',
+    empty: {
+      title: 'Capturing Special Moments in Thailand!',
+      message: 'Soon, we will share photos of our intimate wedding in the beautiful Thai landscapes. Stay tuned!'
+    }
   }
 };
 
@@ -193,9 +200,15 @@ export const ptTranslations = {
     title: 'Detalhes do Casamento',
     ceremony: {
       title: 'Cerimônia',
-      date: '06.03.2025',
-      time: '17:00',
+      date: '6 de Março de 2025',
+      time: '16:00',
       location: 'Tailândia',
+      timezone: {
+        title: 'Horários da Cerimônia por Local',
+        brazil: '6:00 (Brasil)',
+        portugal: '10:00 (Portugal)',
+        spain: '11:00 (Espanha)'
+      }
     },
     reception: {
       title: 'Recepção',
@@ -231,7 +244,6 @@ export const ptTranslations = {
       description: 'Envie seu presente via Bizum para:',
       number: '+34617384134'
     },
-    accounts_note: 'Todas as contas estão em nome de um dos noivos.',
     confirmation: {
       title: 'Presente Enviado!',
       message: 'Obrigado pela sua generosidade!',
@@ -244,8 +256,6 @@ export const ptTranslations = {
     title: 'Mensagem para os Noivos',
     intro: 'Adoraríamos receber sua mensagem! Envie seus votos, pensamentos ou apenas diga olá.',
     donation_note: 'Mensagem enviada após doação via {{paymentMethod}}',
-    thanks: 'Obrigado pela sua mensagem!',
-    confirmation: 'Sua mensagem foi recebida com sucesso. Agradecemos o seu carinho!',
     form: {
       name: 'Seu Nome',
       email: 'Seu Email',
@@ -258,19 +268,23 @@ export const ptTranslations = {
       error: {
         required: 'Por favor, preencha todos os campos obrigatórios',
         email: 'Por favor, insira um endereço de email válido',
-        generic: 'Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.',
-        alternative: 'Você pode tentar enviar diretamente para o nosso email:',
-        send_email: 'Enviar email diretamente'
+        generic: 'Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.'
       }
-    }
+    },
+    thanks: 'Obrigado pela sua mensagem!',
+    confirmation: 'Recebemos sua mensagem e guardaremos suas palavras com carinho.'
   },
   footer: {
-    credit: 'Feito com amor para o nosso dia especial',
+    credit: 'Feito com amor, pelos noivos, para o nosso dia especial',
     copyright: '© 2025 Matheus & Nadia'
   },
   gallery: {
     title: 'Galeria',
-    imageViewer: 'Visualizador de Imagens'
+    imageViewer: 'Visualizador de Imagens',
+    empty: {
+      title: 'Capturando Momentos Especiais na Tailândia!',
+      message: 'Em breve, compartilharemos aqui as fotos do nosso casamento íntimo nas belas paisagens tailandesas. Fique atento!'
+    }
   }
 };
 
@@ -303,37 +317,42 @@ export const esTranslations = {
     thailandTime: 'Hora Actual en Tailandia'
   },
   story: {
-    title: "Nossa História",
-    subtitle: "Uma jornada de amor e aventuras",
+    title: "Nuestra Historia",
+    subtitle: "Un viaje de amor y aventuras",
     firstMeet: {
-      title: "Nos conhecemos",
-      description: "No colégio em fevereiro de 2010, estudando no IFRJ para ser técnico em Meio-ambiente. Não seguimos essa carreira, mas pelo menos serviu para nos conhecermos."
+      title: "Nos conocimos",
+      description: "En la escuela en febrero de 2010, estudiando en el IFRJ para ser técnicos ambientales. No seguimos esa carrera, pero al menos sirvió para que nos conociéramos."
     },
     firstDate: {
-      title: "Primeiro Encontro Oficial",
-      description: "Nosso primeiro encontro oficial, sem ser apenas como amigos, foi em março de 2015 num dos lugares que mais gostamos de ir, no cinema."
+      title: "Primera Cita Oficial",
+      description: "Nuestra primera cita oficial, no solo como amigos, fue en marzo de 2015 en uno de los lugares que más nos gusta ir, el cine."
     },
     livingTogether: {
-      title: "Morando Juntos",
-      description: "Começamos a morar juntos em 2017 quando a Nadia se mudou para Portugal para seguir o amor de sua vida, Matheus. (Nem dá para saber quem está escrevendo, né?)"
+      title: "Viviendo Juntos",
+      description: "Comenzamos a vivir juntos en 2017 cuando Nadia se mudó a Portugal para seguir al amor de su vida, Matheus. (¿No se puede saber quién está escribiendo esto, verdad?)"
     },
     proposal: {
-      title: "O Pedido",
-      description: "Bem, a vida é complicada. O primeiro pedido foi em 2018 no Algarve em uma cachoeira, mas éramos jovens e sem muito dinheiro. O segundo foi o da sorte em 2021, para o casamento em 2025."
+      title: "La Propuesta",
+      description: "Bueno, la vida es complicada. La primera propuesta fue en 2018 en el Algarve en una cascada, pero éramos jóvenes y sin mucho dinero. La segunda fue la afortunada en 2021, para la boda en 2025."
     },
     civilWedding: {
-      title: "Casamento Civil",
-      description: "Aconteceu em 2024 una cerimônia íntima com algunos amigos en Aveiro. Foi simples, pero muito linda!"
+      title: "Boda Civil",
+      description: "En 2024, se realizó una ceremonia íntima con algunos amigos en Aveiro. Fue simple, ¡pero muy hermosa!"
     }
   },
   details: {
     title: 'Detalles de la Boda',
     ceremony: {
       title: 'Ceremonia',
-      date: '06 de Marzo de 2025',
-      time: '17:00',
+      date: '6 de Marzo de 2025',
+      time: '16:00',
       location: 'Tailandia',
-      address: 'Tailandia'
+      timezone: {
+        title: 'Horarios de la Ceremonia por Localidad',
+        brazil: '6:00 (Brasil)',
+        portugal: '10:00 (Portugal)',
+        spain: '11:00 (España)'
+      }
     },
     reception: {
       title: 'Recepción',
@@ -349,9 +368,9 @@ export const esTranslations = {
   },
   gifts: {
     title: 'Regalos de Boda',
-    intro: 'Mientras celebramos nuestro día especial en una boda íntima, tus buenos deseos significan mucho para nosotros. Si deseas enviarnos un regalo, aquí hay algunas opciones:',
+    intro: 'Mientras celebramos nuestro día especial en una boda íntima, tus buenos deseos significan mucho para nosotros. Si deseas enviar un regalo, aquí hay algunas opciones:',
     honeymoon: {
-      title: 'Contribuye a Nuestra Luna de Miel',
+      title: 'Contribuir a Nuestra Luna de Miel',
       description: 'Ayúdanos a crear recuerdos inolvidables en nuestra luna de miel en Tailandia.'
     },
     mbway: {
@@ -369,7 +388,6 @@ export const esTranslations = {
       description: 'Envía tu regalo a través de Bizum a:',
       number: '+34617384134'
     },
-    accounts_note: 'Todas las cuentas están a nombre de uno de los novios.',
     confirmation: {
       title: '¡Regalo Enviado!',
       message: '¡Gracias por tu generosidad!',
@@ -382,33 +400,35 @@ export const esTranslations = {
     title: 'Mensaje para los Novios',
     intro: '¡Nos encantaría saber de ti! Envíanos tus deseos, pensamentos o simplemente salúdanos.',
     donation_note: 'Mensaje enviado después de una donación vía {{paymentMethod}}',
-    thanks: '¡Gracias por tu mensaje!',
-    confirmation: 'Hemos recibido tu mensaje con éxito. ¡Agradecemos tu cariño!',
     form: {
-      name: 'Tu Nombre',
-      email: 'Tu Email',
-      message: 'Tu Mensaje',
-      name_placeholder: 'Tu nombre',
-      email_placeholder: 'tu.email@ejemplo.com',
-      message_placeholder: 'Escribe tu mensaje aquí...',
+      name: 'Su Nombre',
+      email: 'Su Email',
+      message: 'Su Mensaje',
+      name_placeholder: 'Su nombre',
+      email_placeholder: 'su.email@ejemplo.com',
+      message_placeholder: 'Escriba su mensaje aquí...',
       submit: 'Enviar Mensaje',
       sending: 'Enviando...',
       error: {
-        required: 'Por favor, completa todos los campos requeridos',
-        email: 'Por favor, introduce una dirección de email válida',
-        generic: 'Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo.',
-        alternative: 'Puedes intentar enviar directamente a nuestro correo electrónico:',
-        send_email: 'Enviar correo directamente'
+        required: 'Por favor, complete todos los campos requeridos',
+        email: 'Por favor, ingrese una dirección de correo electrónico válida',
+        generic: 'Se produjo un error al enviar el mensaje. Por favor, inténtelo de nuevo.'
       }
-    }
+    },
+    thanks: '¡Gracias por tu mensaje!',
+    confirmation: 'Hemos recibido tu mensaje y atesoraremos tus amables palabras.'
   },
   footer: {
-    credit: 'Hecho con amor para nuestro día especial',
+    credit: 'Hecho con amor, por los novios, para nuestro día especial',
     copyright: '© 2025 Matheus & Nadia'
   },
   gallery: {
     title: 'Galería',
-    imageViewer: 'Visualizador de Imágenes'
+    imageViewer: 'Visualizador de Imágenes',
+    empty: {
+      title: '¡Capturando Momentos Especiales en Tailandia!',
+      message: 'Pronto, compartiremos aquí las fotos de nuestra boda íntima en los hermosos paisajes tailandeses. ¡Estén atentos!'
+    }
   }
 };
 

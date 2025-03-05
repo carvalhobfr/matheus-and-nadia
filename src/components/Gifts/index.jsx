@@ -41,7 +41,7 @@ const Gifts = () => {
     {
       id: 3,
       icon: <FaUtensils />,
-      title: 'Pad Thai de Rua',
+      title: 'Pad Thai',
       description: 'Ofereça ao casal a experiência de provar um autêntico Pad Thai em uma barraquinha de rua tailandesa.',
       price: 3,
       image: images['gift-padthai']

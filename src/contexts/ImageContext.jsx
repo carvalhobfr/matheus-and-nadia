@@ -37,24 +37,24 @@ const defaultImages = {
   
   // Gifts section activities
   'gift-coffee': 'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9',
-  'gift-dessert': 'https://images.unsplash.com/photo-1626697556651-69e29707bcc0',
-  'gift-padthai': 'https://images.unsplash.com/photo-1626804475297-41608ea09aa0',
-  'gift-tuktuk': 'https://images.unsplash.com/photo-1572455044327-21276ba47198',
-  'gift-drinks': 'https://images.unsplash.com/photo-1545361446-1ac33007e21a',
+  'gift-dessert': 'https://images.unsplash.com/photo-1582878827114-c6bb4e6eb0de',
+  'gift-padthai': 'https://images.unsplash.com/photo-1552912470-ee2e96439539',
+  'gift-tuktuk': 'https://images.unsplash.com/photo-1696785110768-bb6b11890d00',
+  'gift-drinks': 'https://images.unsplash.com/photo-1643633052713-3978931c81a6',
   'gift-market': 'https://images.unsplash.com/photo-1528813860492-bb99459ec095',
   'gift-dinner': 'https://images.unsplash.com/photo-1559314809-0d155014e29e',
   'gift-beach': 'https://images.unsplash.com/photo-1506953823976-52e1fdc0149a',
   'gift-temples': 'https://images.unsplash.com/photo-1528181304800-259b08848526',
   'gift-massage': 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874',
   'gift-boat': 'https://images.unsplash.com/photo-1552074284-5e84a731cf65',
-  'gift-elephants': 'https://images.unsplash.com/photo-1559466273-d95e72debaf8',
+  'gift-elephants': 'https://images.unsplash.com/photo-1611605834890-a4f92858c823',
   'gift-custom': 'https://images.unsplash.com/photo-1565514020179-026b5cfddc2a',
   
-  // Gallery section - Corrigindo as URLs das imagens
-  'gallery-1': 'https://images.unsplash.com/photo-1537633552985-df8429e048b0',
-  'gallery-2': 'https://images.unsplash.com/photo-1545232979-8bf68ee9b1af',
-  'gallery-3': 'https://images.unsplash.com/photo-1516589091380-5d8e87df6999',
-  'gallery-4': 'https://images.unsplash.com/photo-1607190074257-dd4b7af0309f',
+  // Gallery section - Removendo as imagens de mock
+  'gallery-1': '',
+  'gallery-2': '',
+  'gallery-3': '',
+  'gallery-4': '',
 };
 
 // Descrições das imagens e onde são usadas

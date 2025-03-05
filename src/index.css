@@ -28,42 +28,6 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--dark-color);
 }
 
-/* Estilo para traço abaixo de h1 */
-h1 {
-  position: relative;
-  padding-bottom: 1.2rem;
-  margin-bottom: 1.5rem;
-}
-
-h1::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 3px;
-  background-color: var(--secondary-color);
-}
-
-/* Estilo para traço abaixo de h2 */
-h2 {
-  position: relative;
-  padding-bottom: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-h2::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80px;
-  height: 3px;
-  background-color: var(--accent-color);
-}
-
 a {
   text-decoration: none;
   color: var(--primary-color);
@@ -103,21 +67,22 @@ a:hover {
   margin-bottom: 3rem;
 }
 
-/* Modificado para evitar duplicação com o estilo global de h2 */
 .section-title h2 {
   font-size: 2.5rem;
+  position: relative;
   display: inline-block;
+  padding-bottom: 1rem;
 }
 
 .section-title h2::after {
-  background-color: var(--accent-color);
-}
-
-/* Para alinhamento à esquerda em alguns títulos */
-h1.text-left::after,
-h2.text-left::after {
-  left: 0;
-  transform: none;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--secondary-color);
 }
 
 /* Language selector styles */
@@ -148,12 +113,40 @@ h2.text-left::after {
   .section-title h2 {
     font-size: 2rem;
   }
-  
-  h1::after {
-    width: 80px;
-  }
-  
-  h2::after {
-    width: 60px;
-  }
+}
+
+/* Estilo para traço abaixo de h1 */
+h1 {
+  position: relative;
+  padding-bottom: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+h1::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background-color: var(--primary-color);
+}
+
+/* Estilo para traço abaixo de h2 */
+h2 {
+  position: relative;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 3px;
+  background-color: var(--secondary-color);
 }

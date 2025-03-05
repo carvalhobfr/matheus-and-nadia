@@ -11,9 +11,9 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           <div className="col-md-12 text-center">
-            <h3 className="mb-3">Matheus & Nadia</h3>
-            <p className="mb-4">{t('footer.credit')}</p>
-            <div className="social-icons mb-4">
+            <h3 className="mb-12">Matheus & Nadia</h3>
+            <p className="mb-12">{t('footer.credit')}</p>
+            {/* <div className="social-icons mb-4">
               <a href="#" className="mx-2">
                 <i className="fab fa-instagram fa-lg"></i>
               </a>
@@ -23,7 +23,7 @@ const Footer = () => {
               <a href="#" className="mx-2">
                 <i className="fas fa-envelope fa-lg"></i>
               </a>
-            </div>
+            </div> */}
             <p className="mt-4">{t('footer.copyright')}</p>
           </div>
         </div>

@@ -131,3 +131,46 @@
     padding: 1.5rem;
   }
 } 
+#details {
+button, .btn {
+  background-color: var(--primary-color) !important;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
+}
+
+button:hover, .btn:hover {
+  background-color: var(--accent-color) !important;
+}
+
+.timezone-info {
+  background-color: rgba(212, 175, 55, 0.1);
+  padding: 1rem;
+  border-radius: 5px;
+  margin-top: 1.5rem;
+  
+  h5 {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  ul {
+    margin-bottom: 0;
+  }
+  
+  li {
+    margin-bottom: 0.3rem;
+    font-size: 0.9rem;
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+    
+    i {
+      color: var(--accent-color);
+    }
+  }
+}

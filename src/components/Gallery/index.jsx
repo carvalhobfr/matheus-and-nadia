@@ -98,9 +98,9 @@ const Gallery = () => {
         {displayedImages.length === 0 ? (
           <div className="empty-gallery" data-aos="fade-up">
             <div className="empty-gallery-content">
-              <FaCamera size={48} className="mb-3" />
-              <h3>Capturando momentos especiais na Tailândia!</h3>
-              <p>Em breve, compartilharemos aqui as fotos do nosso casamento íntimo nas belas paisagens tailandesas. Fique atento!</p>
+              <FaCamera className="empty-gallery-icon" />
+              <h3>{t('gallery.empty.title') || 'No Photos Yet'}</h3>
+              <p>{t('gallery.empty.message') || 'Photos will be uploaded after our wedding. Check back later!'}</p>
             </div>
           </div>
         ) : (
