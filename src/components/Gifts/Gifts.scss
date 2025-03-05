@@ -11,6 +11,21 @@
   color: var(--text-color);
   font-size: 1.1rem;
 }
+.remove-btn {
+  background-color: transparent !important;
+}
+
+.proceed-btn {
+  background-color: var(--secondary-color) !important;
+}
+
+.btn-outline-primary {
+  background-color: var(--primary-color) !important;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
 
 .currency-selector {
   margin: 0 auto 2rem;
