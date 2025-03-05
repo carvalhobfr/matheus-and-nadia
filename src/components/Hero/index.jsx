@@ -1,18 +1,37 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useImages } from '../../contexts/ImageContext';
+
+// Importando diretamente as imagens WebP
+import heroBg1 from '../../assets/images/hero-bg-1.webp';
+import heroBg2 from '../../assets/images/hero-bg-2.webp';
+import heroBg3 from '../../assets/images/hero-bg-3.webp';
+import heroBg4 from '../../assets/images/hero-bg-4.webp';
+import heroBg5 from '../../assets/images/hero-bg-5.webp';
+import heroBg6 from '../../assets/images/hero-bg-6.webp';
+import heroBg7 from '../../assets/images/hero-bg-7.webp';
+import heroBg8 from '../../assets/images/hero-bg-8.webp';
+import heroBg9 from '../../assets/images/hero-bg-9.webp';
+import heroBg10 from '../../assets/images/hero-bg-10.webp';
+
 import './Hero.scss';
 
 const Hero = () => {
   const { t } = useTranslation();
-  const { images } = useImages();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [fadeIn, setFadeIn] = useState(true);
   
-  // Use the images from context
+  // Usar diretamente as imagens importadas
   const backgroundImages = [
-    images['hero-bg-1'],
-    images['hero-bg-2']
+    heroBg1,
+    heroBg2,
+    heroBg3,
+    heroBg4,
+    heroBg5,
+    heroBg6,
+    heroBg7,
+    heroBg8,
+    heroBg9,
+    heroBg10
   ];
   
   useEffect(() => {

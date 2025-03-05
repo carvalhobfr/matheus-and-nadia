@@ -42,10 +42,92 @@
   }
 }
 
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 3rem;
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.detail-card {
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+
+  h3 {
+    color: #333;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .detail-info {
+    p {
+      margin: 0.5rem 0;
+      color: #666;
+      font-size: 1.1rem;
+
+      &.date {
+        font-weight: bold;
+        color: #333;
+      }
+
+      &.time {
+        color: #666;
+      }
+
+      &.location {
+        color: #666;
+      }
+    }
+  }
+
+  p {
+    color: #666;
+    line-height: 1.6;
+    margin: 0;
+  }
+}
+
 .map-container {
   height: 300px;
   border-radius: 10px;
   overflow: hidden;
   margin-top: 2rem;
   box-shadow: 0 5px 15px rgba(61, 35, 20, 0.2);
+}
+
+@media screen and (max-width: 768px) {
+  .details-section {
+    padding: 60px 0;
+  }
+
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .details-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .detail-card {
+    padding: 1.5rem;
+  }
 } 

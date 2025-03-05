@@ -7,10 +7,7 @@ export const enTranslations = {
     home: 'Home',
     story: 'Our Story',
     details: 'Event Details',
-    gallery: {
-      title: 'Gallery',
-      imageViewer: 'Image Viewer'
-    },
+    gallery: 'Gallery',
     gifts: 'Gifts',
     message: 'Messages'
   },
@@ -33,30 +30,28 @@ export const enTranslations = {
     thailandTime: 'Current Time in Thailand'
   },
   story: {
-    title: 'Our Love Story',
-    intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-    timeline: [
-      {
-        date: 'June 2020',
-        title: 'First Meeting',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.'
-      },
-      {
-        date: 'December 2020',
-        title: 'First Date',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo efficitur neque a placerat. Integer vitae justo eget magna fermentum iaculis.'
-      },
-      {
-        date: 'August 2021',
-        title: 'Moving In Together',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor.'
-      },
-      {
-        date: 'February 2023',
-        title: 'The Proposal',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.'
-      }
-    ]
+    title: "Nossa História",
+    subtitle: "Uma jornada de amor e aventuras",
+    firstMeet: {
+      title: "Nos conhecemos",
+      description: "No colégio em fevereiro de 2010, estudando no IFRJ para ser técnico em Meio-ambiente. Não seguimos essa carreira, mas pelo menos serviu para nos conhecermos."
+    },
+    firstDate: {
+      title: "Primeiro Encontro Oficial",
+      description: "Nosso primeiro encontro oficial, sem ser apenas como amigos, foi em março de 2015 num dos lugares que mais gostamos de ir, no cinema."
+    },
+    livingTogether: {
+      title: "Morando Juntos",
+      description: "Começamos a morar juntos em 2017 quando a Nadia se mudou para Portugal para seguir o amor de sua vida, Matheus. (Nem dá para saber quem está escrevendo, né?)"
+    },
+    proposal: {
+      title: "O Pedido",
+      description: "Bem, a vida é complicada. O primeiro pedido foi em 2018 no Algarve em uma cachoeira, mas éramos jovens e sem muito dinheiro. O segundo foi o da sorte em 2021, para o casamento em 2025."
+    },
+    civilWedding: {
+      title: "Casamento Civil",
+      description: "Aconteceu em 2024 uma cerimônia íntima com alguns amigos em Aveiro. Foi simples, mas muito linda!"
+    }
   },
   details: {
     title: 'Wedding Details',
@@ -64,19 +59,19 @@ export const enTranslations = {
       title: 'Ceremony',
       date: 'March 6, 2025',
       time: '5:00 PM',
-      location: 'Beachfront Resort',
-      address: '123 Beach Road, Thailand'
+      location: 'Thailand',
+      address: 'Thailand'
     },
     reception: {
       title: 'Reception',
       date: 'March 6, 2025',
       time: '7:00 PM',
-      location: 'Beachfront Resort - Garden Pavilion',
-      address: '123 Beach Road, Thailand'
+      location: 'Thailand',
+      address: 'Thailand'
     },
     accommodation: {
       title: 'Accommodation',
-      description: 'We have arranged special rates at the Beachfront Resort for our guests. Please mention our wedding when booking.'
+      description: 'We will provide accommodation details closer to the wedding date.'
     },
     dress: {
       title: 'Dress Code',
@@ -93,22 +88,30 @@ export const enTranslations = {
     mbway: {
       title: 'MBWay',
       description: 'Send your gift via MBWay to:',
-      number: '+351 912 345 678'
+      number: '+351934646436'
     },
     pix: {
       title: 'Pix',
       description: 'Send your gift via Pix to:',
-      key: 'matheus@email.com'
+      key: 'carvalho.bfr@gmail.com'
     },
     bizum: {
       title: 'Bizum',
       description: 'Send your gift via Bizum to:',
-      number: '+34 612 345 678'
+      number: '+34617384134'
+    },
+    confirmation: {
+      title: 'Gift Sent!',
+      message: 'Thank you for your generosity!',
+      question: 'Would you like to send a message to the couple?',
+      yes: 'Yes, send message',
+      no: 'No, thank you'
     }
   },
   message: {
     title: 'Message to the Couple',
     intro: 'We would love to hear from you! Send us your wishes, thoughts, or just say hello.',
+    donation_note: 'Message sent after donation via {{paymentMethod}}',
     form: {
       name: 'Your Name',
       email: 'Your Email',
@@ -117,7 +120,8 @@ export const enTranslations = {
       sending: 'Sending...',
       error: {
         required: 'Please fill in all required fields',
-        email: 'Please enter a valid email address'
+        email: 'Please enter a valid email address',
+        generic: 'An error occurred while sending the message. Please try again.'
       }
     },
     thanks: 'Thank you for your message!',
@@ -139,10 +143,7 @@ export const ptTranslations = {
     home: 'Início',
     story: 'Nossa História',
     details: 'Detalhes do Evento',
-    gallery: {
-      title: 'Galeria',
-      imageViewer: 'Visualizador de Imagens'
-    },
+    gallery: 'Galeria',
     gifts: 'Presentes',
     message: 'Mensagens'
   },
@@ -165,30 +166,28 @@ export const ptTranslations = {
     thailandTime: 'Horário Atual na Tailândia'
   },
   story: {
-    title: 'Nossa História de Amor',
-    intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-    timeline: [
-      {
-        date: 'Junho de 2020',
-        title: 'Primeiro Encontro',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.'
-      },
-      {
-        date: 'Dezembro de 2020',
-        title: 'Primeiro Encontro Oficial',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo efficitur neque a placerat. Integer vitae justo eget magna fermentum iaculis.'
-      },
-      {
-        date: 'Agosto de 2021',
-        title: 'Morando Juntos',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor.'
-      },
-      {
-        date: 'Fevereiro de 2023',
-        title: 'O Pedido',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.'
-      }
-    ]
+    title: "Nossa História",
+    subtitle: "Uma jornada de amor e aventuras",
+    firstMeet: {
+      title: "Nos conhecemos",
+      description: "No colégio em fevereiro de 2010, estudando no IFRJ para ser técnico em Meio-ambiente. Não seguimos essa carreira, mas pelo menos serviu para nos conhecermos."
+    },
+    firstDate: {
+      title: "Primeiro Encontro Oficial",
+      description: "Nosso primeiro encontro oficial, sem ser apenas como amigos, foi em março de 2015 num dos lugares que mais gostamos de ir, no cinema."
+    },
+    livingTogether: {
+      title: "Morando Juntos",
+      description: "Começamos a morar juntos em 2017 quando a Nadia se mudou para Portugal para seguir o amor de sua vida, Matheus. (Nem dá para saber quem está escrevendo, né?)"
+    },
+    proposal: {
+      title: "O Pedido",
+      description: "Bem, a vida é complicada. O primeiro pedido foi em 2018 no Algarve em uma cachoeira, mas éramos jovens e sem muito dinheiro. O segundo foi o da sorte em 2021, para o casamento em 2025."
+    },
+    civilWedding: {
+      title: "Casamento Civil",
+      description: "Aconteceu em 2024 uma cerimônia íntima com alguns amigos em Aveiro. Foi simples, mas muito linda!"
+    }
   },
   details: {
     title: 'Detalhes do Casamento',
@@ -196,19 +195,19 @@ export const ptTranslations = {
       title: 'Cerimônia',
       date: '06.03.2025',
       time: '17:00',
-      location: 'Beachfront Resort',
-      address: '123 Beach Road, Tailândia'
+      location: 'Tailândia',
+      address: 'Tailândia'
     },
     reception: {
       title: 'Recepção',
       date: '06.03.2025',
       time: '19:00',
-      location: 'Beachfront Resort - Pavilhão do Jardim',
-      address: '123 Beach Road, Tailândia'
+      location: 'Tailândia',
+      address: 'Tailândia'
     },
     accommodation: {
       title: 'Hospedagem',
-      description: 'Organizamos tarifas especiais no Beachfront Resort para nossos convidados. Por favor, mencione nosso casamento ao fazer a reserva.'
+      description: 'Forneceremos os detalhes da hospedagem mais próximo à data do casamento.'
     },
     dress: {
       title: 'Código de Vestimenta',
@@ -225,22 +224,30 @@ export const ptTranslations = {
     mbway: {
       title: 'MBWay',
       description: 'Envie seu presente via MBWay para:',
-      number: '+351 912 345 678'
+      number: '+351934646436'
     },
     pix: {
       title: 'Pix',
       description: 'Envie seu presente via Pix para:',
-      key: 'matheus@email.com'
+      key: 'carvalho.bfr@gmail.com'
     },
     bizum: {
       title: 'Bizum',
       description: 'Envie seu presente via Bizum para:',
-      number: '+34 612 345 678'
+      number: '+34617384134'
+    },
+    confirmation: {
+      title: 'Presente Enviado!',
+      message: 'Obrigado pela sua generosidade!',
+      question: 'Gostaria de enviar uma mensagem para os noivos?',
+      yes: 'Sim, enviar mensagem',
+      no: 'Não, obrigado'
     }
   },
   message: {
     title: 'Mensagem para os Noivos',
     intro: 'Adoraríamos receber sua mensagem! Envie seus votos, pensamentos ou apenas diga olá.',
+    donation_note: 'Mensagem enviada após doação via {{paymentMethod}}',
     form: {
       name: 'Seu Nome',
       email: 'Seu Email',
@@ -249,7 +256,8 @@ export const ptTranslations = {
       sending: 'Enviando...',
       error: {
         required: 'Por favor, preencha todos os campos obrigatórios',
-        email: 'Por favor, insira um endereço de email válido'
+        email: 'Por favor, insira um endereço de email válido',
+        generic: 'Ocorreu um erro ao enviar a mensagem. Por favor, tente novamente.'
       }
     },
     thanks: 'Obrigado pela sua mensagem!',
@@ -271,10 +279,7 @@ export const esTranslations = {
     home: 'Inicio',
     story: 'Nuestra Historia',
     details: 'Detalles del Evento',
-    gallery: {
-      title: 'Galería',
-      imageViewer: 'Visualizador de Imágenes'
-    },
+    gallery: 'Galería',
     gifts: 'Regalos',
     message: 'Mensajes'
   },
@@ -297,30 +302,28 @@ export const esTranslations = {
     thailandTime: 'Hora Actual en Tailandia'
   },
   story: {
-    title: 'Nuestra Historia de Amor',
-    intro: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit',
-    timeline: [
-      {
-        date: 'Junio de 2020',
-        title: 'Primer Encuentro',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dui mauris. Vivamus hendrerit arcu sed erat molestie vehicula.'
-      },
-      {
-        date: 'Diciembre de 2020',
-        title: 'Primera Cita',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut commodo efficitur neque a placerat. Integer vitae justo eget magna fermentum iaculis.'
-      },
-      {
-        date: 'Agosto de 2021',
-        title: 'Viviendo Juntos',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean ut gravida lorem. Ut turpis felis, pulvinar a semper sed, adipiscing id dolor.'
-      },
-      {
-        date: 'Febrero de 2023',
-        title: 'La Propuesta',
-        description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies tincidunt, nisl nisl aliquam nisl, eget ultricies nisl nisl eget nisl.'
-      }
-    ]
+    title: "Nossa História",
+    subtitle: "Uma jornada de amor e aventuras",
+    firstMeet: {
+      title: "Nos conhecemos",
+      description: "No colégio em fevereiro de 2010, estudando no IFRJ para ser técnico em Meio-ambiente. Não seguimos essa carreira, mas pelo menos serviu para nos conhecermos."
+    },
+    firstDate: {
+      title: "Primeiro Encontro Oficial",
+      description: "Nosso primeiro encontro oficial, sem ser apenas como amigos, foi em março de 2015 num dos lugares que mais gostamos de ir, no cinema."
+    },
+    livingTogether: {
+      title: "Morando Juntos",
+      description: "Começamos a morar juntos em 2017 quando a Nadia se mudou para Portugal para seguir o amor de sua vida, Matheus. (Nem dá para saber quem está escrevendo, né?)"
+    },
+    proposal: {
+      title: "O Pedido",
+      description: "Bem, a vida é complicada. O primeiro pedido foi em 2018 no Algarve em uma cachoeira, mas éramos jovens e sem muito dinheiro. O segundo foi o da sorte em 2021, para o casamento em 2025."
+    },
+    civilWedding: {
+      title: "Casamento Civil",
+      description: "Aconteceu em 2024 una cerimônia íntima com algunos amigos en Aveiro. Foi simples, pero muito linda!"
+    }
   },
   details: {
     title: 'Detalles de la Boda',
@@ -328,19 +331,19 @@ export const esTranslations = {
       title: 'Ceremonia',
       date: '06 de Marzo de 2025',
       time: '17:00',
-      location: 'Beachfront Resort',
-      address: '123 Beach Road, Tailandia'
+      location: 'Tailandia',
+      address: 'Tailandia'
     },
     reception: {
       title: 'Recepción',
       date: '06 de Marzo de 2025',
       time: '19:00',
-      location: 'Beachfront Resort - Pabellón del Jardín',
-      address: '123 Beach Road, Tailandia'
+      location: 'Tailandia',
+      address: 'Tailandia'
     },
     accommodation: {
       title: 'Alojamiento',
-      description: 'Hemos organizado tarifas especiales en el Beachfront Resort para nuestros invitados. Por favor, mencione nuestra boda al hacer la reserva.'
+      description: 'Proporcionaremos los detalles del alojamiento más cerca de la fecha de la boda.'
     },
     dress: {
       title: 'Código de Vestimenta',
@@ -357,22 +360,30 @@ export const esTranslations = {
     mbway: {
       title: 'MBWay',
       description: 'Envía tu regalo a través de MBWay a:',
-      number: '+351 912 345 678'
+      number: '+351934646436'
     },
     pix: {
       title: 'Pix',
       description: 'Envía tu regalo a través de Pix a:',
-      key: 'matheus@email.com'
+      key: 'carvalho.bfr@gmail.com'
     },
     bizum: {
       title: 'Bizum',
       description: 'Envía tu regalo a través de Bizum a:',
-      number: '+34 612 345 678'
+      number: '+34617384134'
+    },
+    confirmation: {
+      title: '¡Regalo Enviado!',
+      message: '¡Gracias por tu generosidad!',
+      question: '¿Te gustaría enviar un mensaje a los novios?',
+      yes: 'Sí, enviar mensaje',
+      no: 'No, gracias'
     }
   },
   message: {
     title: 'Mensaje para los Novios',
-    intro: '¡Nos encantaría saber de ti! Envíanos tus deseos, pensamientos o simplemente salúdanos.',
+    intro: '¡Nos encantaría saber de ti! Envíanos tus deseos, pensamentos o simplemente salúdanos.',
+    donation_note: 'Mensaje enviado después de una donación vía {{paymentMethod}}',
     form: {
       name: 'Tu Nombre',
       email: 'Tu Email',
@@ -381,7 +392,8 @@ export const esTranslations = {
       sending: 'Enviando...',
       error: {
         required: 'Por favor, completa todos los campos requeridos',
-        email: 'Por favor, introduce una dirección de email válida'
+        email: 'Por favor, introduce una dirección de email válida',
+        generic: 'Ocurrió un error al enviar el mensaje. Por favor, inténtalo de nuevo.'
       }
     },
     thanks: '¡Gracias por tu mensaje!',

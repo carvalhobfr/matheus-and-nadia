@@ -1,5 +1,17 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
 
+// Importando todas as imagens hero-bg
+import heroBg1 from '../assets/images/hero-bg-1.webp';
+import heroBg2 from '../assets/images/hero-bg-2.webp';
+import heroBg3 from '../assets/images/hero-bg-3.webp';
+import heroBg4 from '../assets/images/hero-bg-4.webp';
+import heroBg5 from '../assets/images/hero-bg-5.webp';
+import heroBg6 from '../assets/images/hero-bg-6.webp';
+import heroBg7 from '../assets/images/hero-bg-7.webp';
+import heroBg8 from '../assets/images/hero-bg-8.webp';
+import heroBg9 from '../assets/images/hero-bg-9.webp';
+import heroBg10 from '../assets/images/hero-bg-10.webp';
+
 // Contexto para gerenciar as imagens do site
 export const ImageContext = createContext();
 
@@ -9,8 +21,16 @@ export const useImages = () => useContext(ImageContext);
 // Imagens padrão (iniciais) do site
 const defaultImages = {
   // Hero section
-  'hero-bg-1': 'https://images.unsplash.com/photo-1519225421980-715cb0215aed',
-  'hero-bg-2': 'https://images.unsplash.com/photo-1532712938310-34cb3982ef74',
+  'hero-bg-1': heroBg1,
+  'hero-bg-2': heroBg2,
+  'hero-bg-3': heroBg3,
+  'hero-bg-4': heroBg4,
+  'hero-bg-5': heroBg5,
+  'hero-bg-6': heroBg6,
+  'hero-bg-7': heroBg7,
+  'hero-bg-8': heroBg8,
+  'hero-bg-9': heroBg9,
+  'hero-bg-10': heroBg10,
   
   // Story section
   'couple-photo': 'https://images.unsplash.com/photo-1543157145-f78c636d023d',
@@ -31,7 +51,7 @@ const defaultImages = {
   'gift-custom': 'https://images.unsplash.com/photo-1565514020179-026b5cfddc2a',
   
   // Gallery section
-  'gallery-1': 'https://images.unsplash.com/photo-1537633552985-df8429e8048b',
+  'gallery-1': 'https://images.unsplash.com/photo-1537633552985-df8429e048b',
   'gallery-2': 'https://images.unsplash.com/photo-1545232979-8bf68ee9b1af',
   'gallery-3': 'https://images.unsplash.com/photo-1516589091380-5d8e87df6999',
   'gallery-4': 'https://images.unsplash.com/photo-1607190074257-dd4b7af0309f',
@@ -39,8 +59,16 @@ const defaultImages = {
 
 // Descrições das imagens e onde são usadas
 const imageDescriptions = {
-  'hero-bg-1': 'Imagem de fundo principal do Hero (Seção inicial)',
-  'hero-bg-2': 'Imagem de fundo secundária do Hero (Seção inicial)',
+  'hero-bg-1': 'Imagem de fundo 1 do Hero (Seção inicial)',
+  'hero-bg-2': 'Imagem de fundo 2 do Hero (Seção inicial)',
+  'hero-bg-3': 'Imagem de fundo 3 do Hero (Seção inicial)',
+  'hero-bg-4': 'Imagem de fundo 4 do Hero (Seção inicial)',
+  'hero-bg-5': 'Imagem de fundo 5 do Hero (Seção inicial)',
+  'hero-bg-6': 'Imagem de fundo 6 do Hero (Seção inicial)',
+  'hero-bg-7': 'Imagem de fundo 7 do Hero (Seção inicial)',
+  'hero-bg-8': 'Imagem de fundo 8 do Hero (Seção inicial)',
+  'hero-bg-9': 'Imagem de fundo 9 do Hero (Seção inicial)',
+  'hero-bg-10': 'Imagem de fundo 10 do Hero (Seção inicial)',
   'couple-photo': 'Foto do casal na seção Nossa História',
   'gift-coffee': 'Imagem da atividade Café Tailandês',
   'gift-dessert': 'Imagem da atividade Sobremesa Típica',

@@ -1,36 +1,46 @@
-import { useTranslation } from 'react-i18next';
-import { useImages } from '../../contexts/ImageContext';
+import React from "react";
+import { useTranslation } from "react-i18next";
 import './Story.scss';
 
 const Story = () => {
   const { t } = useTranslation();
-  const { images } = useImages();
-  const timeline = t('story.timeline', { returnObjects: true });
+
+  const storyEvents = [
+    {
+      key: "firstMeet",
+      date: "2010"
+    },
+    {
+      key: "firstDate",
+      date: "2015"
+    },
+    {
+      key: "livingTogether",
+      date: "2017"
+    },
+    {
+      key: "proposal",
+      date: "2021"
+    },
+    {
+      key: "civilWedding",
+      date: "2024"
+    }
+  ];
 
   return (
-    <section id="story" className="section">
+    <section id="story" className="story-section">
       <div className="container">
-        <div className="section-title">
-          <h2 data-aos="fade-up">{t('story.title')}</h2>
-          <p data-aos="fade-up" data-aos-delay="100">{t('story.intro')}</p>
-        </div>
-
-        <div className="couple-photo-container" data-aos="fade-up" data-aos-delay="200">
-          <img src={images['couple-photo']} alt="Matheus e Nadia" className="couple-photo" />
-        </div>
-
+        <h2 className="section-title">{t("story.title")}</h2>
+        <p className="section-subtitle">{t("story.subtitle")}</p>
+        
         <div className="timeline">
-          {timeline.map((item, index) => (
-            <div 
-              key={index} 
-              className="timeline-item"
-              data-aos={index % 2 === 0 ? "fade-right" : "fade-left"}
-              data-aos-delay={100 * (index + 1)}
-            >
+          {storyEvents.map((event, index) => (
+            <div key={event.key} className={`timeline-item ${index % 2 === 0 ? "left" : "right"}`}>
               <div className="timeline-content">
-                <h4>{item.title}</h4>
-                <h6>{item.date}</h6>
-                <p>{item.description}</p>
+                <div className="date">{event.date}</div>
+                <h3>{t(`story.${event.key}.title`)}</h3>
+                <p>{t(`story.${event.key}.description`)}</p>
               </div>
             </div>
           ))}

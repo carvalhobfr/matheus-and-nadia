@@ -1,6 +1,7 @@
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { useTranslation } from "react-i18next";
 import { Link } from 'react-router-dom';
-import './Details.scss';
+import "./Details.scss";
 
 const Details = () => {
   const { t } = useTranslation();
@@ -21,16 +22,6 @@ const Details = () => {
                 <p className="mb-1">{t('details.ceremony.date')}</p>
                 <p className="mb-1">{t('details.ceremony.time')}</p>
                 <p className="mb-1">{t('details.ceremony.location')}</p>
-                <p>{t('details.ceremony.address')}</p>
-                <a 
-                  href={`https://maps.google.com/?q=${t('details.ceremony.location')}+${t('hero.location')}`}
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="btn btn-outline-primary"
-                >
-                  <i className="fas fa-map-marker-alt me-2"></i>
-                  Google Maps
-                </a>
               </div>
             </div>
           </div>
@@ -60,16 +51,6 @@ const Details = () => {
                 <p className="mb-1">{t('details.reception.date')}</p>
                 <p className="mb-1">{t('details.reception.time')}</p>
                 <p className="mb-1">{t('details.reception.location')}</p>
-                <p>{t('details.reception.address')}</p>
-                <a 
-                  href={`https://maps.google.com/?q=${t('details.reception.location')}+${t('hero.location')}`}
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="btn btn-outline-primary"
-                >
-                  <i className="fas fa-map-marker-alt me-2"></i>
-                  Google Maps
-                </a>
               </div>
             </div>
           </div>
@@ -80,15 +61,6 @@ const Details = () => {
                 <i className="fas fa-bed fa-3x mb-3" style={{ color: 'var(--primary-color)' }}></i>
                 <h3>{t('details.accommodation.title')}</h3>
                 <p>{t('details.accommodation.description')}</p>
-                <a 
-                  href="https://www.booking.com" 
-                  target="_blank" 
-                  rel="noopener noreferrer" 
-                  className="btn btn-outline-primary"
-                >
-                  <i className="fas fa-hotel me-2"></i>
-                  Book Accommodation
-                </a>
               </div>
             </div>
           </div>
