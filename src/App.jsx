@@ -53,7 +53,7 @@ function App() {
             <main>
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/gifts" element={<Gifts />} />
+                <Route path="/gifts" exact element={<Gifts />} />
                 <Route path="/contact" element={<MessageForm />} />
                 <Route path="/admin" element={<Admin />} />
               </Routes>
