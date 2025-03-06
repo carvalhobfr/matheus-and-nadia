@@ -196,6 +196,11 @@ export const enTranslations = {
       description: 'Send your gift via Bizum to:',
       number: '+34617384134'
     },
+    bankAccount: {
+      title: 'Bank Account',
+      description: 'Send your gift via bank transfer to IBAN:',
+      iban: 'PT50 0023 0000 45552193281 94'
+    },
     contributionValue: 'Contribution amount'
   },
   message: {
@@ -430,6 +435,11 @@ export const ptTranslations = {
       description: 'Envie seu presente via Bizum para:',
       number: '+34617384134'
     },
+    bankAccount: {
+      title: 'Conta Bancária',
+      description: 'Envie seu presente via transferência bancária para o IBAN:',
+      iban: 'PT50 0023 0000 45552193281 94'
+    },
     contributionValue: 'Valor da contribuição'
   },
   message: {
@@ -663,6 +673,11 @@ export const esTranslations = {
       title: 'Bizum',
       description: 'Envía tu regalo a través de Bizum a:',
       number: '+34617384134'
+    },
+    bankAccount: {
+      title: 'Cuenta Bancaria',
+      description: 'Envía tu regalo mediante transferencia bancaria al IBAN:',
+      iban: 'PT50 0023 0000 45552193281 94'
     },
     contributionValue: 'Valor de la contribución'
   },

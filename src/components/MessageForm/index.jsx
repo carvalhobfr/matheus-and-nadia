@@ -44,17 +44,15 @@ const MessageForm = () => {
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
-        message: formData.message,
-        is_donation: isFromDonation ? 'Yes' : 'No',
-        payment_method: paymentMethod || 'N/A'
+        message: formData.message
       };
 
       // Configuração do EmailJS com o service_id fornecido
       await emailjs.send(
         'service_m1kjfpc', // Service ID
-        'template_9fnlvfn', // Você pode precisar verificar se este é o Template ID correto
+        'template_9fnlvfn', // Template ID
         templateParams,
-        '0J-P_RUXALNQkc7JG' // Public Key fornecida
+        '0J-P_RUXALNQkc7JG' // Public Key
       );
       
       setStatus({

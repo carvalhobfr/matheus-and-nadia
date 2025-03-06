@@ -56,6 +56,11 @@ const Gifts = () => {
       title: t('gifts.bizum.title'),
       info: t('gifts.bizum.description') + ' +34617384134',
       number: '+34617384134'
+    },
+    bankAccount: {
+      title: t('gifts.bankAccount.title'),
+      info: t('gifts.bankAccount.description') + ' PT50 0023 0000 45552193281 94',
+      iban: 'PT50 0023 0000 45552193281 94'
     }
   };
 
