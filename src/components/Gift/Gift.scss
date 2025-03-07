@@ -1,0 +1,174 @@
+/* Single Gift Page Styles */
+.single-gift-container {
+  padding: 3rem 0;
+  min-height: 80vh;
+}
+
+.back-button {
+  margin-bottom: 2rem;
+  color: var(--primary-color);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    color: var(--accent-color);
+    transform: translateX(-5px);
+  }
+}
+
+.gift-details {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  padding: 1rem;
+}
+
+.gift-image-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  border-radius: 10px;
+  
+  .gift-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+    
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.gift-info {
+  height: 100%;
+  border: none;
+  box-shadow: none;
+  
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .icon-container {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .gift-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-align: center;
+  }
+  
+  .gift-description {
+    font-size: 1.1rem;
+    color: var(--text-color);
+    margin-bottom: 2rem;
+    flex-grow: 1;
+    text-align: center;
+  }
+  
+  .price-section, .custom-amount-section {
+    margin-bottom: 1.5rem;
+    
+    .gift-price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      text-align: center;
+    }
+  }
+  
+  .currency-toggle {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    
+    .btn {
+      flex: 1;
+    }
+  }
+  
+  .gift-add-button {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    font-weight: 600;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    
+    &:hover:not(:disabled) {
+      background-color: var(--accent-color);
+      border-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 7px 14px rgba(0, 0, 0, 0.1);
+    }
+    
+    &:active:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    &:disabled {
+      background-color: #e0e0e0;
+      border-color: #e0e0e0;
+      color: #a0a0a0;
+    }
+  }
+}
+
+.loading-gift {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
+  font-size: 1.2rem;
+  color: var(--text-color);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .gift-details {
+    flex-direction: column;
+  }
+  
+  .gift-image-container {
+    height: 300px;
+    margin-bottom: 2rem;
+  }
+  
+  .gift-info .gift-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .gift-image-container {
+    height: 250px;
+  }
+  
+  .gift-info .gift-title {
+    font-size: 1.5rem;
+  }
+  
+  .gift-info .gift-description {
+    font-size: 1rem;
+  }
+  
+  .gift-info .price-section .gift-price {
+    font-size: 1.5rem;
+  }
+} 

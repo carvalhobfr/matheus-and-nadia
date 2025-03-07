@@ -11,6 +11,7 @@ import Story from './components/Story'
 import Details from './components/Details'
 import Gallery from './components/Gallery'
 import Gifts from './components/Gifts'
+import Gift from './components/Gift'
 import MessageForm from './components/MessageForm'
 import Footer from './components/Footer'
 import Admin from './components/Admin'
@@ -53,7 +54,8 @@ function App() {
             <main>
               <Routes>
                 <Route path="/" element={<HomePage />} />
-                <Route path="/gifts" exact element={<Gifts />} />
+                <Route path="/gifts" element={<Gifts />} />
+                <Route path="/gift/:id" element={<Gift />} />
                 <Route path="/contact" element={<MessageForm />} />
                 <Route path="/admin" element={<Admin />} />
               </Routes>

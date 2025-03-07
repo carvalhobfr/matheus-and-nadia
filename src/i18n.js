@@ -236,6 +236,11 @@ export const enTranslations = {
       title: 'Capturing Special Moments in Thailand!',
       message: 'Soon, we will share photos of our intimate wedding in the beautiful Thai landscapes. Stay tuned!'
     }
+  },
+  common: {
+    viewDetails: 'View Details',
+    back: 'Back',
+    loading: 'Loading...'
   }
 };
 
@@ -475,6 +480,11 @@ export const ptTranslations = {
       title: 'Capturando Momentos Especiais na Tailândia!',
       message: 'Em breve, compartilharemos aqui as fotos do nosso casamento íntimo nas belas paisagens tailandesas. Fique atento!'
     }
+  },
+  common: {
+    viewDetails: 'Ver Detalhes',
+    back: 'Voltar',
+    loading: 'Carregando...'
   }
 };
 
@@ -714,6 +724,11 @@ export const esTranslations = {
       title: '¡Capturando Momentos Especiales en Tailandia!',
       message: 'Pronto compartiremos las fotos de nuestra boda íntima en los hermosos paisajes de Tailandia. ¡Estén atentos!'
     }
+  },
+  common: {
+    viewDetails: 'Ver Detalles',
+    back: 'Volver',
+    loading: 'Cargando...'
   }
 };
 

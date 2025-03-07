@@ -1,14 +1,16 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, Row, Col, Card, Button, Modal, Form, Spinner, ButtonGroup, ToggleButton } from 'react-bootstrap';
-import { FaGift, FaUtensils, FaWalking, FaSpa, FaUmbrellaBeach, FaWater, FaShoppingBag, FaMoneyBillWave, FaCoffee, FaWineGlassAlt, FaIceCream, FaTaxi } from 'react-icons/fa';
+import { FaGift, FaUtensils, FaWalking, FaSpa, FaUmbrellaBeach, FaWater, FaShoppingBag, FaMoneyBillWave, FaCoffee, FaWineGlassAlt, FaIceCream, FaTaxi, FaEye } from 'react-icons/fa';
 import { FaPersonPraying } from 'react-icons/fa6';
 import { useImages } from '../../contexts/ImageContext';
+import { Link, useLocation } from 'react-router-dom';
 import './Gifts.scss';
 
 const Gifts = () => {
   const { t } = useTranslation();
   const { images } = useImages();
+  const location = useLocation();
   const [selectedActivities, setSelectedActivities] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -86,6 +88,8 @@ const Gifts = () => {
   // Função para alternar a moeda
   const toggleCurrency = (newCurrency) => {
     setCurrency(newCurrency);
+    // Force a refresh of the component to update all displayed prices
+    setSelectedActivities([...selectedActivities]);
   };
 
   // Atualiza o valor total quando as atividades selecionadas ou a moeda mudam
@@ -128,9 +132,9 @@ const Gifts = () => {
   // Converter valor conforme a moeda
   const convertAmount = (amount, toCurrency) => {
     if (toCurrency === 'BRL' && currency === 'EUR') {
-      return Math.round(amount * exchangeRate);
+      return (amount * exchangeRate);
     } else if (toCurrency === 'EUR' && currency === 'BRL') {
-      return (amount / exchangeRate).toFixed(2);
+      return (amount / exchangeRate);
     }
     return amount;
   };
@@ -138,10 +142,10 @@ const Gifts = () => {
   // Exibir preço com símbolo correto
   const formatPrice = (price) => {
     if (currency === 'EUR') {
-      return `€${parseFloat(price).toFixed(2).replace(/\.00$/, '')}`;
+      return `€${parseFloat(price).toFixed(2)}`;
     } else {
-      const brlValue = convertAmount(price, 'BRL');
-      return `R$${parseFloat(brlValue).toFixed(2).replace(/\.00$/, '')}`;
+      // For BRL, directly multiply by the exchange rate
+      return `R$${(parseFloat(price) * exchangeRate).toFixed(2)}`;
     }
   };
 
@@ -225,6 +229,29 @@ const Gifts = () => {
     setShowConfirmation(false);
   };
 
+  // Check if there's a state when coming back from a single gift page
+  useEffect(() => {
+    if (location.state?.addToCart) {
+      const activityId = location.state.addToCart;
+      const amount = location.state.amount;
+      
+      // If it's the free contribution, update the value
+      if (activities.length + 1 === activityId) {
+        setFreeContributionValue(amount.toString());
+        toggleActivity(freeContribution, amount);
+      } else {
+        // Find the activity by ID
+        const activity = activities.find(act => act.id === activityId);
+        if (activity) {
+          toggleActivity(activity);
+        }
+      }
+      
+      // Clear the location state
+      window.history.replaceState({}, document.title);
+    }
+  }, [location.state]);
+
   return (
     <section id="gifts" className="gifts-section">
       <Container>
@@ -270,9 +297,12 @@ const Gifts = () => {
               <Col key={activity.id} lg={3} md={4} sm={6} className="mb-4">
                 <Card 
                   className={`activity-card ${isSelected ? 'selected' : ''}`} 
-                  onClick={() => !activity.customAmount && toggleActivity(activity)}
                 >
-                  <div className="activity-image" style={{ backgroundImage: loadingImages[activity.id] ? 'none' : `url(${activity.image})` }}>
+                  <div 
+                    className="activity-image" 
+                    style={{ backgroundImage: loadingImages[activity.id] ? 'none' : `url(${activity.image})` }}
+                    onClick={() => !activity.customAmount && toggleActivity(activity)}
+                  >
                     {isSelected && <div className="selected-badge">{t('gifts.selectedBadge')}</div>}
                     {loadingImages[activity.id] && (
                       <div className="image-loading">
@@ -286,8 +316,11 @@ const Gifts = () => {
                       onLoad={() => handleImageLoad(activity.id)}
                       onError={() => handleImageError(activity.id)}
                     />
+                    <Link to={`/gift/${activity.id}`} className="view-details-btn">
+                      <FaEye /> {t('common.viewDetails')}
+                    </Link>
                   </div>
-                  <Card.Body>
+                  <Card.Body onClick={() => !activity.customAmount && toggleActivity(activity)}>
                     <div className="activity-icon">{activity.icon}</div>
                     <Card.Title>{activity.title}</Card.Title>
                     <Card.Text>{activity.description}</Card.Text>
@@ -298,27 +331,32 @@ const Gifts = () => {
                         <Form.Control 
                           type="number" 
                           min="0.01"
-                          step="0.01"
-                          value={selectedActivity ? selectedActivity.price : ''}
-                          onChange={(e) => handleCustomAmountChange(e, activity.id)}
+                          value={freeContributionValue}
+                          onChange={handleCustomAmountChange}
+                          placeholder={`${currency === 'EUR' ? '10' : '60'}`}
                           onClick={(e) => e.stopPropagation()}
                         />
-                        <Button 
-                          variant="outline-primary" 
-                          className="mt-2 w-100"
-                          onClick={(e) => {
-                            const inputValue = e.target.previousElementSibling.value;
-                            handleAddCustomActivity(e, activity, inputValue);
-                          }}
-                        >
-                          {isSelected ? t('gifts.remove') : t('gifts.add')}
-                        </Button>
                       </Form.Group>
                     ) : (
-                      <div className={`activity-price ${activity.price < 10 ? 'low-cost' : ''}`}>
-                        {formatPrice(activity.price)}
-                      </div>
+                      <div className="price">{formatPrice(activity.price)}</div>
                     )}
+                    
+                    <Button 
+                      variant={isSelected ? "danger" : "primary"} 
+                      className="add-button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        if (activity.customAmount) {
+                          if (freeContributionValue && parseFloat(freeContributionValue) > 0) {
+                            toggleActivity(activity, parseFloat(freeContributionValue));
+                          }
+                        } else {
+                          toggleActivity(activity);
+                        }
+                      }}
+                    >
+                      {isSelected ? t('gifts.remove') : t('gifts.add')}
+                    </Button>
                   </Card.Body>
                 </Card>
               </Col>
