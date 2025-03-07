@@ -65,9 +65,18 @@ const Gift = () => {
   };
 
   const formatPrice = (price) => {
+    // If this is a free contribution (customAmount is true), don't multiply by exchange rate
+    if (selectedActivity && selectedActivity.customAmount) {
+      return currency === 'EUR' 
+        ? `€${parseFloat(price).toFixed(2)}`
+        : `R$${parseFloat(price).toFixed(2)}`;
+    }
+    
+    // For regular activities
     if (currency === 'EUR') {
       return `€${parseFloat(price).toFixed(2)}`;
     } else {
+      // Multiply by exchange rate for regular activities
       return `R$${parseFloat(price * exchangeRate).toFixed(2)}`;
     }
   };
@@ -132,7 +141,7 @@ const Gift = () => {
                         min="10"
                         value={customAmount}
                         onChange={handleAmountChange}
-                        placeholder={`${currency === 'EUR' ? '10.00' : '60.00'}`}
+                        placeholder="10.00"
                       />
                     </Form.Group>
                   </div>

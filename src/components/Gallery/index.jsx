@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { Modal } from 'react-bootstrap';
-import { FaSearchPlus, FaCamera, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { Modal, Button } from 'react-bootstrap';
+import { FaSearchPlus, FaCamera, FaChevronLeft, FaChevronRight, FaArrowRight } from 'react-icons/fa';
 import { useImages } from '../../contexts/ImageContext';
 import './Gallery.scss';
 
@@ -23,10 +23,9 @@ import './Gallery.scss';
   // 'https://via.placeholder.com/600x400/2C3E50/FFFFFF?text=Matheus+and+Nadia+12',
 // ];
 
-const Gallery = () => {
+const Gallery = ({ showLimited = false, itemLimit = 20 }) => {
   const { t } = useTranslation();
   const { images } = useImages();
-  const [showAll, setShowAll] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -36,12 +35,17 @@ const Gallery = () => {
     images['gallery-1'],
     images['gallery-2'],
     images['gallery-3'],
-    images['gallery-4']
+    images['gallery-4'],
+    // Add more images as they become available
+    ...(Object.keys(images)
+      .filter(key => key.startsWith('gallery-') && !['gallery-1', 'gallery-2', 'gallery-3', 'gallery-4'].includes(key))
+      .map(key => images[key]))
   ];
   
-  // Display only all available images on the homepage
-  const displayedImages = galleryImages.filter(img => img); // Remove any undefined images
-  const hasMoreImages = false; // Desabilitando o botão de "Ver mais" por enquanto
+  // Filter undefined images and limit if necessary
+  const allAvailableImages = galleryImages.filter(img => img);
+  const displayedImages = showLimited ? allAvailableImages.slice(0, itemLimit) : allAvailableImages;
+  const hasMoreImages = allAvailableImages.length > displayedImages.length;
 
   // Função para abrir o modal com a imagem selecionada
   const openImageModal = (image, index) => {
@@ -89,7 +93,7 @@ const Gallery = () => {
   }, [showModal, currentImageIndex]);
 
   return (
-    <section id="gallery" className="section">
+    <section id="gallery" className={`section ${showLimited ? '' : 'full-gallery'}`}>
       <div className="container">
         <div className="section-title">
           <h2 data-aos="fade-up">{t('gallery.title')}</h2>
@@ -125,10 +129,10 @@ const Gallery = () => {
               ))}
             </div>
             
-            {hasMoreImages && !showAll && (
+            {hasMoreImages && showLimited && (
               <div className="text-center mt-4" data-aos="fade-up">
-                <Link to="/gallery" className="view-more-link">
-                  Ver todas as fotos <i className="fas fa-arrow-right ms-2"></i>
+                <Link to="/gallery" className="btn btn-primary view-more-btn">
+                  {t('gallery.viewMore') || 'View All Photos'} <FaArrowRight className="ms-2" />
                 </Link>
               </div>
             )}

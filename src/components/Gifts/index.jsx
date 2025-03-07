@@ -99,15 +99,22 @@ const Gifts = () => {
   }, [selectedActivities, currency]);
 
   // Função para alternar a seleção de uma atividade
-  const toggleActivity = (activity) => {
+  const toggleActivity = (activity, customPrice) => {
     setSelectedActivities(prev => {
       const isSelected = prev.some(item => item.id === activity.id);
       let newActivities;
+      
       if (isSelected) {
         newActivities = prev.filter(item => item.id !== activity.id);
       } else {
-        newActivities = [...prev, activity];
+        // If it's a custom contribution with a custom price
+        if (customPrice !== undefined) {
+          newActivities = [...prev, { ...activity, price: customPrice }];
+        } else {
+          newActivities = [...prev, activity];
+        }
       }
+      
       const newTotal = newActivities.reduce((sum, item) => sum + (parseFloat(item.price) || 0), 0);
       setTotalAmount(newTotal);
       return newActivities;
@@ -140,11 +147,19 @@ const Gifts = () => {
   };
 
   // Exibir preço com símbolo correto
-  const formatPrice = (price) => {
+  const formatPrice = (price, isCustomContribution = false) => {
+    // If this is the free contribution card or a custom contribution value, don't multiply by exchange rate
+    if (isCustomContribution) {
+      return currency === 'EUR' 
+        ? `€${parseFloat(price).toFixed(2)}`
+        : `R$${parseFloat(price).toFixed(2)}`;
+    }
+    
+    // For regular activities
     if (currency === 'EUR') {
       return `€${parseFloat(price).toFixed(2)}`;
     } else {
-      // For BRL, directly multiply by the exchange rate
+      // Multiply by exchange rate for regular activities
       return `R$${(parseFloat(price) * exchangeRate).toFixed(2)}`;
     }
   };
@@ -153,15 +168,23 @@ const Gifts = () => {
   const handleCustomAmountChange = (e, activityId) => {
     const inputValue = e.target.value;
     const value = inputValue === '' ? '' : parseFloat(inputValue);
+    
+    // If this is the free contribution and it's not already selected
     if (activityId === freeContribution.id && !selectedActivities.some(item => item.id === activityId)) {
       setFreeContributionValue(inputValue);
       return;
     }
+    
+    // If it's already in the selected activities, update its price
     setSelectedActivities(prevActivities => {
       const updatedActivities = [...prevActivities];
       const index = updatedActivities.findIndex(act => act.id === activityId);
       if (index !== -1) {
-        updatedActivities[index] = { ...updatedActivities[index], price: value };
+        // For free contribution, use the direct value without conversion
+        updatedActivities[index] = { 
+          ...updatedActivities[index], 
+          price: value
+        };
       }
       return updatedActivities;
     });
@@ -171,14 +194,24 @@ const Gifts = () => {
   const handleAddCustomActivity = (e, activity, inputValue) => {
     e.stopPropagation();
     const value = inputValue === '' ? 0 : parseFloat(inputValue);
+    
     if (value > 0) {
       const isSelected = selectedActivities.some(item => item.id === activity.id);
+      
       if (!isSelected) {
-        setSelectedActivities([...selectedActivities, { ...activity, price: value }]);
+        // Add the activity with the custom price
+        // Mark it as a custom contribution so it won't be multiplied by exchange rate
+        setSelectedActivities([...selectedActivities, { 
+          ...activity, 
+          price: value,
+          customAmount: true 
+        }]);
+        
         if (activity.id === freeContribution.id) {
           setFreeContributionValue('');
         }
       } else {
+        // Remove the activity
         toggleActivity(activity);
       }
     }
@@ -333,7 +366,7 @@ const Gifts = () => {
                           min="0.01"
                           value={freeContributionValue}
                           onChange={handleCustomAmountChange}
-                          placeholder={`${currency === 'EUR' ? '10' : '60'}`}
+                          placeholder="10"
                           onClick={(e) => e.stopPropagation()}
                         />
                       </Form.Group>
@@ -374,13 +407,13 @@ const Gifts = () => {
               </div>
             ) : (
               <ul>
-                {selectedActivities.map(activity => (
-                  <li key={activity.id}>
-                    {activity.title} - {formatPrice(activity.price)}
-                    <Button 
-                      variant="link" 
+                {selectedActivities.map((item, index) => (
+                  <li key={index}>
+                    {item.title} - {formatPrice(item.price, item.customAmount)}
+                    <Button
+                      variant="link"
                       className="remove-btn"
-                      onClick={() => toggleActivity(activity)}
+                      onClick={() => toggleActivity(item)}
                     >
                       {t('gifts.remove')}
                     </Button>
@@ -392,8 +425,8 @@ const Gifts = () => {
           
           {/* Seção de Contribuição Livre */}
           <div className="free-contribution-section">
-            <h3>{freeContribution.title}</h3>
-            <p>{freeContribution.description}</p>
+            <h3>{t('gifts.freeContribution.title')}</h3>
+            <p>{t('gifts.freeContribution.description')}</p>
             <div className="free-contribution-input">
               <Form.Group className="mb-3">
                 <Form.Label>{t('gifts.contributionValue')}</Form.Label>
@@ -403,7 +436,7 @@ const Gifts = () => {
                     min="0.01"
                     step="0.01"
                     value={selectedActivities.some(item => item.id === freeContribution.id) 
-                      ? selectedActivities.find(item => item.id === freeContribution.id)?.price 
+                      ? formatPrice(selectedActivities.find(item => item.id === freeContribution.id)?.price, true).replace(/[^0-9.]/g, '')
                       : freeContributionValue}
                     onChange={(e) => handleCustomAmountChange(e, freeContribution.id)}
                     id="free-contribution-input"
@@ -446,16 +479,23 @@ const Gifts = () => {
           <Modal.Body>
             <p>{t('gifts.paymentModal.totalLabel')} <strong>{formatPrice(totalAmount)}</strong></p>
             <div className="payment-methods">
-              {Object.keys(paymentMethods).map(method => (
-                <Button
-                  key={method}
-                  variant={paymentMethod === method ? "primary" : "outline-primary"}
-                  className="payment-method-btn"
-                  onClick={() => handleSelectPaymentMethod(method)}
-                >
-                  {paymentMethods[method].title}
-                </Button>
-              ))}
+              {Object.keys(paymentMethods).map(method => {
+                // Only show Pix for BRL currency
+                if (method === 'pix' && currency !== 'BRL') return null;
+                // Only show other payment methods for EUR currency
+                if (method !== 'pix' && currency !== 'EUR') return null;
+
+                return (
+                  <Button
+                    key={method}
+                    variant={paymentMethod === method ? "primary" : "outline-primary"}
+                    className="payment-method-btn"
+                    onClick={() => handleSelectPaymentMethod(method)}
+                  >
+                    {paymentMethods[method].title}
+                  </Button>
+                );
+              })}
             </div>
             {paymentMethod && (
               <div className="payment-info mt-4">

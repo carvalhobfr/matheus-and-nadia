@@ -91,12 +91,15 @@ export const enTranslations = {
     add: 'Add',
     remove: 'Remove',
     paymentModal: {
-      title: 'Choose Payment Method',
-      totalLabel: 'Total Amount:',
-      confirmPayment: 'Confirm Payment',
+      title: 'Payment Methods',
+      totalLabel: 'Total:',
       processing: 'Processing...',
-      close: 'Close'
+      confirmPayment: 'Confirm Payment',
+      close: 'Close',
+      error: 'There was an error processing your payment. Please try again.',
+      success: 'Payment successful! Thank you for your gift!'
     },
+    paymentDescription: 'Wedding Gift - Matheus & Nadia',
     confirmationModal: {
       title: 'Payment Confirmed',
       thankYou: 'Thank you for your gift!',
@@ -201,6 +204,11 @@ export const enTranslations = {
       description: 'Send your gift via bank transfer to IBAN:',
       iban: 'PT50 0023 0000 45552193281 94'
     },
+    paypal: {
+      title: 'PayPal',
+      description: 'Send your gift via PayPal to:',
+      email: 'carvalho.bfr@gmail.com'
+    },
     contributionValue: 'Contribution amount'
   },
   message: {
@@ -233,9 +241,10 @@ export const enTranslations = {
     title: 'Gallery',
     imageViewer: 'Image Viewer',
     empty: {
-      title: 'Capturing Special Moments in Thailand!',
+      title: 'Wedding Photos Coming Soon',
       message: 'Soon, we will share photos of our intimate wedding in the beautiful Thai landscapes. Stay tuned!'
-    }
+    },
+    viewMore: 'View All Photos'
   },
   common: {
     viewDetails: 'View Details',
@@ -335,12 +344,15 @@ export const ptTranslations = {
     add: 'Adicionar',
     remove: 'Remover',
     paymentModal: {
-      title: 'Escolha o Método de Pagamento',
-      totalLabel: 'Valor total:',
-      confirmPayment: 'Confirmar Pagamento',
+      title: 'Métodos de Pagamento',
+      totalLabel: 'Total:',
       processing: 'Processando...',
-      close: 'Fechar'
+      confirmPayment: 'Confirmar Pagamento',
+      close: 'Fechar',
+      error: 'Ocorreu um erro ao processar seu pagamento. Por favor, tente novamente.',
+      success: 'Pagamento realizado com sucesso! Obrigado pelo presente!'
     },
+    paymentDescription: 'Presente de Casamento - Matheus & Nadia',
     confirmationModal: {
       title: 'Pagamento Confirmado',
       thankYou: 'Obrigado pelo seu presente!',
@@ -445,6 +457,11 @@ export const ptTranslations = {
       description: 'Envie seu presente via transferência bancária para o IBAN:',
       iban: 'PT50 0023 0000 45552193281 94'
     },
+    paypal: {
+      title: 'PayPal',
+      description: 'Envie seu presente via PayPal para:',
+      email: 'carvalho.bfr@gmail.com'
+    },
     contributionValue: 'Valor da contribuição'
   },
   message: {
@@ -477,9 +494,10 @@ export const ptTranslations = {
     title: 'Galeria',
     imageViewer: 'Visualizador de Imagens',
     empty: {
-      title: 'Capturando Momentos Especiais na Tailândia!',
+      title: 'Fotos do Casamento em Breve',
       message: 'Em breve, compartilharemos aqui as fotos do nosso casamento íntimo nas belas paisagens tailandesas. Fique atento!'
-    }
+    },
+    viewMore: 'Ver Todas as Fotos'
   },
   common: {
     viewDetails: 'Ver Detalhes',
@@ -579,12 +597,15 @@ export const esTranslations = {
     add: 'Añadir',
     remove: 'Eliminar',
     paymentModal: {
-      title: 'Elige el Método de Pago',
-      totalLabel: 'Monto total:',
-      confirmPayment: 'Confirmar Pago',
+      title: 'Métodos de Pago',
+      totalLabel: 'Total:',
       processing: 'Procesando...',
-      close: 'Cerrar'
+      confirmPayment: 'Confirmar Pago',
+      close: 'Cerrar',
+      error: 'Hubo un error al procesar tu pago. Por favor, inténtalo nuevamente.',
+      success: '¡Pago realizado con éxito! ¡Gracias por tu regalo!'
     },
+    paymentDescription: 'Regalo de Boda - Matheus & Nadia',
     confirmationModal: {
       title: 'Pago Confirmado',
       thankYou: '¡Gracias por tu regalo!',
@@ -686,8 +707,13 @@ export const esTranslations = {
     },
     bankAccount: {
       title: 'Cuenta Bancaria',
-      description: 'Envía tu regalo mediante transferencia bancaria al IBAN:',
+      description: 'Envía tu regalo mediante transferencia bancária al IBAN:',
       iban: 'PT50 0023 0000 45552193281 94'
+    },
+    paypal: {
+      title: 'PayPal',
+      description: 'Envía tu regalo a través de PayPal a:',
+      email: 'carvalho.bfr@gmail.com'
     },
     contributionValue: 'Valor de la contribución'
   },
@@ -719,11 +745,12 @@ export const esTranslations = {
   },
   gallery: {
     title: 'Galería',
-    imageViewer: 'Visualizador de Imágenes',
+    imageViewer: 'Visor de Imágenes',
     empty: {
-      title: '¡Capturando Momentos Especiales en Tailandia!',
+      title: 'Fotos de la Boda Próximamente',
       message: 'Pronto compartiremos las fotos de nuestra boda íntima en los hermosos paisajes de Tailandia. ¡Estén atentos!'
-    }
+    },
+    viewMore: 'Ver Todas las Fotos'
   },
   common: {
     viewDetails: 'Ver Detalles',

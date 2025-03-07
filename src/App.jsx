@@ -38,10 +38,17 @@ function App() {
       
       <Details />
       
-      <Gallery />
+      <Gallery showLimited={true} itemLimit={20} />
       
       <MessageForm />
     </>
+  );
+
+  // Full Gallery Page component
+  const GalleryPage = () => (
+    <div className="gallery-page-container">
+      <Gallery showLimited={false} />
+    </div>
   );
 
   return (
@@ -56,6 +63,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/gifts" element={<Gifts />} />
                 <Route path="/gift/:id" element={<Gift />} />
+                <Route path="/gallery" element={<GalleryPage />} />
                 <Route path="/contact" element={<MessageForm />} />
                 <Route path="/admin" element={<Admin />} />
               </Routes>
