@@ -127,7 +127,7 @@ const Navbar = () => {
                 className={`${currentLanguage === 'pt' ? 'active' : ''}`} 
                 onClick={() => changeLanguage('pt')}
               >
-                🇵🇹
+                🇧🇷
               </button>
               <button 
                 className={`${currentLanguage === 'es' ? 'active' : ''}`} 
