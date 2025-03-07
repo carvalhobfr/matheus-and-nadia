@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Container, Row, Col, Card, Button, Modal, Form, Spinner, ButtonGroup, ToggleButton } from 'react-bootstrap';
-import { FaGift, FaUtensils, FaWalking, FaSpa, FaUmbrellaBeach, FaWater, FaShoppingBag, FaMoneyBillWave, FaCoffee, FaWineGlassAlt, FaIceCream, FaTaxi, FaEye } from 'react-icons/fa';
+import { FaGift, FaUtensils, FaWalking, FaSpa, FaUmbrellaBeach, FaWater, FaShoppingBag, FaMoneyBillWave, FaCoffee, FaWineGlassAlt, FaIceCream, FaTaxi } from 'react-icons/fa';
 import { FaPersonPraying } from 'react-icons/fa6';
 import { useImages } from '../../contexts/ImageContext';
 import { Link, useLocation } from 'react-router-dom';
@@ -349,9 +349,6 @@ const Gifts = () => {
                       onLoad={() => handleImageLoad(activity.id)}
                       onError={() => handleImageError(activity.id)}
                     />
-                    <Link to={`/gift/${activity.id}`} className="view-details-btn">
-                      <FaEye /> {t('common.viewDetails')}
-                    </Link>
                   </div>
                   <Card.Body onClick={() => !activity.customAmount && toggleActivity(activity)}>
                     <div className="activity-icon">{activity.icon}</div>
