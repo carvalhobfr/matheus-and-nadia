@@ -15,6 +15,7 @@ import Gift from './components/Gift'
 import MessageForm from './components/MessageForm'
 import Footer from './components/Footer'
 import Admin from './components/Admin'
+import Video from './components/Video/Video'
 
 function App() {
   // Initialize AOS on component mount
@@ -37,6 +38,8 @@ function App() {
       <Story />
       
       <Details />
+      
+      <Video />
       
       <Gallery showLimited={true} itemLimit={20} />
       
