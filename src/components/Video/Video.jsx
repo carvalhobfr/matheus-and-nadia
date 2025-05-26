@@ -9,13 +9,13 @@ const Video = () => {
     <section id="video" className="section py-16 bg-white">
       <div className="container">
         <div className="section-title">
-          <h2 data-aos="fade-up">{t('video.title', 'Nosso Vídeo')}</h2>
+          <h2 data-aos="fade-up">{t('gallery.video.title', 'Nosso Vídeo')}</h2>
         </div>
         <div className="video-container" data-aos="fade-up">
           <div className="responsive-video">
             <iframe
               src="https://www.youtube.com/embed/gnrjdC9N2Lw"
-              title={t('video.title', 'Nosso Vídeo')}
+              title={t('gallery.video.title', 'Nosso Vídeo')}
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
             ></iframe>

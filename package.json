@@ -5,11 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "prebuild": "npm run convert-images",
+    "prebuild": "npm run convert-images && npm run rename-photos && npm run optimize-photos",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "convert-images": "node convert-images.js"
+    "convert-images": "node convert-images.js",
+    "index-photos": "node scripts/index-photos.js",
+    "rename-photos": "node scripts/rename-photos.js",
+    "optimize-photos": "node scripts/optimize-photos.js",
+    "build:all": "npm run index-photos && npm run rename-photos && npm run build && npm run preview"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

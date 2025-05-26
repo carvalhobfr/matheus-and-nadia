@@ -10,6 +10,8 @@ import Countdown from './components/Countdown'
 import Story from './components/Story'
 import Details from './components/Details'
 import Gallery from './components/Gallery'
+import GalleryWithLazyLoad from './components/Gallery/GalleryWithLazyLoad'
+import GalleryPage from './components/GalleryPage'
 import Gifts from './components/Gifts'
 import Gift from './components/Gift'
 import MessageForm from './components/MessageForm'
@@ -41,16 +43,16 @@ function App() {
       
       <Video />
       
-      <Gallery showLimited={true} itemLimit={20} />
+      <GalleryWithLazyLoad showLimited={true} itemLimit={20} />
       
       <MessageForm />
     </>
   );
 
-  // Full Gallery Page component
-  const GalleryPage = () => (
+  // Full Gallery Page component using our new GalleryPage component
+  const FullGalleryPage = () => (
     <div className="gallery-page-container">
-      <Gallery showLimited={false} />
+      <GalleryPage />
     </div>
   );
 
@@ -66,7 +68,7 @@ function App() {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/gifts" element={<Gifts />} />
                 <Route path="/gift/:id" element={<Gift />} />
-                <Route path="/gallery" element={<GalleryPage />} />
+                <Route path="/gallery" element={<FullGalleryPage />} />
                 <Route path="/contact" element={<MessageForm />} />
                 <Route path="/admin" element={<Admin />} />
               </Routes>

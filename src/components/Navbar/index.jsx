@@ -93,8 +93,7 @@ const Navbar = () => {
             <li className="nav-item">
               <Link 
                 className={`nav-link ${location.pathname === '/gallery' ? 'active' : ''}`}
-                to={isHomePage ? "/" : "/gallery"}
-                onClick={() => isHomePage && scrollToSection('gallery')}
+                to="/gallery"
               >
                 {t('navbar.gallery')}
               </Link>

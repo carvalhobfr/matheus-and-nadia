@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Fotos - ignorar após primeiro commit
+# Remova o comentário dessas linhas após o primeiro commit
+# dist/assets/fotos/
+# dist/assets/fotos-optimized/
