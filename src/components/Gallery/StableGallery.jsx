@@ -195,7 +195,7 @@ const StableGallery = () => {
       <div className="gallery-header">
         <h1 className="gallery-title">{t('gallery.title')}</h1>
         <p className="gallery-subtitle">{t('gallery.subtitle')}</p>
-        <p className="text-muted">
+        <p className="text-muted" style={{display: 'none'}}>
           Mostrando {visibleCount} de {totalImages} fotos 
           {visibleCount < totalImages && ` • Lote ${Math.ceil(visibleCount / IMAGES_PER_BATCH)} de ${Math.ceil(totalImages / IMAGES_PER_BATCH)}`}
         </p>

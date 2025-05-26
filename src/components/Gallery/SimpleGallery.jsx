@@ -220,7 +220,7 @@ const SimpleGallery = () => {
       <div className="gallery-header">
         <h1 className="gallery-title">{t('gallery.title')}</h1>
         <p className="gallery-subtitle">{t('gallery.subtitle')}</p>
-        <p className="text-muted">
+        <p className="text-muted" style={{display: 'none'}}>
           Mostrando {images.length} de {totalImages} fotos 
           {images.length < totalImages && ` • Lote ${currentPage} de ${Math.ceil(totalImages / IMAGES_PER_PAGE)}`}
         </p>

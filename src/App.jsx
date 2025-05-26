@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { useTranslation } from 'react-i18next'
 import { ImageProvider } from './contexts/ImageContext'
 import { AuthProvider } from './contexts/AuthContext'
 import { TextProvider } from './contexts/TextContext'
@@ -23,6 +24,8 @@ import Admin from './components/Admin'
 import Video from './components/Video/Video'
 
 function App() {
+  const { t } = useTranslation();
+
   // Initialize AOS on component mount
   useEffect(() => {
     // This is a fallback in case the AOS initialization in main.jsx doesn't work

@@ -1,10 +1,11 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Modal } from 'react-bootstrap';
+import { Gallery as PhotoSwipeGallery, Item as PhotoSwipeItem } from 'photoswipe-react';
+import 'photoswipe/dist/photoswipe.css';
 import { FaSearchPlus, FaCamera, FaChevronLeft, FaChevronRight, FaArrowRight } from 'react-icons/fa';
 import { getBasePath, getFullImagePath, getTotalImageCount, getThumbnailPath } from '../../utils/imageUtils';
 import './Gallery.scss';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const GalleryWithLazyLoad = ({ 
   title, 
@@ -13,173 +14,142 @@ const GalleryWithLazyLoad = ({
   batchSize = showLimited ? 9 : 15 // Para homepage, carrega apenas 9 imagens inicialmente (3 linhas)
 }) => {
   const { t } = useTranslation();
-  const [showModal, setShowModal] = useState(false);
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [pswpOpen, setPswpOpen] = useState(false);
+  const [pswpIndex, setPswpIndex] = useState(0);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const observer = useRef();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [pendingPhotoToOpen, setPendingPhotoToOpen] = useState(null);
   
   // Memoiza o total de imagens para evitar recálculos
   const totalImages = useMemo(() => getTotalImageCount(), []);
   
   // Função otimizada para carregar as imagens
-  const loadImages = useCallback(async () => {
+  const loadImages = useCallback(() => {
     if (loading || !hasMore) return;
     
     setLoading(true);
+    console.log(`🔄 Carregando lote ${page} de imagens...`);
     
-    try {
-      // Calcular o intervalo de imagens a serem carregadas
-      const start = (page - 1) * batchSize + 1;
-      const end = showLimited ? Math.min(start + itemLimit - 1, totalImages) : Math.min(start + batchSize - 1, totalImages);
-      
-      if (start > totalImages) {
-        setHasMore(false);
-        setLoading(false);
-        return;
-      }
-      
-      const newImages = [];
-      for (let i = start; i <= end; i++) {
-        newImages.push({
-          id: i,
-          loaded: false,
-          fullPath: getFullImagePath(i),
-          thumbnailPath: getThumbnailPath(i),
-          index: i
-        });
-      }
-      
-      // Se estamos no modo limitado, não precisamos carregar mais imagens
-      if (showLimited) {
-        setHasMore(false);
-      } else {
-        setHasMore(end < totalImages);
-      }
-      
-      // Adiciona as novas imagens ao estado
-      setImages(prev => [...prev, ...newImages]);
-      setPage(prev => prev + 1);
-    } catch (error) {
-      console.error('Erro ao carregar imagens:', error);
-    } finally {
-      setLoading(false);
+    const startIndex = (page - 1) * batchSize + 1;
+    const endIndex = Math.min(startIndex + batchSize - 1, totalImages);
+    
+    const newImages = [];
+    for (let i = startIndex; i <= endIndex; i++) {
+      newImages.push({
+        id: i,
+        index: i,
+        thumbnailPath: getThumbnailPath(i),
+        fullPath: getFullImagePath(i)
+      });
     }
-  }, [page, batchSize, loading, hasMore, showLimited, itemLimit, totalImages]);
+    
+    console.log(`📸 Adicionando ${newImages.length} novas imagens (${startIndex}-${endIndex})`);
+    
+    setImages(prevImages => [...prevImages, ...newImages]);
+    setPage(prev => prev + 1);
+    setHasMore(endIndex < totalImages);
+    setLoading(false);
+  }, [loading, hasMore, page, batchSize, totalImages]);
   
-  // Observer otimizado para lazy loading
+  // Observer para carregar mais imagens
   const lastImageRef = useCallback(node => {
-    if (loading) return;
-    
+    if (loading || !hasMore) return;
     if (observer.current) observer.current.disconnect();
-    
-    observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore && !showLimited) {
+    if (!node) return;
+    observer.current = new window.IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        console.log('🎯 Última imagem visível, carregando mais...');
         loadImages();
       }
     }, {
-      rootMargin: '100px' // Carrega imagens quando estão 100px antes de aparecer
+      rootMargin: '200px',
+      threshold: 0.1
     });
-    
-    if (node) observer.current.observe(node);
-  }, [loading, hasMore, loadImages, showLimited]);
+    observer.current.observe(node);
+  }, [loading, hasMore, loadImages]);
   
-  // Carrega as primeiras imagens quando o componente monta
+  // Carregar imagens iniciais
   useEffect(() => {
-    loadImages();
-  }, []); // Removido loadImages da dependência para evitar loops
+    if (images.length === 0) {
+      loadImages();
+    }
+  }, [loadImages]);
   
-  // Função para abrir o modal com a imagem selecionada
-  const openImageModal = useCallback((image, index) => {
-    setSelectedImage(image.fullPath);
-    setCurrentImageIndex(index);
-    setShowModal(true);
-  }, []);
-  
-  // Função para fechar o modal
-  const closeImageModal = useCallback(() => {
-    setShowModal(false);
-    setSelectedImage(null);
-  }, []);
-  
-  // Função para navegar para a próxima imagem
-  const showNextImage = useCallback(() => {
-    const nextIndex = (currentImageIndex + 1) % images.length;
-    setCurrentImageIndex(nextIndex);
-    setSelectedImage(images[nextIndex].fullPath);
-  }, [currentImageIndex, images]);
-  
-  // Função para navegar para a imagem anterior
-  const showPreviousImage = useCallback(() => {
-    const prevIndex = (currentImageIndex - 1 + images.length) % images.length;
-    setCurrentImageIndex(prevIndex);
-    setSelectedImage(images[prevIndex].fullPath);
-  }, [currentImageIndex, images]);
-  
-  // Adicionar suporte para navegação com teclado
+  // Verificar parâmetro 'foto' na URL ao carregar
   useEffect(() => {
-    const handleKeyDown = (e) => {
-      if (!showModal) return;
+    const fotoParam = searchParams.get('foto');
+    if (fotoParam) {
+      const targetImageIndex = parseInt(fotoParam);
+      setPendingPhotoToOpen(targetImageIndex);
+    }
+  }, [searchParams]);
+
+  // Abrir galeria automaticamente quando a imagem estiver disponível
+  useEffect(() => {
+    if (pendingPhotoToOpen && images.length > 0) {
+      // Encontrar o índice da imagem correspondente no array atual
+      const idx = images.findIndex(img => img.index === pendingPhotoToOpen);
       
-      if (e.key === 'ArrowRight') {
-        showNextImage();
-      } else if (e.key === 'ArrowLeft') {
-        showPreviousImage();
-      } else if (e.key === 'Escape') {
-        closeImageModal();
+      if (idx !== -1) {
+        // Imagem já está carregada, abrir modal
+        console.log(`🎯 Abrindo modal para foto ${pendingPhotoToOpen} no índice ${idx}`);
+        setPswpIndex(idx);
+        setPswpOpen(true);
+        setPendingPhotoToOpen(null); // Limpar o estado pendente
+      } else {
+        // Imagem ainda não foi carregada, verificar se precisamos carregar mais
+        const lastLoadedIndex = images[images.length - 1]?.index || 0;
+        const needToLoadMore = pendingPhotoToOpen > lastLoadedIndex;
+        
+        if (needToLoadMore && hasMore && !loading) {
+          console.log(`🔄 Carregando mais imagens para encontrar foto ${pendingPhotoToOpen} (última carregada: ${lastLoadedIndex})`);
+          loadImages();
+        }
       }
-    };
-    
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showModal, showNextImage, showPreviousImage, closeImageModal]);
+    }
+  }, [pendingPhotoToOpen, images, hasMore, loading, loadImages]);
+  
+  // Função para abrir a galeria PhotoSwipe
+  const openImageModal = useCallback((image, index) => {
+    setPswpIndex(index);
+    setPswpOpen(true);
+    setSearchParams({ foto: image.index });
+  }, [setSearchParams]);
+  
+  // Função para fechar a galeria
+  const closeImageModal = useCallback(() => {
+    setPswpOpen(false);
+    setPendingPhotoToOpen(null);
+    searchParams.delete('foto');
+    setSearchParams(searchParams, { replace: true });
+  }, [searchParams, setSearchParams]);
   
   // Componente otimizado para a imagem com lazy loading
   const LazyImage = ({ image, index, isLast }) => {
-    const imgRef = useRef();
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
-    
-    useEffect(() => {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting && !loaded && !error) {
-            setLoaded(true);
-          }
-        },
-        {
-          rootMargin: '50px' // Carrega quando está 50px antes de aparecer
-        }
-      );
-      
-      if (imgRef.current) {
-        observer.observe(imgRef.current);
-      }
-      
-      return () => {
-        if (imgRef.current) {
-          observer.unobserve(imgRef.current);
-        }
-      };
-    }, [loaded, error]);
-    
-    const handleImageError = useCallback(() => {
-      setError(true);
-    }, []);
+    const imgRef = useRef();
     
     const handleImageLoad = useCallback(() => {
       setLoaded(true);
-    }, []);
+      console.log(`✅ Imagem ${image.index} carregada`);
+    }, [image.index]);
+    
+    const handleImageError = useCallback(() => {
+      setError(true);
+      console.error(`❌ Erro ao carregar imagem ${image.index}`);
+    }, [image.index]);
     
     return (
       <div 
         className="col-md-4 mb-4" 
         ref={isLast ? lastImageRef : imgRef}
         data-aos="fade-up"
-        data-aos-delay={showLimited ? index * 30 : index * 50} // Animação mais rápida na homepage
+        data-aos-delay={showLimited ? index * 30 : index * 50}
       >
         <div className="gallery-item">
           <div className="image-container">
@@ -207,6 +177,10 @@ const GalleryWithLazyLoad = ({
                 onLoad={handleImageLoad}
                 onError={handleImageError}
                 onClick={() => openImageModal(image, index)}
+                style={{
+                  opacity: loaded ? 1 : 0,
+                  transition: 'opacity 0.3s ease'
+                }}
               />
             )}
             
@@ -222,6 +196,15 @@ const GalleryWithLazyLoad = ({
       </div>
     );
   };
+  
+  // Montar os itens para o PhotoSwipe
+  const pswpItems = images.map(img => ({
+    src: img.fullPath,
+    msrc: img.thumbnailPath,
+    width: 1200,
+    height: 800,
+    alt: `Foto do casamento ${img.index}`
+  }));
   
   return (
     <section className="gallery-section py-5">
@@ -262,52 +245,14 @@ const GalleryWithLazyLoad = ({
         )}
       </div>
       
-      {/* Modal para visualização da imagem */}
-      <Modal 
-        show={showModal} 
-        onHide={closeImageModal} 
-        size="xl" 
-        centered
-        className="gallery-modal"
-      >
-        <Modal.Header closeButton className="border-0">
-          <Modal.Title>
-            {t('gallery.imageViewer')} ({currentImageIndex + 1}/{images.length})
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="p-0">
-          <div className="modal-image-container">
-            {selectedImage && (
-              <img
-                src={selectedImage}
-                alt={`Foto do casamento ${currentImageIndex + 1}`}
-                className="modal-image"
-                loading="lazy"
-              />
-            )}
-            
-            {images.length > 1 && (
-              <>
-                <button
-                  className="modal-nav-btn modal-nav-prev"
-                  onClick={showPreviousImage}
-                  aria-label="Foto anterior"
-                >
-                  <FaChevronLeft size={24} />
-                </button>
-                
-                <button
-                  className="modal-nav-btn modal-nav-next"
-                  onClick={showNextImage}
-                  aria-label="Próxima foto"
-                >
-                  <FaChevronRight size={24} />
-                </button>
-              </>
-            )}
-          </div>
-        </Modal.Body>
-      </Modal>
+      {/* Modal para visualização da imagem estilo iOS */}
+      <PhotoSwipeGallery
+        open={pswpOpen}
+        close={closeImageModal}
+        options={{ index: pswpIndex, bgOpacity: 0.95, showHideAnimationType: 'zoom', wheelToZoom: true }}
+        slides={pswpItems}
+        onIndexChange={setPswpIndex}
+      />
     </section>
   );
 };
