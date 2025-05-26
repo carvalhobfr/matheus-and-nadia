@@ -1,0 +1,181 @@
+/* iOS Gallery Styles - Clean and Minimal */
+
+.ios-gallery-container {
+  width: 100%;
+  background-color: #ffffff;
+  min-height: 100vh;
+}
+
+.ios-gallery-header {
+  padding: 2rem 1rem 1rem 1rem;
+  text-align: center;
+  background-color: #ffffff;
+  
+  .ios-gallery-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #000000;
+    margin: 0;
+    letter-spacing: -0.5px;
+  }
+}
+
+.ios-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px; /* Espaçamento mínimo entre as imagens, como no iOS */
+  background-color: #ffffff;
+  padding: 0;
+  margin: 0;
+}
+
+.ios-gallery-item {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1; /* Quadrado perfeito como no iOS */
+  background-color: #f2f2f7;
+  overflow: hidden;
+  cursor: pointer;
+  
+  /* Remove qualquer borda ou sombra */
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  
+  /* Transição suave para o toque */
+  transition: opacity 0.1s ease;
+  
+  &:active {
+    opacity: 0.8;
+  }
+}
+
+.ios-gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  
+  /* Remove qualquer estilo padrão */
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  
+  /* Transição suave para carregamento */
+  transition: opacity 0.2s ease;
+}
+
+.ios-image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f7;
+  
+  .ios-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #c7c7cc;
+    border-top: 2px solid #007aff;
+    border-radius: 50%;
+    animation: ios-spin 1s linear infinite;
+  }
+}
+
+.ios-image-error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f7;
+  
+  .ios-error-icon {
+    font-size: 2rem;
+    opacity: 0.3;
+  }
+}
+
+.ios-loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+  background-color: #ffffff;
+  
+  .ios-loading-spinner {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #c7c7cc;
+    border-top: 2px solid #007aff;
+    border-radius: 50%;
+    animation: ios-spin 1s linear infinite;
+  }
+}
+
+@keyframes ios-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsivo para diferentes tamanhos de tela */
+@media (max-width: 768px) {
+  .ios-gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+  }
+  
+  .ios-gallery-header {
+    padding: 1rem;
+    
+    .ios-gallery-title {
+      font-size: 1.5rem;
+    }
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .ios-gallery-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+  }
+}
+
+@media (min-width: 1025px) {
+  .ios-gallery-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1px;
+  }
+  
+  .ios-gallery-container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+
+/* Customização do PhotoSwipe para estilo iOS */
+.pswp {
+  --pswp-bg: #000000;
+  
+  .pswp__ui {
+    --pswp-icon-color: #ffffff;
+    --pswp-icon-color-secondary: #ffffff;
+  }
+  
+  .pswp__top-bar {
+    background: linear-gradient(to bottom, rgba(0,0,0,0.3), transparent);
+  }
+  
+  .pswp__button {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+} 
