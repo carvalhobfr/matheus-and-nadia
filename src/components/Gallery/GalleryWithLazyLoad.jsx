@@ -1,11 +1,11 @@
-import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Gallery as PhotoSwipeGallery, Item as PhotoSwipeItem } from 'photoswipe-react';
+import { Gallery as PhotoSwipeGallery, Item as PhotoSwipeItem } from 'react-photoswipe-gallery';
 import 'photoswipe/dist/photoswipe.css';
 import { FaSearchPlus, FaCamera, FaChevronLeft, FaChevronRight, FaArrowRight } from 'react-icons/fa';
 import { getBasePath, getFullImagePath, getTotalImageCount, getThumbnailPath } from '../../utils/imageUtils';
 import './Gallery.scss';
-import { Link, useSearchParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const GalleryWithLazyLoad = ({ 
   title, 
@@ -14,15 +14,11 @@ const GalleryWithLazyLoad = ({
   batchSize = showLimited ? 9 : 15 // Para homepage, carrega apenas 9 imagens inicialmente (3 linhas)
 }) => {
   const { t } = useTranslation();
-  const [pswpOpen, setPswpOpen] = useState(false);
-  const [pswpIndex, setPswpIndex] = useState(0);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const observer = useRef();
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [pendingPhotoToOpen, setPendingPhotoToOpen] = useState(null);
   
   // Memoiza o total de imagens para evitar recálculos
   const totalImages = useMemo(() => getTotalImageCount(), []);
@@ -79,57 +75,10 @@ const GalleryWithLazyLoad = ({
     }
   }, [loadImages]);
   
-  // Verificar parâmetro 'foto' na URL ao carregar
-  useEffect(() => {
-    const fotoParam = searchParams.get('foto');
-    if (fotoParam) {
-      const targetImageIndex = parseInt(fotoParam);
-      setPendingPhotoToOpen(targetImageIndex);
-    }
-  }, [searchParams]);
 
-  // Abrir galeria automaticamente quando a imagem estiver disponível
-  useEffect(() => {
-    if (pendingPhotoToOpen && images.length > 0) {
-      // Encontrar o índice da imagem correspondente no array atual
-      const idx = images.findIndex(img => img.index === pendingPhotoToOpen);
-      
-      if (idx !== -1) {
-        // Imagem já está carregada, abrir modal
-        console.log(`🎯 Abrindo modal para foto ${pendingPhotoToOpen} no índice ${idx}`);
-        setPswpIndex(idx);
-        setPswpOpen(true);
-        setPendingPhotoToOpen(null); // Limpar o estado pendente
-      } else {
-        // Imagem ainda não foi carregada, verificar se precisamos carregar mais
-        const lastLoadedIndex = images[images.length - 1]?.index || 0;
-        const needToLoadMore = pendingPhotoToOpen > lastLoadedIndex;
-        
-        if (needToLoadMore && hasMore && !loading) {
-          console.log(`🔄 Carregando mais imagens para encontrar foto ${pendingPhotoToOpen} (última carregada: ${lastLoadedIndex})`);
-          loadImages();
-        }
-      }
-    }
-  }, [pendingPhotoToOpen, images, hasMore, loading, loadImages]);
-  
-  // Função para abrir a galeria PhotoSwipe
-  const openImageModal = useCallback((image, index) => {
-    setPswpIndex(index);
-    setPswpOpen(true);
-    setSearchParams({ foto: image.index });
-  }, [setSearchParams]);
-  
-  // Função para fechar a galeria
-  const closeImageModal = useCallback(() => {
-    setPswpOpen(false);
-    setPendingPhotoToOpen(null);
-    searchParams.delete('foto');
-    setSearchParams(searchParams, { replace: true });
-  }, [searchParams, setSearchParams]);
   
   // Componente otimizado para a imagem com lazy loading
-  const LazyImage = ({ image, index, isLast }) => {
+  const LazyImage = React.forwardRef(({ image, index, isLast, onClick }, ref) => {
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
     const imgRef = useRef();
@@ -147,7 +96,7 @@ const GalleryWithLazyLoad = ({
     return (
       <div 
         className="col-md-4 mb-4" 
-        ref={isLast ? lastImageRef : imgRef}
+        ref={isLast ? lastImageRef : (ref || imgRef)}
         data-aos="fade-up"
         data-aos-delay={showLimited ? index * 30 : index * 50}
       >
@@ -168,43 +117,32 @@ const GalleryWithLazyLoad = ({
               </div>
             )}
             
-            {loaded && (
-              <img
-                src={image.thumbnailPath}
-                alt={`Foto do casamento ${image.index}`}
-                className="gallery-image"
-                loading="lazy"
-                onLoad={handleImageLoad}
-                onError={handleImageError}
-                onClick={() => openImageModal(image, index)}
-                style={{
-                  opacity: loaded ? 1 : 0,
-                  transition: 'opacity 0.3s ease'
-                }}
-              />
-            )}
+            <img
+              src={image.thumbnailPath}
+              alt={`Foto do casamento ${image.index}`}
+              className="gallery-image"
+              loading="lazy"
+              onLoad={handleImageLoad}
+              onError={handleImageError}
+              onClick={onClick}
+              style={{
+                opacity: loaded ? 1 : 0,
+                transition: 'opacity 0.3s ease',
+                cursor: 'pointer'
+              }}
+            />
             
-            <div className="image-overlay">
+            <div className="image-overlay" onClick={onClick}>
               <FaSearchPlus 
                 size={24} 
                 className="zoom-icon"
-                onClick={() => openImageModal(image, index)}
               />
             </div>
           </div>
         </div>
       </div>
     );
-  };
-  
-  // Montar os itens para o PhotoSwipe
-  const pswpItems = images.map(img => ({
-    src: img.fullPath,
-    msrc: img.thumbnailPath,
-    width: 1200,
-    height: 800,
-    alt: `Foto do casamento ${img.index}`
-  }));
+  });
   
   return (
     <section className="gallery-section py-5">
@@ -216,16 +154,36 @@ const GalleryWithLazyLoad = ({
           </div>
         )}
         
-        <div className="row">
-          {images.map((image, index) => (
-            <LazyImage
-              key={image.id}
-              image={image}
-              index={index}
-              isLast={index === images.length - 1}
-            />
-          ))}
-        </div>
+        <PhotoSwipeGallery
+          options={{ 
+            bgOpacity: 0.95, 
+            showHideAnimationType: 'zoom', 
+            wheelToZoom: true 
+          }}
+        >
+          <div className="row">
+            {images.map((image, index) => (
+              <PhotoSwipeItem
+                key={image.id}
+                original={image.fullPath}
+                thumbnail={image.thumbnailPath}
+                width="1200"
+                height="800"
+                alt={`Foto do casamento ${image.index}`}
+              >
+                {({ ref, open }) => (
+                  <LazyImage
+                    image={image}
+                    index={index}
+                    isLast={index === images.length - 1}
+                    ref={ref}
+                    onClick={open}
+                  />
+                )}
+              </PhotoSwipeItem>
+            ))}
+          </div>
+        </PhotoSwipeGallery>
         
         {loading && (
           <div className="text-center py-4">
@@ -244,15 +202,6 @@ const GalleryWithLazyLoad = ({
           </div>
         )}
       </div>
-      
-      {/* Modal para visualização da imagem estilo iOS */}
-      <PhotoSwipeGallery
-        open={pswpOpen}
-        close={closeImageModal}
-        options={{ index: pswpIndex, bgOpacity: 0.95, showHideAnimationType: 'zoom', wheelToZoom: true }}
-        slides={pswpItems}
-        onIndexChange={setPswpIndex}
-      />
     </section>
   );
 };
