@@ -22,7 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-# Fotos - ignorar para não ocupar espaço no repositório
-dist/assets/fotos/
-dist/assets/fotos-optimized/
