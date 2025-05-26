@@ -7,11 +7,15 @@
  * node scripts/rename-photos.js
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Caminho para a pasta de fotos
-const PHOTOS_DIR = path.join(__dirname, '../dist/assets/fotos');
+const PHOTOS_DIR = path.join(__dirname, '../public/fotos');
 // Caminho para o arquivo de mapeamento
 const MAPPING_FILE = path.join(__dirname, '../src/utils/photo-mapping.json');
 
@@ -59,8 +63,8 @@ async function renamePhotos() {
       }
     });
     
-    // Ordena os arquivos pelo número (ordem decrescente para manter os números mais altos primeiro)
-    fileInfos.sort((a, b) => b.number - a.number);
+    // Ordena os arquivos pelo número (ordem crescente para manter os números menores primeiro)
+    fileInfos.sort((a, b) => a.number - b.number);
     
     // Cria um mapeamento de número original para novo nome
     const mapping = {};
@@ -115,27 +119,16 @@ function updateImageUtils() {
     // Lê o conteúdo atual do arquivo
     let content = fs.readFileSync(utilsPath, 'utf8');
     
-    // Atualiza a função getFullImagePath para usar o novo padrão de nome
-    const getFullPathFunction = /export const getFullImagePath = \(fileIndex\) => \{[\s\S]+?\};/;
-    const newGetFullPathFunction = `export const getFullImagePath = (fileIndex) => {
-  const basePath = getBasePath();
-  
-  // Formato padronizado para imagens otimizadas
-  return \`\${basePath}fotos-casamento-\${fileIndex}.webp\`;
+    // Atualiza a função getTotalImageCount com o número real de imagens
+    const mapping = JSON.parse(fs.readFileSync(MAPPING_FILE, 'utf8'));
+    const totalImages = Object.keys(mapping).length;
+    
+    const getTotalFunction = /export const getTotalImageCount = \(\) => \{[\s\S]+?\};/;
+    const newGetTotalFunction = `export const getTotalImageCount = () => {
+  return ${totalImages}; // Atualizado automaticamente pelo script de renomeação
 };`;
     
-    content = content.replace(getFullPathFunction, newGetFullPathFunction);
-    
-    // Atualiza a função getThumbnailPath se existir
-    if (content.includes('getThumbnailPath')) {
-      const getThumbnailFunction = /export const getThumbnailPath = \(fileIndex\) => \{[\s\S]+?\};/;
-      const newGetThumbnailFunction = `export const getThumbnailPath = (fileIndex) => {
-  // Caminho para thumbnails com formato padronizado
-  return \`/assets/fotos-optimized/thumbnails/fotos-casamento-\${fileIndex}.webp\`;
-};`;
-      
-      content = content.replace(getThumbnailFunction, newGetThumbnailFunction);
-    }
+    content = content.replace(getTotalFunction, newGetTotalFunction);
     
     // Salva o arquivo atualizado
     fs.writeFileSync(utilsPath, content);

@@ -11,7 +11,10 @@ import Story from './components/Story'
 import Details from './components/Details'
 import Gallery from './components/Gallery'
 import GalleryWithLazyLoad from './components/Gallery/GalleryWithLazyLoad'
-import GalleryPage from './components/GalleryPage'
+import HomepageGallery from './components/Gallery/HomepageGallery'
+import SimpleHomepageGallery from './components/Gallery/SimpleHomepageGallery'
+import TestGallery from './components/Gallery/TestGallery'
+import GalleryPage from './components/Gallery/GalleryPage'
 import Gifts from './components/Gifts'
 import Gift from './components/Gift'
 import MessageForm from './components/MessageForm'
@@ -43,7 +46,7 @@ function App() {
       
       <Video />
       
-      <GalleryWithLazyLoad showLimited={true} itemLimit={20} />
+      <SimpleHomepageGallery />
       
       <MessageForm />
     </>
@@ -51,9 +54,7 @@ function App() {
 
   // Full Gallery Page component using our new GalleryPage component
   const FullGalleryPage = () => (
-    <div className="gallery-page-container">
-      <GalleryPage />
-    </div>
+    <GalleryPage />
   );
 
   return (

@@ -1,19 +1,24 @@
 /**
  * Script para indexar as fotos na pasta dist/assets/fotos
- * Este script lê os nomes dos arquivos na pasta de fotos e gera um arquivo de mapeamento
- * para facilitar o carregamento das imagens no frontend.
+ * - Conta o número total de imagens
+ * - Cria um mapeamento dos arquivos
+ * - Atualiza o arquivo imageUtils.js
  * 
  * Para executar: 
  * node scripts/index-photos.js
  */
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Caminho para a pasta de fotos
-const PHOTOS_DIR = path.join(__dirname, '../dist/assets/fotos');
-// Caminho para o arquivo de saída (mapeamento)
-const OUTPUT_FILE = path.join(__dirname, '../src/utils/photo-mapping.json');
+const PHOTOS_DIR = path.join(__dirname, '../public/fotos');
+// Caminho para o arquivo de mapeamento
+const MAPPING_FILE = path.join(__dirname, '../src/utils/photo-mapping.json');
 
 // Função principal
 async function indexPhotos() {
@@ -38,30 +43,25 @@ async function indexPhotos() {
     
     console.log(`Encontrados ${imageFiles.length} arquivos de imagem.`);
     
-    // Cria o mapeamento de índice -> nome do arquivo
+    // Cria um mapeamento de índice para nome de arquivo
     const mapping = {};
     
-    imageFiles.forEach(file => {
-      // Formato esperado: 555-C0090.jpg
-      const match = file.match(/^(\d+)-(.+)$/);
-      
-      if (match) {
-        const [_, index, filename] = match;
-        mapping[index] = filename;
-      }
+    imageFiles.forEach((file, index) => {
+      mapping[index + 1] = file; // Índices começam em 1
     });
     
     // Salva o mapeamento em um arquivo JSON
     fs.writeFileSync(
-      OUTPUT_FILE, 
+      MAPPING_FILE, 
       JSON.stringify(mapping, null, 2)
     );
     
-    console.log(`Mapeamento salvo em: ${OUTPUT_FILE}`);
-    console.log(`Total de imagens indexadas: ${Object.keys(mapping).length}`);
+    console.log(`Mapeamento salvo em: ${MAPPING_FILE}`);
     
-    // Atualiza o arquivo imageUtils.js para usar o mapeamento
-    updateImageUtils();
+    // Atualiza o imageUtils.js
+    updateImageUtils(imageFiles.length);
+    
+    console.log(`\nIndexação concluída! ${imageFiles.length} imagens foram indexadas.`);
     
   } catch (error) {
     console.error('Erro ao indexar fotos:', error);
@@ -69,7 +69,7 @@ async function indexPhotos() {
 }
 
 // Função para atualizar o arquivo imageUtils.js
-function updateImageUtils() {
+function updateImageUtils(totalImages) {
   const utilsPath = path.join(__dirname, '../src/utils/imageUtils.js');
   
   // Verifica se o arquivo existe
@@ -79,43 +79,22 @@ function updateImageUtils() {
   }
   
   try {
-    // Lê o mapeamento gerado
-    const mapping = JSON.parse(fs.readFileSync(OUTPUT_FILE, 'utf8'));
-    
     // Lê o conteúdo atual do arquivo
     let content = fs.readFileSync(utilsPath, 'utf8');
     
-    // Encontra a declaração do imageFileMapping
-    const mappingRegex = /export const imageFileMapping = \{[^}]*\};/s;
+    // Atualiza a função getTotalImageCount
+    const getTotalFunction = /export const getTotalImageCount = \(\) => \{[\s\S]+?\};/;
+    const newGetTotalFunction = `export const getTotalImageCount = () => {
+  return ${totalImages}; // Atualizado automaticamente pelo script de indexação
+};`;
     
-    // Formata o novo mapeamento como string
-    let newMappingStr = 'export const imageFileMapping = {\n';
-    Object.entries(mapping).forEach(([key, value]) => {
-      newMappingStr += `  "${key}": "${value}",\n`;
-    });
-    newMappingStr += '};';
-    
-    // Substitui o mapeamento antigo pelo novo
-    if (mappingRegex.test(content)) {
-      content = content.replace(mappingRegex, newMappingStr);
-    } else {
-      console.warn('Não foi possível encontrar a declaração de imageFileMapping no arquivo.');
-      return;
-    }
-    
-    // Atualiza também o total de imagens
-    const totalCountRegex = /export const getTotalImageCount = \(\) => \{\s*return \d+;/;
-    const totalCount = Object.keys(mapping).length;
-    const newTotalCountStr = `export const getTotalImageCount = () => {\n  return ${totalCount};`;
-    
-    if (totalCountRegex.test(content)) {
-      content = content.replace(totalCountRegex, newTotalCountStr);
-    }
+    content = content.replace(getTotalFunction, newGetTotalFunction);
     
     // Salva o arquivo atualizado
     fs.writeFileSync(utilsPath, content);
     
     console.log('Arquivo imageUtils.js atualizado com sucesso!');
+    
   } catch (error) {
     console.error('Erro ao atualizar imageUtils.js:', error);
   }

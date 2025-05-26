@@ -245,6 +245,12 @@ export const enTranslations = {
       message: 'Soon, we will share photos of our intimate wedding in the beautiful Thai landscapes. Stay tuned!'
     },
     viewMore: 'View All Photos',
+    viewAll: 'View All Photos',
+    subtitle: 'Some of our favorite photos from the big day',
+    specialMoments: 'Special Moments',
+    loadingMore: 'Loading more photos...',
+    imageNotFound: 'Image not found',
+    loading: 'Loading...',
     video: {
       title: 'Our Video'
     }
@@ -501,6 +507,12 @@ export const ptTranslations = {
       message: 'Em breve, compartilharemos aqui as fotos do nosso casamento íntimo nas belas paisagens tailandesas. Fique atento!'
     },
     viewMore: 'Ver Todas as Fotos',
+    viewAll: 'Ver Todas as Fotos',
+    subtitle: 'Algumas das nossas fotos favoritas do grande dia',
+    specialMoments: 'Momentos Especiais',
+    loadingMore: 'Carregando mais fotos...',
+    imageNotFound: 'Imagem não encontrada',
+    loading: 'Carregando...',
     video: {
       title: 'Nosso Vídeo'
     }
@@ -757,6 +769,12 @@ export const esTranslations = {
       message: 'Pronto, compartiremos aquí las fotos de nuestra boda íntima en los hermosos paisajes tailandeses. ¡Estate atento!'
     },
     viewMore: 'Ver Todas las Fotos',
+    viewAll: 'Ver Todas las Fotos',
+    subtitle: 'Algunas de nuestras fotos favoritas del gran día',
+    specialMoments: 'Momentos Especiales',
+    loadingMore: 'Cargando más fotos...',
+    imageNotFound: 'Imagen no encontrada',
+    loading: 'Cargando...',
     video: {
       title: 'Nuestro Video'
     }

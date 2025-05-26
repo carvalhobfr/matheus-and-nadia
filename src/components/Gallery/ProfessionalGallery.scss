@@ -1,0 +1,421 @@
+.professional-gallery {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 0;
+
+  .gallery-header {
+    text-align: center;
+    padding: 2rem 2rem 2rem; // Reduzido o padding-top pois já temos espaço da navbar
+    background: white;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0;
+
+    .gallery-title {
+      font-size: 3rem;
+      font-weight: 300;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      
+      @media (max-width: 768px) {
+        font-size: 2rem;
+      }
+    }
+
+    .gallery-subtitle {
+      font-size: 1.2rem;
+      color: #6c757d;
+      font-weight: 300;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+  }
+
+  .gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0; // ZERO padding entre imagens
+    max-width: 100vw;
+    margin: 0;
+    padding: 0;
+    border: none;
+    outline: none;
+  }
+
+  .gallery-item {
+    position: relative;
+    aspect-ratio: 1; // Mantém proporção quadrada
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none !important; // Remove qualquer borda
+    margin: 0 !important; // ZERO margin
+    padding: 0 !important; // ZERO padding
+    outline: none !important;
+    box-sizing: border-box;
+    
+    // Flexbox responsivo - adapta automaticamente
+    flex: 0 0 50%; // Mobile: 2 colunas (50% cada)
+    height: 40vh; // Mobile - imagens maiores
+    
+    @media (min-width: 768px) {
+      flex: 0 0 33.333%; // Tablet/Desktop: 3 colunas (33.33% cada)
+      height: 35vh;
+    }
+    
+    @media (min-width: 1200px) {
+      flex: 0 0 25%; // Desktop grande: 4 colunas (25% cada)
+      height: 30vh;
+    }
+    
+    @media (min-width: 1600px) {
+      flex: 0 0 20%; // Telas muito largas: 5 colunas (20% cada)
+      height: 28vh;
+    }
+    
+    @media (min-width: 2000px) {
+      flex: 0 0 16.666%; // Telas ultra largas: 6 colunas (16.66% cada)
+      height: 25vh;
+    }
+
+    &:hover {
+      transform: scale(1.02); // Zoom mais sutil
+      z-index: 10;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      
+      .image-overlay {
+        opacity: 1;
+      }
+    }
+
+    .image-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none !important;
+      border-radius: 0 !important; // Remove qualquer border-radius
+      box-sizing: border-box;
+      outline: none !important;
+    }
+
+    .gallery-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.3s ease;
+      will-change: transform;
+      backface-visibility: hidden;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: none !important;
+      border-radius: 0 !important; // Remove qualquer border-radius
+      display: block;
+      outline: none !important;
+      box-sizing: border-box;
+    }
+
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      backdrop-filter: blur(2px);
+
+      .zoom-icon {
+        color: white;
+        font-size: 2rem;
+        transition: transform 0.2s ease;
+        
+        &:hover {
+          transform: scale(1.2);
+        }
+      }
+    }
+
+    .image-placeholder {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fa;
+      
+      .loading-spinner {
+        width: 40px;
+        height: 40px;
+        border: 3px solid #e9ecef;
+        border-top: 3px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+    }
+
+    .image-error {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f8f9fa;
+      color: #6c757d;
+      font-size: 0.9rem;
+    }
+  }
+
+  .loading-container {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: white;
+    
+    .loading-spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid #e9ecef;
+      border-top: 4px solid #007bff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 1rem;
+      
+      &.large {
+        width: 60px;
+        height: 60px;
+        border-width: 5px;
+      }
+    }
+    
+    p {
+      color: #6c757d;
+      font-size: 1.1rem;
+      margin: 0;
+    }
+  }
+}
+
+// Animações para carregamento suave
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e9ecef;
+  border-top: 2px solid #007bff;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+// Modal styles - Clean design seguindo o estilo do site
+.gallery-modal {
+  .modal-dialog {
+    max-width: 95vw;
+    max-height: 95vh;
+    margin: 2.5vh auto;
+  }
+
+  .modal-content {
+    background: var(--light-color); // Fundo claro do site
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(61, 35, 20, 0.3); // Sombra com cor primária
+    overflow: hidden;
+  }
+
+  .modal-body {
+    padding: 0;
+  }
+
+  .modal-content-wrapper {
+    position: relative;
+    width: 100%;
+    height: 95vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--light-color); // Fundo claro
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: var(--primary-color); // Cor primária do site
+    border: none;
+    color: white;
+    font-size: 1.2rem;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(61, 35, 20, 0.2);
+
+    &:hover {
+      background: var(--dark-color); // Cor escura no hover
+      transform: scale(1.05);
+      box-shadow: 0 6px 20px rgba(61, 35, 20, 0.3);
+    }
+  }
+
+  .modal-image-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 60px 60px; // Mais espaço no topo para o botão fechar
+    
+    @media (max-width: 768px) {
+      padding: 80px 20px 60px;
+    }
+  }
+
+  .modal-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain; // Mantém ratio original da foto
+    border-radius: 0; // Sem bordas arredondadas para visual mais profissional
+    box-shadow: 0 10px 30px rgba(61, 35, 20, 0.15); // Sombra sutil
+    width: auto; // Permite dimensão natural
+    height: auto; // Permite dimensão natural
+    display: block;
+    margin: 0 auto;
+    background: white; // Fundo branco para a imagem
+  }
+
+  .modal-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--primary-color); // Cor primária
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(61, 35, 20, 0.2);
+
+    &:hover {
+      background: var(--secondary-color); // Cor secundária no hover
+      transform: translateY(-50%) scale(1.05);
+      box-shadow: 0 6px 20px rgba(61, 35, 20, 0.3);
+    }
+
+    &.prev {
+      left: 20px;
+    }
+
+    &.next {
+      right: 20px;
+    }
+    
+    @media (max-width: 768px) {
+      width: 45px;
+      height: 45px;
+      font-size: 1.1rem;
+      
+      &.prev {
+        left: 15px;
+      }
+      
+      &.next {
+        right: 15px;
+      }
+    }
+  }
+
+  .modal-counter {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary-color); // Cor primária
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(61, 35, 20, 0.2);
+    letter-spacing: 0.5px;
+    
+    @media (max-width: 768px) {
+      padding: 8px 16px;
+      font-size: 0.85rem;
+    }
+  }
+}
+
+// Animações
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Otimizações de performance
+.gallery-item,
+.gallery-image,
+.image-overlay {
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+// Força remoção de border-radius em todos os elementos da galeria
+.professional-gallery {
+  .gallery-item,
+  .image-container,
+  .gallery-image,
+  img {
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+  }
+}
+
+// Smooth scrolling
+html {
+  scroll-behavior: smooth;
+}
+
+// Prevenção de layout shift
+.gallery-grid {
+  contain: layout style paint;
+} 

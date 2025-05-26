@@ -1,16 +1,16 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Modal } from 'react-bootstrap';
 import { FaSearchPlus, FaCamera, FaChevronLeft, FaChevronRight, FaArrowRight } from 'react-icons/fa';
-import { getBasePath, getFullImagePath, findCorrectImagePath, getTotalImageCount, getThumbnailPath } from '../../utils/imageUtils';
+import { getBasePath, getFullImagePath, getTotalImageCount, getThumbnailPath } from '../../utils/imageUtils';
 import './Gallery.scss';
 import { Link } from 'react-router-dom';
 
 const GalleryWithLazyLoad = ({ 
   title, 
   showLimited = false, 
-  itemLimit = 21, // Alterado para 21 para ter 7 linhas com 3 imagens por linha
-  batchSize = 30 // Número de imagens a serem carregadas de cada vez
+  itemLimit = 21, // 7 linhas × 3 imagens por linha
+  batchSize = showLimited ? 9 : 15 // Para homepage, carrega apenas 9 imagens inicialmente (3 linhas)
 }) => {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
@@ -21,37 +21,35 @@ const GalleryWithLazyLoad = ({
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const observer = useRef();
-  const lastImageElementRef = useRef();
   
-  // Função para carregar as imagens
+  // Memoiza o total de imagens para evitar recálculos
+  const totalImages = useMemo(() => getTotalImageCount(), []);
+  
+  // Função otimizada para carregar as imagens
   const loadImages = useCallback(async () => {
     if (loading || !hasMore) return;
     
     setLoading(true);
     
     try {
-      const totalImages = getTotalImageCount();
-      
       // Calcular o intervalo de imagens a serem carregadas
       const start = (page - 1) * batchSize + 1;
-      const end = showLimited ? Math.min(start + itemLimit - 1, totalImages) : start + batchSize - 1;
+      const end = showLimited ? Math.min(start + itemLimit - 1, totalImages) : Math.min(start + batchSize - 1, totalImages);
+      
+      if (start > totalImages) {
+        setHasMore(false);
+        setLoading(false);
+        return;
+      }
       
       const newImages = [];
-      for (let i = start; i <= end && i <= totalImages; i++) {
-        // Formatação do nome do arquivo: index-nome.jpg
-        const fileIndex = (totalImages + 1) - i; // Inverte a ordem para começar da foto mais recente
-        
-        if (fileIndex <= 0) {
-          setHasMore(false);
-          break;
-        }
-        
+      for (let i = start; i <= end; i++) {
         newImages.push({
-          id: fileIndex,
+          id: i,
           loaded: false,
-          fullPath: null,
-          thumbnailPath: null,
-          index: fileIndex.toString()
+          fullPath: getFullImagePath(i),
+          thumbnailPath: getThumbnailPath(i),
+          index: i
         });
       }
       
@@ -70,95 +68,56 @@ const GalleryWithLazyLoad = ({
     } finally {
       setLoading(false);
     }
-  }, [page, batchSize, loading, hasMore, showLimited, itemLimit]);
+  }, [page, batchSize, loading, hasMore, showLimited, itemLimit, totalImages]);
   
-  // Inicializa o observer para o carregamento lazy
+  // Observer otimizado para lazy loading
   const lastImageRef = useCallback(node => {
     if (loading) return;
     
     if (observer.current) observer.current.disconnect();
     
     observer.current = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && hasMore) {
+      if (entries[0].isIntersecting && hasMore && !showLimited) {
         loadImages();
       }
+    }, {
+      rootMargin: '100px' // Carrega imagens quando estão 100px antes de aparecer
     });
     
     if (node) observer.current.observe(node);
-  }, [loading, hasMore, loadImages]);
+  }, [loading, hasMore, loadImages, showLimited]);
   
   // Carrega as primeiras imagens quando o componente monta
   useEffect(() => {
     loadImages();
-  }, [loadImages]);
-  
-  // Função para obter os caminhos das imagens (thumbnail e completa)
-  const getImagePaths = useCallback(async (image) => {
-    if (image.fullPath && image.thumbnailPath) {
-      return { fullPath: image.fullPath, thumbnailPath: image.thumbnailPath };
-    }
-    
-    try {
-      // Obtem o caminho do thumbnail
-      const thumbnailPath = getThumbnailPath(image.index);
-      // Obtem o caminho da imagem completa
-      const fullPath = getFullImagePath(image.index);
-      
-      // Atualiza o estado da imagem
-      setImages(prev => prev.map(img => 
-        img.id === image.id ? { 
-          ...img, 
-          loaded: true, 
-          fullPath, 
-          thumbnailPath 
-        } : img
-      ));
-      
-      return { fullPath, thumbnailPath };
-    } catch (error) {
-      console.error('Erro ao obter caminhos da imagem:', error);
-      return { fullPath: null, thumbnailPath: null };
-    }
-  }, []);
+  }, []); // Removido loadImages da dependência para evitar loops
   
   // Função para abrir o modal com a imagem selecionada
-  const openImageModal = async (image, index) => {
-    const { fullPath } = await getImagePaths(image);
-    
-    if (fullPath) {
-      setSelectedImage(fullPath);
-      setCurrentImageIndex(index);
-      setShowModal(true);
-    }
-  };
+  const openImageModal = useCallback((image, index) => {
+    setSelectedImage(image.fullPath);
+    setCurrentImageIndex(index);
+    setShowModal(true);
+  }, []);
   
   // Função para fechar o modal
-  const closeImageModal = () => {
+  const closeImageModal = useCallback(() => {
     setShowModal(false);
     setSelectedImage(null);
-  };
+  }, []);
   
   // Função para navegar para a próxima imagem
-  const showNextImage = async () => {
+  const showNextImage = useCallback(() => {
     const nextIndex = (currentImageIndex + 1) % images.length;
     setCurrentImageIndex(nextIndex);
-    
-    const { fullPath } = await getImagePaths(images[nextIndex]);
-    if (fullPath) {
-      setSelectedImage(fullPath);
-    }
-  };
+    setSelectedImage(images[nextIndex].fullPath);
+  }, [currentImageIndex, images]);
   
   // Função para navegar para a imagem anterior
-  const showPreviousImage = async () => {
+  const showPreviousImage = useCallback(() => {
     const prevIndex = (currentImageIndex - 1 + images.length) % images.length;
     setCurrentImageIndex(prevIndex);
-    
-    const { fullPath } = await getImagePaths(images[prevIndex]);
-    if (fullPath) {
-      setSelectedImage(fullPath);
-    }
-  };
+    setSelectedImage(images[prevIndex].fullPath);
+  }, [currentImageIndex, images]);
   
   // Adicionar suporte para navegação com teclado
   useEffect(() => {
@@ -176,35 +135,24 @@ const GalleryWithLazyLoad = ({
     
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [showModal, currentImageIndex]);
+  }, [showModal, showNextImage, showPreviousImage, closeImageModal]);
   
-  // Componente para a imagem com lazy loading
+  // Componente otimizado para a imagem com lazy loading
   const LazyImage = ({ image, index, isLast }) => {
     const imgRef = useRef();
     const [loaded, setLoaded] = useState(false);
-    const [imageSrc, setImageSrc] = useState(null);
+    const [error, setError] = useState(false);
     
     useEffect(() => {
       const observer = new IntersectionObserver(
         ([entry]) => {
-          if (entry.isIntersecting) {
-            // Quando a imagem se torna visível, carrega o thumbnail
-            const loadImage = async () => {
-              try {
-                const { thumbnailPath } = await getImagePaths(image);
-                if (thumbnailPath) {
-                  setImageSrc(thumbnailPath);
-                }
-              } catch (error) {
-                console.error('Erro ao carregar imagem:', error);
-              }
-            };
-            
-            loadImage();
-            observer.disconnect();
+          if (entry.isIntersecting && !loaded && !error) {
+            setLoaded(true);
           }
         },
-        { rootMargin: '200px' }
+        {
+          rootMargin: '50px' // Carrega quando está 50px antes de aparecer
+        }
       );
       
       if (imgRef.current) {
@@ -212,160 +160,152 @@ const GalleryWithLazyLoad = ({
       }
       
       return () => {
-        if (observer) {
-          observer.disconnect();
+        if (imgRef.current) {
+          observer.unobserve(imgRef.current);
         }
       };
-    }, [image]);
+    }, [loaded, error]);
+    
+    const handleImageError = useCallback(() => {
+      setError(true);
+    }, []);
+    
+    const handleImageLoad = useCallback(() => {
+      setLoaded(true);
+    }, []);
     
     return (
       <div 
-        ref={isLast ? lastImageRef : null}
-        className="col-md-4 col-sm-6"
+        className="col-md-4 mb-4" 
+        ref={isLast ? lastImageRef : imgRef}
         data-aos="fade-up"
-        data-aos-delay={100 * (index % 3 + 1)}
+        data-aos-delay={showLimited ? index * 30 : index * 50} // Animação mais rápida na homepage
       >
-        <div 
-          className={`gallery-item ${!imageSrc ? 'loading' : ''}`} 
-          onClick={() => imageSrc && openImageModal(image, index)}
-          ref={imgRef}
-        >
-          {imageSrc ? (
-            <>
-              <img 
-                src={imageSrc} 
-                alt={`Foto ${image.id}`} 
-                className={`img-fluid ${loaded ? 'loaded' : ''}`}
-                onLoad={() => setLoaded(true)}
-                loading="lazy"
-                width="600"
-                height="400"
-              />
-              <div className="gallery-overlay">
-                <div className="gallery-zoom-icon">
-                  <FaSearchPlus />
+        <div className="gallery-item">
+          <div className="image-container">
+            {!loaded && !error && (
+              <div className="image-placeholder">
+                <div className="spinner-border text-primary" role="status">
+                  <span className="visually-hidden">{t('gallery.loading')}</span>
                 </div>
               </div>
-            </>
-          ) : (
-            <div className="image-placeholder">
-              <div className="spinner-border text-light" role="status">
-                <span className="visually-hidden">Carregando...</span>
+            )}
+            
+            {error && (
+              <div className="image-error">
+                <FaCamera size={48} className="text-muted" />
+                <p className="text-muted mt-2">{t('gallery.imageNotFound')}</p>
               </div>
+            )}
+            
+            {loaded && (
+              <img
+                src={image.thumbnailPath}
+                alt={`Foto do casamento ${image.index}`}
+                className="gallery-image"
+                loading="lazy"
+                onLoad={handleImageLoad}
+                onError={handleImageError}
+                onClick={() => openImageModal(image, index)}
+              />
+            )}
+            
+            <div className="image-overlay">
+              <FaSearchPlus 
+                size={24} 
+                className="zoom-icon"
+                onClick={() => openImageModal(image, index)}
+              />
             </div>
-          )}
+          </div>
         </div>
       </div>
     );
   };
   
   return (
-    <section id="gallery" className={`section ${showLimited ? '' : 'full-gallery'}`}>
+    <section className="gallery-section py-5">
       <div className="container">
-        <div className="section-title">
-          <h2 data-aos="fade-up">{title || t('gallery.title')}</h2>
+        {title && (
+          <div className="text-center mb-5" data-aos="fade-up">
+            <h2 className="section-title">{title}</h2>
+            <div className="title-divider mx-auto"></div>
+          </div>
+        )}
+        
+        <div className="row">
+          {images.map((image, index) => (
+            <LazyImage
+              key={image.id}
+              image={image}
+              index={index}
+              isLast={index === images.length - 1}
+            />
+          ))}
         </div>
         
-        {images.length === 0 ? (
-          <div className="empty-gallery" data-aos="fade-up">
-            <div className="empty-gallery-content">
-              <FaCamera className="empty-gallery-icon" />
-              <h3>{t('gallery.empty.title') || 'Nenhuma Foto Ainda'}</h3>
-              <p>{t('gallery.empty.message') || 'Estamos carregando as fotos do casamento, aguarde um momento.'}</p>
+        {loading && (
+          <div className="text-center py-4">
+            <div className="spinner-border text-primary" role="status">
+              <span className="visually-hidden">{t('gallery.loadingMore')}</span>
             </div>
           </div>
-        ) : (
-          <>
-            <div className="row">
-              {images.map((image, index) => (
-                <LazyImage 
-                  key={image.id} 
-                  image={image} 
-                  index={index} 
-                  isLast={index === images.length - 1}
-                />
-              ))}
-            </div>
-            
-            {loading && (
-              <div className="text-center mt-4">
-                <div className="spinner-border text-primary" role="status">
-                  <span className="visually-hidden">Carregando...</span>
-                </div>
-              </div>
-            )}
-            
-            {showLimited && (
-              <div className="text-center mt-5">
-                <Link to="/gallery" className="btn btn-primary btn-lg view-more-btn">
-                  {t('gallery.viewMorePhotos') || 'Ver Todas as Fotos'} <FaArrowRight className="ms-2" />
-                </Link>
-              </div>
-            )}
-            
-            {!hasMore && !loading && !showLimited && (
-              <div className="text-center mt-4">
-                <p>{t('gallery.noMorePhotos') || 'Não há mais fotos para carregar'}</p>
-              </div>
-            )}
-          </>
+        )}
+        
+        {showLimited && !loading && (
+          <div className="text-center mt-4" data-aos="fade-up">
+            <Link to="/gallery" className="btn btn-outline-primary btn-lg">
+              <FaArrowRight className="me-2" />
+              {t('gallery.viewAll')}
+            </Link>
+          </div>
         )}
       </div>
       
-      {/* Modal para visualização ampliada da imagem */}
+      {/* Modal para visualização da imagem */}
       <Modal 
         show={showModal} 
         onHide={closeImageModal} 
-        centered 
-        dialogClassName="image-modal"
-        contentClassName="image-modal-content"
+        size="xl" 
+        centered
+        className="gallery-modal"
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="border-0">
           <Modal.Title>
-            {t('gallery.imageViewer') || 'Visualizador de Imagens'} ({currentImageIndex + 1}/{images.length})
+            {t('gallery.imageViewer')} ({currentImageIndex + 1}/{images.length})
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          {selectedImage && (
-            <div className="image-modal-container">
-              {/* Botão para imagem anterior */}
-              {images.length > 1 && (
-                <button 
-                  className="nav-button prev-button" 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    showPreviousImage();
-                  }}
-                  aria-label="Previous image"
-                >
-                  <FaChevronLeft />
-                </button>
-              )}
-              
-              <img 
-                src={selectedImage} 
-                alt="Expanded view" 
-                className="modal-image" 
+        <Modal.Body className="p-0">
+          <div className="modal-image-container">
+            {selectedImage && (
+              <img
+                src={selectedImage}
+                alt={`Foto do casamento ${currentImageIndex + 1}`}
+                className="modal-image"
                 loading="lazy"
-                width="1200"
-                height="800"
               />
-              
-              {/* Botão para próxima imagem */}
-              {images.length > 1 && (
-                <button 
-                  className="nav-button next-button" 
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    showNextImage();
-                  }}
-                  aria-label="Next image"
+            )}
+            
+            {images.length > 1 && (
+              <>
+                <button
+                  className="modal-nav-btn modal-nav-prev"
+                  onClick={showPreviousImage}
+                  aria-label="Foto anterior"
                 >
-                  <FaChevronRight />
+                  <FaChevronLeft size={24} />
                 </button>
-              )}
-            </div>
-          )}
+                
+                <button
+                  className="modal-nav-btn modal-nav-next"
+                  onClick={showNextImage}
+                  aria-label="Próxima foto"
+                >
+                  <FaChevronRight size={24} />
+                </button>
+              </>
+            )}
+          </div>
         </Modal.Body>
       </Modal>
     </section>

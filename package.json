@@ -13,6 +13,7 @@
     "index-photos": "node scripts/index-photos.js",
     "rename-photos": "node scripts/rename-photos.js",
     "optimize-photos": "node scripts/optimize-photos.js",
+    "process-real-photos": "node scripts/process-real-photos.js",
     "build:all": "npm run index-photos && npm run rename-photos && npm run build && npm run preview"
   },
   "dependencies": {

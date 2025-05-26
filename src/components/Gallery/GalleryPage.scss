@@ -1,0 +1,24 @@
+.gallery-page-wrapper {
+  min-height: 100vh;
+  background: #f8f9fa; // Fundo claro
+  
+  // Espaçamento para compensar a navbar fixa
+  padding-top: 80px; // Altura aproximada da navbar + margem
+  
+  // Garante que a galeria ocupe toda a tela
+  width: 100%;
+  overflow-x: hidden;
+  
+  // Fundo sólido no topo APENAS para a navbar (letras brancas)
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    background: #3D2314; // Marrom escuro APENAS para a navbar
+    z-index: 1029; // Menor que a navbar (1030) mas maior que o conteúdo
+    pointer-events: none; // Permite cliques na navbar
+  }
+} 
