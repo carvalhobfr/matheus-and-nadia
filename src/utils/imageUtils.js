@@ -49,7 +49,7 @@ export const loadImage = (imagePath) => {
 
 // Função para obter o número total de imagens disponíveis
 export const getTotalImageCount = () => {
-  return 21; // Atualizado automaticamente pelo script de renomeação
+  return 555; // Atualizado automaticamente pelo script de renomeação
 };
 
 // Função para verificar se uma imagem existe
