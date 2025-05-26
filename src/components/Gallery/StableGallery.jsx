@@ -8,25 +8,12 @@ import './ProfessionalGallery.scss';
 // Componente de imagem com modal funcional
 const StableImage = memo(({ imageIndex, onImageClick }) => {
   const [loaded, setLoaded] = useState(false);
-  const [error, setError] = useState(false);
   const thumbnailPath = getThumbnailPath(imageIndex);
   const fullPath = getFullImagePath(imageIndex);
 
   return (
     <div className="gallery-item">
       <div className="image-container">
-        {!loaded && !error && (
-          <div className="image-placeholder">
-            <div className="loading-spinner"></div>
-          </div>
-        )}
-        
-        {error && (
-          <div className="image-error">
-            <span>Erro ao carregar imagem {imageIndex}</span>
-          </div>
-        )}
-        
         <img
           src={thumbnailPath}
           alt={`Foto ${imageIndex}`}
@@ -36,9 +23,12 @@ const StableImage = memo(({ imageIndex, onImageClick }) => {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            display: loaded ? 'block' : 'none',
+            display: 'block',
             position: 'relative',
             zIndex: 1,
+            visibility: 'visible',
+            opacity: loaded ? 1 : 0,
+            transition: 'opacity 0.3s ease',
             margin: 0,
             padding: 0,
             border: 'none'
@@ -49,19 +39,34 @@ const StableImage = memo(({ imageIndex, onImageClick }) => {
           }}
           onError={(e) => {
             console.error(`❌ Erro na imagem ${imageIndex}`);
-            setError(true);
+            e.target.style.backgroundColor = '#ffebee';
+            e.target.style.border = '2px dashed #f44336';
+            setLoaded(true);
           }}
           onClick={() => onImageClick({ fullPath, index: imageIndex })}
         />
         
-        {loaded && (
-          <div 
-            className="image-overlay"
-            onClick={() => onImageClick({ fullPath, index: imageIndex })}
-          >
-            <FaSearchPlus className="zoom-icon" />
-          </div>
-        )}
+        <div 
+          className="image-overlay"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            background: 'rgba(0, 0, 0, 0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            opacity: 0,
+            transition: 'opacity 0.3s ease',
+            zIndex: 2,
+            cursor: 'pointer'
+          }}
+          onClick={() => onImageClick({ fullPath, index: imageIndex })}
+        >
+          <FaSearchPlus className="zoom-icon" style={{ color: 'white', fontSize: '1.5rem' }} />
+        </div>
       </div>
     </div>
   );
@@ -69,7 +74,7 @@ const StableImage = memo(({ imageIndex, onImageClick }) => {
 
 const StableGallery = () => {
   const { t } = useTranslation();
-  const [visibleCount, setVisibleCount] = useState(24); // Começar com menos imagens
+  const [visibleCount, setVisibleCount] = useState(36);
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -77,96 +82,53 @@ const StableGallery = () => {
   const [showModal, setShowModal] = useState(false);
   
   const totalImages = getTotalImageCount();
-  const IMAGES_PER_BATCH = 24; // Reduzir o batch size para melhor performance
+  const IMAGES_PER_BATCH = 36;
   const triggerRef = useRef(null);
-  const observerRef = useRef(null);
 
   // Carregamento inicial
   useEffect(() => {
     console.log('🚀 Carregando galeria estável...');
-    console.log(`Total de imagens: ${totalImages}`);
     setLoading(false);
-  }, [totalImages]);
+  }, []);
 
   // Função para carregar mais imagens
   const loadMoreImages = useCallback(() => {
-    console.log(`🔄 Tentando carregar mais imagens. Estado atual:`, {
-      loadingMore,
-      visibleCount,
-      totalImages,
-      hasMore: visibleCount < totalImages
-    });
-    
-    if (loadingMore || visibleCount >= totalImages) {
-      console.log('❌ Bloqueado:', { loadingMore, visibleCount, totalImages });
-      return;
-    }
+    if (loadingMore || visibleCount >= totalImages) return;
     
     setLoadingMore(true);
     console.log(`🔄 Carregando mais ${IMAGES_PER_BATCH} imagens...`);
     
-    // Simular um pequeno delay para evitar múltiplas chamadas
     setTimeout(() => {
-      const newCount = Math.min(visibleCount + IMAGES_PER_BATCH, totalImages);
-      console.log(`📈 Aumentando visibleCount de ${visibleCount} para ${newCount}`);
-      setVisibleCount(newCount);
+      setVisibleCount(prev => Math.min(prev + IMAGES_PER_BATCH, totalImages));
       setLoadingMore(false);
-    }, 300);
+    }, 100);
   }, [loadingMore, visibleCount, totalImages]);
 
-  // Intersection Observer para infinite scroll
+  // Intersection Observer
   useEffect(() => {
     const currentTrigger = triggerRef.current;
-    if (!currentTrigger || visibleCount >= totalImages) {
-      console.log('🚫 Observer não criado:', { currentTrigger: !!currentTrigger, visibleCount, totalImages });
-      return;
-    }
+    if (!currentTrigger) return;
 
-    // Limpar observer anterior se existir
-    if (observerRef.current) {
-      observerRef.current.disconnect();
-    }
-
-    observerRef.current = new IntersectionObserver(
+    const observer = new IntersectionObserver(
       (entries) => {
         const target = entries[0];
-        console.log('👁️ Observer triggered:', {
-          isIntersecting: target.isIntersecting,
-          loadingMore,
-          visibleCount,
-          totalImages,
-          hasMore: visibleCount < totalImages
-        });
-        
         if (target.isIntersecting && !loadingMore && visibleCount < totalImages) {
           console.log(`🎯 Trigger ativado - carregando mais imagens`);
           loadMoreImages();
         }
       },
       { 
-        rootMargin: '300px', // Reduzir para trigger mais próximo
+        rootMargin: '500px',
         threshold: 0.1 
       }
     );
 
-    observerRef.current.observe(currentTrigger);
-    console.log('👁️ Observer criado e observando trigger');
+    observer.observe(currentTrigger);
 
     return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
+      observer.unobserve(currentTrigger);
     };
-  }, [loadMoreImages, visibleCount, totalImages, loadingMore]);
-
-  // Cleanup do observer
-  useEffect(() => {
-    return () => {
-      if (observerRef.current) {
-        observerRef.current.disconnect();
-      }
-    };
-  }, []);
+  }, [loadMoreImages, visibleCount, totalImages]);
 
   // Funções do modal
   const openModal = useCallback((imageData) => {
@@ -254,27 +216,44 @@ const StableGallery = () => {
         <div 
           ref={triggerRef} 
           style={{ 
-            height: '50px', 
+            height: '20px', 
             width: '100%', 
             margin: '20px 0',
-            backgroundColor: 'transparent',
-            border: '1px dashed #ccc',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '12px',
-            color: '#999'
+            visibility: 'hidden'
           }} 
-        >
-          Trigger Zone - {visibleCount}/{totalImages}
-        </div>
+        />
       )}
 
       {/* Indicador de carregamento */}
       {loadingMore && (
-        <div className="loading-container">
-          <div className="loading-spinner large"></div>
-          <p>Carregando mais {IMAGES_PER_BATCH} fotos... {visibleCount} de {totalImages}</p>
+        <div 
+          className="loading-more-indicator"
+          style={{
+            textAlign: 'center',
+            padding: '40px 20px',
+            opacity: 0.8
+          }}
+        >
+          <div 
+            className="loading-spinner"
+            style={{
+              width: '30px',
+              height: '30px',
+              margin: '0 auto 10px',
+              border: '3px solid #e9ecef',
+              borderTop: '3px solid #007bff',
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite'
+            }}
+          ></div>
+          <p style={{ 
+            color: '#6c757d', 
+            fontSize: '0.9rem', 
+            margin: 0,
+            fontWeight: '300'
+          }}>
+            Carregando mais {IMAGES_PER_BATCH} fotos... {visibleCount} de {totalImages}
+          </p>
         </div>
       )}
 
@@ -306,6 +285,13 @@ const StableGallery = () => {
                   src={selectedImage}
                   alt={`Foto ${selectedIndex}`}
                   className="modal-image"
+                  style={{
+                    maxWidth: '100%',
+                    maxHeight: '100%',
+                    objectFit: 'contain', // Mantém ratio original
+                    width: 'auto',
+                    height: 'auto'
+                  }}
                 />
               )}
             </div>
