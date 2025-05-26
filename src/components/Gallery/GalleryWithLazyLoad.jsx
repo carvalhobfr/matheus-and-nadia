@@ -35,15 +35,19 @@ const GalleryWithLazyLoad = ({
     
     const newImages = [];
     for (let i = startIndex; i <= endIndex; i++) {
+      const thumbnailPath = getThumbnailPath(i);
+      const fullPath = getFullImagePath(i);
+      console.log(`🖼️ Criando imagem ${i}: thumbnail=${thumbnailPath}, full=${fullPath}`);
       newImages.push({
         id: i,
         index: i,
-        thumbnailPath: getThumbnailPath(i),
-        fullPath: getFullImagePath(i)
+        thumbnailPath,
+        fullPath
       });
     }
     
     console.log(`📸 Adicionando ${newImages.length} novas imagens (${startIndex}-${endIndex})`);
+    console.log('🔍 Primeiras 3 imagens:', newImages.slice(0, 3));
     
     setImages(prevImages => [...prevImages, ...newImages]);
     setPage(prev => prev + 1);
@@ -53,9 +57,17 @@ const GalleryWithLazyLoad = ({
   
   // Observer para carregar mais imagens
   const lastImageRef = useCallback(node => {
-    if (loading || !hasMore) return;
+    console.log('🔗 lastImageRef chamado:', { node: !!node, loading, hasMore });
+    if (loading || !hasMore) {
+      console.log('⏸️ Observer não configurado:', { loading, hasMore });
+      return;
+    }
     if (observer.current) observer.current.disconnect();
-    if (!node) return;
+    if (!node) {
+      console.log('❌ Node não existe');
+      return;
+    }
+    console.log('👀 Configurando observer para última imagem');
     observer.current = new window.IntersectionObserver(entries => {
       if (entries[0].isIntersecting) {
         console.log('🎯 Última imagem visível, carregando mais...');
@@ -93,10 +105,17 @@ const GalleryWithLazyLoad = ({
       console.error(`❌ Erro ao carregar imagem ${image.index}`);
     }, [image.index]);
     
+    // Combinar refs para o PhotoSwipe e para o observer
+    const combinedRef = useCallback((node) => {
+      if (ref) ref(node);
+      if (isLast) lastImageRef(node);
+      imgRef.current = node;
+    }, [ref, isLast, lastImageRef]);
+    
     return (
       <div 
         className="col-md-4 mb-4" 
-        ref={isLast ? lastImageRef : (ref || imgRef)}
+        ref={combinedRef}
         data-aos="fade-up"
         data-aos-delay={showLimited ? index * 30 : index * 50}
       >
