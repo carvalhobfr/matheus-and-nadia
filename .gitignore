@@ -23,7 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# Fotos - ignorar após primeiro commit
-# Remova o comentário dessas linhas após o primeiro commit
-# dist/assets/fotos/
-# dist/assets/fotos-optimized/
+# Fotos - ignorar para não ocupar espaço no repositório
+dist/assets/fotos/
+dist/assets/fotos-optimized/
