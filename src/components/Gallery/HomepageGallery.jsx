@@ -144,7 +144,7 @@ const HomepageGallery = ({
         <div className="text-center mt-5" data-aos="fade-up" data-aos-delay="300">
           <Link to="/gallery" className="btn btn-outline-primary btn-lg">
             <FaArrowRight className="me-2" />
-            {t('gallery.viewAll')} ({totalImages})
+            {t('gallery.viewAll')}
           </Link>
         </div>
       </div>

@@ -122,7 +122,7 @@ const SimpleHomepageGallery = () => {
         <div className="text-center mt-5">
           <Link to="/gallery" className="btn btn-outline-primary btn-lg">
             <FaArrowRight className="me-2" />
-            {t('gallery.viewAll')} ({totalImages} fotos)
+            {t('gallery.viewAll')}
           </Link>
         </div>
       </div>
