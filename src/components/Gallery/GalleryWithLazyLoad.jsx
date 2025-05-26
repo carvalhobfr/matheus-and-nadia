@@ -149,6 +149,8 @@ const GalleryWithLazyLoad = ({
                 transition: 'opacity 0.3s ease',
                 cursor: 'pointer'
               }}
+              data-image-index={image.index}
+              data-thumbnail-path={image.thumbnailPath}
             />
             
             <div className="image-overlay" onClick={onClick}>
