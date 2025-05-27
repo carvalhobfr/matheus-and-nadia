@@ -2,9 +2,17 @@
 
 import fs from 'fs';
 import path from 'path';
-import sharp from 'sharp';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
+
+// Verificar se sharp está disponível
+let sharp;
+try {
+  sharp = (await import('sharp')).default;
+} catch (error) {
+  console.log('Sharp não está disponível. Pulando processamento de imagens.');
+  process.exit(0);
+}
 
 // Para obter __dirname em ES modules
 const __filename = fileURLToPath(import.meta.url);

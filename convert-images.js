@@ -1,4 +1,11 @@
-import sharp from 'sharp';
+// Verificar se sharp está disponível
+let sharp;
+try {
+  sharp = (await import('sharp')).default;
+} catch (error) {
+  console.log('Sharp não está disponível. Pulando conversão de imagens.');
+  process.exit(0);
+}
 import { promises as fs } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';

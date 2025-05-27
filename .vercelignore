@@ -1,0 +1,19 @@
+# Scripts de otimização local
+scripts/
+convert-images.js
+
+# Pastas de desenvolvimento
+public/fotos
+public/rawfotos
+
+# Node modules e cache
+node_modules/
+.npm/
+.cache/
+
+# Arquivos de desenvolvimento
+*.log
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local 

@@ -10,8 +10,16 @@
 
 import fs from 'fs';
 import path from 'path';
-import sharp from 'sharp';
 import { fileURLToPath } from 'url';
+
+// Verificar se sharp está disponível
+let sharp;
+try {
+  sharp = (await import('sharp')).default;
+} catch (error) {
+  console.log('Sharp não está disponível. Pulando otimização de imagens.');
+  process.exit(0);
+}
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
