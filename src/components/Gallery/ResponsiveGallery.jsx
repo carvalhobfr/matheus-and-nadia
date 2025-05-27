@@ -219,7 +219,7 @@ const ResponsiveGallery = ({ title, showLimited = false, batchSize = 30 }) => {
       {title && (
         <div className="responsive-gallery-header">
           <h1 className="responsive-gallery-title">{title}</h1>
-          <p className="responsive-gallery-count">{totalImages} {t('gallery.title').toLowerCase()}</p>
+          <p className="responsive-gallery-description">{t('gallery.description')}</p>
         </div>
       )}
       

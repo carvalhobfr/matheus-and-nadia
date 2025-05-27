@@ -251,6 +251,7 @@ export const enTranslations = {
     loadingMore: 'Loading more photos...',
     imageNotFound: 'Image not found',
     loading: 'Loading...',
+    description: 'A glimpse into our wedding journey',
     video: {
       title: 'Our Video'
     }
@@ -513,6 +514,7 @@ export const ptTranslations = {
     loadingMore: 'Carregando mais fotos...',
     imageNotFound: 'Imagem não encontrada',
     loading: 'Carregando...',
+    description: 'Um pouco da nossa jornada de casamento',
     video: {
       title: 'Nosso Vídeo'
     }
@@ -775,6 +777,7 @@ export const esTranslations = {
     loadingMore: 'Cargando más fotos...',
     imageNotFound: 'Imagen no encontrada',
     loading: 'Cargando...',
+    description: 'Un vistazo a nuestro viaje de boda',
     video: {
       title: 'Nuestro Video'
     }
