@@ -278,7 +278,7 @@ const SimpleGallery = () => {
             margin: 0,
             fontWeight: '300'
           }}>
-            Carregando mais 36 fotos... {images.length} de {totalImages}
+            {t('gallery.loadingMore')} {images.length} de {totalImages}
           </p>
         </div>
       )}

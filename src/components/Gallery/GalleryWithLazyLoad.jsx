@@ -190,7 +190,7 @@ const GalleryWithLazyLoad = ({
                 thumbnail={image.thumbnailPath}
                 width="1200"
                 height="800"
-                alt={`Foto do casamento ${image.index}`}
+                alt={`${t('gallery.title')} ${image.index}`}
               >
                 {({ ref, open }) => (
                   <LazyImage

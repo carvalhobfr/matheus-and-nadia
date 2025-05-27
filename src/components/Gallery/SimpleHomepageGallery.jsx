@@ -32,7 +32,7 @@ const SimpleHomepageGallery = () => {
           id: `random-${randomNum}`,
           src: `/fotos-optimized/thumbnails/fotos-casamento-${randomNum}.webp`,
           full: `/fotos-optimized/fotos-casamento-${randomNum}.webp`,
-          alt: `Foto do casamento ${randomNum}`,
+          alt: `${t('gallery.title')} ${randomNum}`,
           index: randomNum
         });
       });

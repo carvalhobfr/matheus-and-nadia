@@ -1,0 +1,236 @@
+/* Simple Virtual Gallery Styles - iOS Style com Lazy Loading Manual */
+
+.simple-virtual-gallery-container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #ffffff;
+  position: relative;
+  overflow-x: hidden;
+}
+
+.simple-virtual-gallery-header {
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  text-align: center;
+  background-color: #ffffff;
+  position: relative;
+  z-index: 100;
+  
+  .simple-virtual-gallery-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #000000;
+    margin: 0 0 0.25rem 0;
+    letter-spacing: -0.5px;
+  }
+  
+  .simple-virtual-gallery-count {
+    font-size: 0.9rem;
+    color: #666666;
+    margin: 0;
+    font-weight: 400;
+  }
+}
+
+/* Flex container - Layout iPhone-like */
+.simple-virtual-gallery-flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1px;
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  background-color: #ffffff;
+  padding: 0;
+  margin: 0;
+  align-content: flex-start;
+  justify-content: flex-start;
+}
+
+/* Item individual da galeria */
+.simple-virtual-gallery-item {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: #f2f2f7;
+  overflow: hidden;
+  cursor: pointer;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  transition: opacity 0.1s ease, transform 0.1s ease;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  
+  &:active {
+    opacity: 0.8;
+    transform: scale(0.98);
+  }
+}
+
+.simple-virtual-gallery-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  transition: opacity 0.3s ease;
+  
+  /* Evitar seleção durante scroll */
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: auto;
+}
+
+/* Placeholder antes de carregar */
+.simple-virtual-image-placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f7;
+  
+  .simple-virtual-placeholder-icon {
+    font-size: 2rem;
+    opacity: 0.3;
+    color: #c7c7cc;
+  }
+}
+
+/* Loading state */
+.simple-virtual-image-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f7;
+  
+  .simple-virtual-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #c7c7cc;
+    border-top: 2px solid #007aff;
+    border-radius: 50%;
+    animation: simple-virtual-spin 1s linear infinite;
+  }
+}
+
+/* Error state */
+.simple-virtual-image-error {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f2f7;
+  
+  .simple-virtual-error-icon {
+    font-size: 1.5rem;
+    opacity: 0.5;
+  }
+}
+
+/* Indicador de zoom */
+.simple-virtual-zoom-indicator {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  backdrop-filter: blur(10px);
+  pointer-events: none;
+  
+  /* Animação de entrada */
+  animation: simple-virtual-zoom-fade-in 0.2s ease;
+}
+
+/* Animações */
+@keyframes simple-virtual-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes simple-virtual-zoom-fade-in {
+  0% { 
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  100% { 
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+/* Responsivo para diferentes tamanhos de tela */
+@media (max-width: 768px) {
+  .simple-virtual-gallery-header {
+    padding: 0.5rem;
+    
+    .simple-virtual-gallery-title {
+      font-size: 1.25rem;
+    }
+    
+    .simple-virtual-gallery-count {
+      font-size: 0.8rem;
+    }
+  }
+  
+  .simple-virtual-gallery-flex {
+    min-height: calc(100vh - 50px);
+  }
+}
+
+/* Customizações do PhotoSwipe */
+.pswp {
+  z-index: 10000 !important;
+}
+
+.pswp__img {
+  object-fit: contain !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  width: auto !important;
+  height: auto !important;
+}
+
+/* Otimizações de performance */
+.simple-virtual-gallery-item * {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Scrollbar customizada para desktop */
+.simple-virtual-gallery-container ::-webkit-scrollbar {
+  width: 8px;
+}
+
+.simple-virtual-gallery-container ::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.simple-virtual-gallery-container ::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.simple-virtual-gallery-container ::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+} 

@@ -97,7 +97,7 @@ const HomepageGallery = ({
               <>
                 <img
                   src={image.thumbnailPath}
-                  alt={`Foto do casamento ${image.index}`}
+                  alt={`${t('gallery.title')} ${image.index}`}
                   className="gallery-image"
                   loading="lazy"
                   onLoad={handleImageLoad}

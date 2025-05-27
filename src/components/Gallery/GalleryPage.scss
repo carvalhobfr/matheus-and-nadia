@@ -1,15 +1,15 @@
 .gallery-page-wrapper {
   min-height: 100vh;
-  background: #f8f9fa; // Fundo claro
+  background: #ffffff;
   
   // Espaçamento para compensar a navbar fixa
-  padding-top: 80px; // Altura aproximada da navbar + margem
+  padding-top: 80px;
   
-  // Garante que a galeria ocupe toda a tela
+  // Remove qualquer overflow ou limitação de largura
   width: 100%;
   overflow-x: hidden;
   
-  // Fundo sólido no topo APENAS para a navbar (letras brancas)
+  // Fundo sólido no topo APENAS para a navbar
   &::before {
     content: '';
     position: fixed;
@@ -17,8 +17,8 @@
     left: 0;
     right: 0;
     height: 80px;
-    background: #3D2314; // Marrom escuro APENAS para a navbar
-    z-index: 1029; // Menor que a navbar (1030) mas maior que o conteúdo
-    pointer-events: none; // Permite cliques na navbar
+    background: #3D2314;
+    z-index: 1029;
+    pointer-events: none;
   }
 } 

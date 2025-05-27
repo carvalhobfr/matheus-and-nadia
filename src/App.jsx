@@ -14,7 +14,7 @@ import Gallery from './components/Gallery'
 import GalleryWithLazyLoad from './components/Gallery/GalleryWithLazyLoad'
 import HomepageGallery from './components/Gallery/HomepageGallery'
 import SimpleHomepageGallery from './components/Gallery/SimpleHomepageGallery'
-import TestGallery from './components/Gallery/TestGallery'
+
 import GalleryPage from './components/Gallery/GalleryPage'
 import Gifts from './components/Gifts'
 import Gift from './components/Gift'
