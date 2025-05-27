@@ -2,7 +2,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FaSearchPlus, FaCamera, FaArrowRight } from 'react-icons/fa';
 import { getThumbnailPath, getFullImagePath, getTotalImageCount } from '../../utils/imageUtils';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Gallery.scss';
 
 const HomepageGallery = ({ 
@@ -10,6 +10,7 @@ const HomepageGallery = ({
   maxImages = 9 // Apenas 9 imagens para performance máxima na homepage
 }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [loadedImages, setLoadedImages] = useState(new Set());
   
@@ -107,10 +108,12 @@ const HomepageGallery = ({
                     transition: 'opacity 0.3s ease'
                   }}
                 />
-                <div className="image-overlay">
-                  <Link to="/gallery" className="zoom-icon">
-                    <FaSearchPlus size={20} />
-                  </Link>
+                <div 
+                  className="image-overlay"
+                  onClick={() => navigate(`/gallery?foto=${image.index}`)}
+                  style={{ cursor: 'pointer' }}
+                >
+                  <FaSearchPlus size={20} className="zoom-icon" />
                 </div>
               </>
             )}

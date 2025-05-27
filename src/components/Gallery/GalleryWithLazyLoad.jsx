@@ -5,7 +5,7 @@ import 'photoswipe/dist/photoswipe.css';
 import { FaSearchPlus, FaCamera, FaChevronLeft, FaChevronRight, FaArrowRight } from 'react-icons/fa';
 import { getBasePath, getFullImagePath, getTotalImageCount, getThumbnailPath } from '../../utils/imageUtils';
 import './Gallery.scss';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const GalleryWithLazyLoad = ({ 
   title, 
@@ -14,6 +14,7 @@ const GalleryWithLazyLoad = ({
   batchSize = showLimited ? 9 : 15 // Para homepage, carrega apenas 9 imagens inicialmente (3 linhas)
 }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);

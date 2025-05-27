@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Gallery as PhotoSwipeGallery, Item as PhotoSwipeItem } from 'react-photoswipe-gallery';
 import 'photoswipe/dist/photoswipe.css';
 import { getThumbnailPath, getFullImagePath, getTotalImageCount } from '../../utils/imageUtils';
@@ -7,12 +8,15 @@ import './ResponsiveGallery.scss';
 
 const ResponsiveGallery = ({ title, showLimited = false, batchSize = 30 }) => {
   const { t } = useTranslation();
+  const location = useLocation();
+  const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [containerWidth, setContainerWidth] = useState(0);
   const [imageDimensions, setImageDimensions] = useState({});
+
   const observer = useRef();
   const containerRef = useRef();
   
@@ -117,6 +121,44 @@ const ResponsiveGallery = ({ title, showLimited = false, batchSize = 30 }) => {
     loadImages();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Detectar parâmetro 'foto' na URL e abrir modal automaticamente
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const fotoParam = urlParams.get('foto');
+    
+    if (fotoParam && images.length > 0) {
+      const photoIndex = parseInt(fotoParam, 10);
+      
+      // Verificar se a foto existe na lista atual
+      const imageIndex = images.findIndex(img => img.index === photoIndex);
+      
+      if (imageIndex !== -1) {
+        console.log(`🎯 Abrindo foto ${photoIndex} automaticamente (índice ${imageIndex})`);
+        
+        // Simular clique na imagem específica
+        setTimeout(() => {
+          const imageElement = document.querySelector(`[data-photo-index="${photoIndex}"]`);
+          if (imageElement) {
+            imageElement.click();
+          }
+        }, 500);
+        
+        // Limpar parâmetro da URL
+        navigate('/gallery', { replace: true });
+      } else if (photoIndex <= totalImages) {
+        // Se a foto existe mas ainda não foi carregada, carregar mais imagens
+        console.log(`📸 Foto ${photoIndex} ainda não carregada, carregando mais imagens...`);
+        // Continuar carregando até encontrar a foto
+        const loadUntilPhoto = () => {
+          if (images.length < photoIndex && hasMore) {
+            loadImages();
+          }
+        };
+        loadUntilPhoto();
+      }
+    }
+  }, [location.search, images, navigate, totalImages, hasMore, loadImages]);
+
   const columnsCount = getColumnsCount(containerWidth);
 
   const GalleryImage = ({ image, index, isLast }) => {
@@ -186,6 +228,7 @@ const ResponsiveGallery = ({ title, showLimited = false, batchSize = 30 }) => {
           bgOpacity: 1,
           showHideAnimationType: 'zoom'
         }}
+
       >
         <div 
           className="responsive-gallery-grid"
@@ -209,6 +252,7 @@ const ResponsiveGallery = ({ title, showLimited = false, batchSize = 30 }) => {
                 {({ ref, open }) => (
                   <div 
                     ref={ref} 
+                    data-photo-index={image.index}
                     onClick={() => {
                       console.log(`🖼️ Abrindo imagem ${image.index}: ${image.fullPath}`);
                       console.log(`📐 Dimensões: ${dimensions.width}x${dimensions.height}`);
