@@ -14,8 +14,7 @@
     "index-photos": "node scripts/index-photos.js",
     "rename-photos": "node scripts/rename-photos.js",
     "optimize-photos": "node scripts/optimize-photos.js",
-    "process-real-photos": "node scripts/process-real-photos.js",
-    "build:all": "npm run index-photos && npm run rename-photos && npm run build && npm run preview"
+    "process-real-photos": "node scripts/process-real-photos.js"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
@@ -24,10 +23,8 @@
     "bootstrap": "^5.3.3",
     "date-fns": "^4.1.0",
     "date-fns-tz": "^3.2.0",
-    "glob": "^11.0.1",
     "i18next": "^23.10.0",
     "photoswipe": "^5.4.4",
-    "photoswipe-react": "^0.2.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
     "react-countdown": "^2.3.6",
@@ -35,9 +32,7 @@
     "react-i18next": "^14.0.5",
     "react-icons": "^5.5.0",
     "react-photoswipe-gallery": "^3.1.1",
-    "react-router-dom": "^7.2.0",
-    "react-window": "^1.8.11",
-    "react-window-infinite-loader": "^1.0.10"
+    "react-router-dom": "^7.2.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
@@ -47,7 +42,11 @@
     "eslint": "^9.21.0",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.19",
+    "glob": "^11.0.1",
     "globals": "^15.15.0",
+    "photoswipe-react": "^0.2.0",
+    "react-window": "^1.8.11",
+    "react-window-infinite-loader": "^1.0.10",
     "sass": "^1.85.1",
     "sharp": "^0.33.5",
     "vite": "^6.2.0"
