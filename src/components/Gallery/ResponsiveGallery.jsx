@@ -226,9 +226,19 @@ const ResponsiveGallery = ({ title, showLimited = false, batchSize = 30 }) => {
       <PhotoSwipeGallery
         options={{ 
           bgOpacity: 1,
-          showHideAnimationType: 'zoom'
+          showHideAnimationType: 'zoom',
+          zoom: true,
+          maxZoomLevel: 3,
+          initialZoomLevel: 'fit',
+          secondaryZoomLevel: 1.5,
+          zoomAnimationDuration: 333,
+          allowPanToNext: false,
+          clickToCloseNonZoomable: false,
+          imageClickAction: 'zoom',
+          tapAction: 'zoom',
+          doubleTapAction: 'zoom',
+          preload: [1, 3]
         }}
-
       >
         <div 
           className="responsive-gallery-grid"
@@ -257,10 +267,8 @@ const ResponsiveGallery = ({ title, showLimited = false, batchSize = 30 }) => {
                       console.log(`🖼️ Abrindo imagem ${image.index}: ${image.fullPath}`);
                       console.log(`📐 Dimensões: ${dimensions.width}x${dimensions.height}`);
                       
-                      // Abrir diretamente sem verificação adicional
-                      setTimeout(() => {
-                        open();
-                      }, 100);
+                      // Abrir diretamente
+                      open();
                     }} 
                     style={{ cursor: 'pointer' }}
                   >

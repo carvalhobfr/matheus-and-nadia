@@ -24,10 +24,11 @@
     }
   }
   
-  .responsive-gallery-count {
+  .responsive-gallery-description {
     font-size: 1rem;
     color: #666;
     margin: 0;
+    font-style: italic;
   }
 }
 
@@ -162,55 +163,20 @@
     box-shadow: none !important;
   }
   
-  .pswp__img {
-    object-fit: contain !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    opacity: 1 !important;
-    visibility: visible !important;
-    display: block !important;
-  }
-  
-  .pswp__content {
-    width: 100% !important;
-    height: 100% !important;
-  }
-  
+  /* Garantir que o zoom funcione corretamente */
   .pswp__zoom-wrap {
-    width: 100% !important;
-    height: 100% !important;
+    position: relative !important;
   }
   
-  .pswp__item {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  
-  .pswp__img--placeholder {
-    display: none !important;
+  .pswp__img {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform-origin: center center !important;
   }
 }
 
-/* Força a visibilidade das imagens no PhotoSwipe */
-.pswp .pswp__img {
-  background: transparent !important;
-  filter: none !important;
-  transform: none !important;
-}
 
-/* Garantir que o conteúdo seja visível */
-.pswp__content {
-  background: transparent !important;
-}
-
-.pswp__content img {
-  max-width: 100% !important;
-  max-height: 100% !important;
-  width: auto !important;
-  height: auto !important;
-  object-fit: contain !important;
-}
 
 /* Responsividade específica para diferentes tamanhos */
 @media (max-width: 480px) {

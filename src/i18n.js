@@ -514,7 +514,7 @@ export const ptTranslations = {
     loadingMore: 'Carregando mais fotos...',
     imageNotFound: 'Imagem não encontrada',
     loading: 'Carregando...',
-    description: 'Um pouco da nossa jornada de casamento',
+    description: 'Um pouco da nossa viagem de casamento',
     video: {
       title: 'Nosso Vídeo'
     }
